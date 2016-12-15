@@ -14,27 +14,27 @@
 > 有兴趣的可以去拜见一下
 
 
-- UI相关：
-    [butterknife](https://github.com/JakeWharton/butterknife) 以前项目用的是[AndroidAnnotations](http://androidannotations.org/), 用久了发现`AndroidAnnotations`覆盖面太过于广泛，基本是属于一个库能涉及到整个Android_App的构建,这就导致在整个项目配合其他库包一起附合使用的时候，AA的价值就会被缩小
+- UI相关
+    - [butterknife](https://github.com/JakeWharton/butterknife) 以前项目用的是[AndroidAnnotations](http://androidannotations.org/), 用久了发现`AndroidAnnotations`覆盖面太过于广泛，基本是属于一个库能涉及到整个Android_App的构建,这就导致在整个项目配合其他库包一起附合使用的时候，AA的价值就会被缩小
         所以后期我决定不再依赖AA,而是选择更纯粹的用于UI界面注入的butterknife,优点就是更针对性，更轻量化。
-    SupportV7 相关, recyclerView;appcompat;cardView;design;palette等，这部分的依赖主要是帮助项目去实现基于[Material Design](https://developer.android.google.cn/design/index.html)风格的设计代码
+    - SupportV7 相关, recyclerView;appcompat;cardView;design;palette等，这部分的依赖主要是帮助项目去实现基于[Material Design](https://developer.android.google.cn/design/index.html)风格的设计代码
         `Material Design`这东西，单独拉出来说 一两天都讲不完，所以这个就请自行去研究吧，反正，很炫酷，我很喜欢
 
-- Net网络请求相关：
-    [retrofit2.0](https://github.com/square/retrofit) 网络请求相关的库包，个人觉得这是个处理网络请求最好的第三方库，同时也是个延展性非常好的框架，本身框架自带对于[OkHttp](https://github.com/square/okhttp)、[RxJava](https://github.com/ReactiveX/RxJava)等的支持，联合起来使用效果更佳
+- Net网络请求相关
+    - [retrofit2.0](https://github.com/square/retrofit) 网络请求相关的库包，个人觉得这是个处理网络请求最好的第三方库，同时也是个延展性非常好的框架，本身框架自带对于[OkHttp](https://github.com/square/okhttp)、[RxJava](https://github.com/ReactiveX/RxJava)等的支持，联合起来使用效果更佳
         备注：这是套同样可以运用在Java上的库包，有兴趣的可以多去研究研究
 
-- 数据处理相关：
-    [rxJava](https://github.com/ReactiveX/RxJava) 有人戏称，这是套万能的框架，只要你想得出，他就能实现的出来；事实证明，这套库包很厉害！至少他帮我解决了项目中和数据相关的所有处理问题，代码写起来配合Java8的特性，可以很炫酷，可以说是集颜值和智商为一体的存在
+- 数据处理相关
+    - [rxJava](https://github.com/ReactiveX/RxJava) 有人戏称，这是套万能的框架，只要你想得出，他就能实现的出来；事实证明，这套库包很厉害！至少他帮我解决了项目中和数据相关的所有处理问题，代码写起来配合Java8的特性，可以很炫酷，可以说是集颜值和智商为一体的存在
         提到RxJava 不得不提的是Java8的特性lambda表达式，有了这个，可以让RxJava的代码更美观 简洁
         下面有两个lambda相关的：
-            [gradle-retrolambda](https://github.com/evant/gradle-retrolambda) 这个是用于Gradle编译的项目，可以做到在Android中编写Java8代码
-            [retrolambda](https://github.com/orfjackal/retrolambda) 这个是通用的，可以让没有装Java8环境的机器编写Java8代码
+            - [gradle-retrolambda](https://github.com/evant/gradle-retrolambda) 这个是用于Gradle编译的项目，可以做到在Android中编写Java8代码
+            - [retrolambda](https://github.com/orfjackal/retrolambda) 这个是通用的，可以让没有装Java8环境的机器编写Java8代码
     Ps：可能你会疑问为什么没有DB相关的，嘛……项目当中不让用和DB相关的第三方，所以这里我也就不坑大家了，自己找找吧，网上还是有很多的比方说orlimte
 
-- 一些辅助工具：
-    [gson](https://github.com/google/gson) 别告诉我你没见过这个……
-    [auto](https://github.com/google/auto) 这个是google提供的一个工具库包里面有个Auto_Value的东西可以帮助你去实例化自定义的Annotation，这个在Dagger2当中会用到。
+- 一些辅助工具
+    - [gson](https://github.com/google/gson) 别告诉我你没见过这个……
+    - [auto](https://github.com/google/auto) 这个是google提供的一个工具库包里面有个Auto_Value的东西可以帮助你去实例化自定义的Annotation，这个在Dagger2当中会用到。
 
 
 ## Gradle环境编译方式
@@ -197,11 +197,11 @@ def releaseTime() {
 > 其实我很想大声说一句“这种高深的问题，自己研究去，23333”
 > 但是我的码农灵魂告诉我，我不能这么做。
 > （楼上病犯了）
->  咳咳……
+> 咳咳……
 >   
->   好了，正题
->   在认知到`Dagger2`的这套框架之前，上面的分层的代码，可能只能停留在概念的角度上，否则你可能需要付出非常多的精力在实例绑定的角度上，更或者是更多其他问题上……
->   具体`Dagger2`到底做了什么，请看下文
+> 好了，正题
+> 在认知到`Dagger2`的这套框架之前，上面的分层的代码，可能只能停留在概念的角度上，否则你可能需要付出非常多的精力在实例绑定的角度上，更或者是更多其他问题上……
+> 具体`Dagger2`到底做了什么，请看下文
 
 
 #### Dagger2
@@ -209,4 +209,17 @@ def releaseTime() {
 > 楼上这段话，截取自[官方文档](https://google.github.io/dagger/)
 > 其实啥也没说，就是说这个是个依赖注入式的框架
 > 让我酝酿下……要讲出来好烦……写写代码会好很多……
+
+
+##### 基本元素
+
+- Component 组件
+    核心概念，`Dagger2`当中最大的一个元素。
+    从Android角度看，Component在大多数的情况下对应的是Application和Activity
+    从`Dagger2`本身的角度看，Component并没有局限性，
+- Module
+
+- SubComponent
+
+- Inject
 
