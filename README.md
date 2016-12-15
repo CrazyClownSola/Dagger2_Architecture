@@ -128,12 +128,8 @@ buildTypes {
                         }
                     }
             }
-
         }
-
     }
-
-
 def releaseTime() {
     return new Date().format("yyyyMMdd_HHmmss")
 }
@@ -151,6 +147,7 @@ def releaseTime() {
 
 首先附上项目整体结构图(楼下灵魂画师出没)
 
+![image](https://github.com/CrazyClownSola/Dagger2Demo/blob/master/pictures/project_structure.png)
 
 打开代码，你会发现项目的整体结构如上图，比较关键的几个文件我都在图里显示出来了，老司机一看可能就会明白，这是比较普遍的MVP的结构。
 的确这样的构建代码的方式，最根源的思路就是在代码级别实现MVP分层，让各个层之间保持一定的松耦合。
@@ -158,6 +155,7 @@ def releaseTime() {
 
 
 具体几个层级的关系图如下
+![image](https://github.com/CrazyClownSola/Dagger2Demo/blob/master/pictures/structure_introduction.png)
 
 
 ### 层级定义：
