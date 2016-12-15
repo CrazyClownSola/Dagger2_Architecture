@@ -10,6 +10,31 @@ android {
     compileSdkVersion config.getAt("compileSdkVersion")
     buildToolsVersion config.getAt("buildToolsVersion")
 
+    //修改打包签名的设置
+    if (project.hasProperty("MyProject.properties")) {
+        Properties props = new Properties()
+        props.load(new FileInputStream(
+                file(project.property("MyProject.properties"))))
+        // 用作签名设置的
+        signingConfigs {
+            release {
+                storeFile file(props['keystore'])
+                storePassword props['storePassword']
+                keyAlias props['keyAlias']
+                keyPassword props['keyPassword']
+            }
+        }
+    } else {
+        signingConfigs {
+            release {
+                storeFile file("../keystore.jks")
+                storePassword "111111"
+                keyAlias "sola"
+                keyPassword "android"
+            }
+        }
+    }
+
     defaultConfig {
 
         applicationId "com.sola.github.dagger2demo"
@@ -23,10 +48,59 @@ android {
     }
 
     buildTypes {
+        debug {
+            // 版本信息
+            buildConfigField "String", "VERSION_SUFFIX", "\"_debug\""
+            // 频道
+            buildConfigField "String", "CHANNEL", "\"CHANNEL\""
+            // 区分debug和release包名
+            applicationIdSuffix ".debug"
+            minifyEnabled false
+            zipAlignEnabled true
+        }
+
+        release.initWith(buildTypes.debug)
         release {
+
+            // 版本信息
+            buildConfigField "String", "VERSION_SUFFIX", "\"V%s\""
+            // 频道
+            buildConfigField "String", "CHANNEL", "\"CHANNEL\""
+            applicationIdSuffix ""
+            // 设置签名配置
+            signingConfig signingConfigs.release
+
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            // 修改打包出的apk的生成路径的方法
+            applicationVariants.all {
+                variant ->
+                    variant.outputs.each { output ->
+                        def apkFile = output.outputFile
+                        if (apkFile != null && apkFile.name.endsWith('.apk')
+                                && variant.buildType.name.contains("release")) {
+                            def fileName;
+                            if ("release".equalsIgnoreCase(variant.buildType.name)) {
+                                fileName = "${releaseTime()}" + "_${defaultConfig.versionName}.apk"
+                            } else
+                                fileName = variant.buildType.name.replaceAll("release", "").toLowerCase() +
+                                        "_${releaseTime()}" + "_${defaultConfig.versionName}.apk"
+                            // 通过获取到truck项目的根路径去创建release目录
+                            def dir = rootProject.relativeProjectPath("release")
+                            // 注意在build2.2.0以上上面的相对路径用不了，谨记！
+                            File dirFile = new File(dir)
+                            if (!dirFile.exists()) {
+                                dirFile.mkdirs();
+                            }
+                            output.outputFile = new File(dir, fileName)
+                            println()
+                        }
+                    }
+            }
+
         }
+
     }
 
     compileOptions {
@@ -36,8 +110,15 @@ android {
 
 }
 
+def releaseTime() {
+    return new Date().format("yyyyMMdd_HHmmss")
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(':domain')
+    compile project(':data')
+
     // 新的test机制，有待研究
     testCompile 'junit:junit:4.12'
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {

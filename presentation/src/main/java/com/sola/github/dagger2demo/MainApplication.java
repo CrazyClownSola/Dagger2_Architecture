@@ -1,7 +1,6 @@
 package com.sola.github.dagger2demo;
 
 import android.app.Application;
-import android.content.Context;
 
 import com.sola.github.dagger2demo.di.app.AppComponent;
 import com.sola.github.dagger2demo.di.app.DaggerAppComponent;
@@ -60,8 +59,9 @@ public class MainApplication extends Application implements HasSubComponentBuild
 
     @Override
     public SubComponentBuilder getSubComponentBuild(ESubType type, int index) {
-        SubComponentBuilder builder = subComponentBuilderMap.get(SubMapKeyCreator.createSubMapKey(type, 1));
-        // todo 这里有待考证
+        SubComponentBuilder builder = subComponentBuilderMap.get(
+                SubMapKeyCreator.createSubMapKey(type, 1));
+        // ? 一个疑问点是，这个Module的实例是否依旧是单例
         if (type == ESubType.TYPE_DB && builder instanceof DataBaseComponent.Builder) {
             ((DataBaseComponent.Builder) builder)
                     .moduleBuild(new DataBaseComponent.DataBaseModule());

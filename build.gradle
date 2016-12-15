@@ -15,6 +15,7 @@ buildscript {
         // apt 环境编译条件
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
 
+        // 这个是为了使用auto_value才写的
         classpath 'net.ltgt.gradle:gradle-apt-plugin:0.9'
 
         //Java8 lambda表达式引用
@@ -35,6 +36,7 @@ allprojects {
         }
     }
 
+    // 仔细研究过这段task的人会了解一些很好玩的东西gradlew命令神马的~，还有可以更好的帮助你迁移代码，某些烦人的build文件~
     task clean(type: Delete) {
         delete rootProject.buildDir
     }
