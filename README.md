@@ -28,8 +28,8 @@
     - [rxJava](https://github.com/ReactiveX/RxJava) 有人戏称，这是套万能的框架，只要你想得出，他就能实现的出来；事实证明，这套库包很厉害！至少他帮我解决了项目中和数据相关的所有处理问题，代码写起来配合Java8的特性，可以很炫酷，可以说是集颜值和智商为一体的存在
         提到RxJava 不得不提的是Java8的特性lambda表达式，有了这个，可以让RxJava的代码更美观 简洁
         下面有两个lambda相关的：
-            - [gradle-retrolambda](https://github.com/evant/gradle-retrolambda) 这个是用于Gradle编译的项目，可以做到在Android中编写Java8代码
-            - [retrolambda](https://github.com/orfjackal/retrolambda) 这个是通用的，可以让没有装Java8环境的机器编写Java8代码
+        - [gradle-retrolambda](https://github.com/evant/gradle-retrolambda) 这个是用于Gradle编译的项目，可以做到在Android中编写Java8代码
+        - [retrolambda](https://github.com/orfjackal/retrolambda) 这个是通用的，可以让没有装Java8环境的机器编写Java8代码
     Ps：可能你会疑问为什么没有DB相关的，嘛……项目当中不让用和DB相关的第三方，所以这里我也就不坑大家了，自己找找吧，网上还是有很多的比方说orlimte
 
 - 一些辅助工具
@@ -41,15 +41,14 @@
 > 工欲善其事必先利其器，话是这么说，[gradle](https://docs.gradle.org/current/release-notes)官方文档全英文的，看起来是挺头疼的
 > 但是有些东西还是需要去了解的，这样可以更好帮助你去管理项目代码，和apk打包等机械化的操作
 
-前言：在项目中，很多时候避免不了要引入多个module作为jar使用，这时候，如果这些module的配置每次都要手动去配，会加大工作量和导致项目编译不统一等等各种问题，于是一种统一配置所有module的方式就变得有些必要
+<strong>前言：</strong>在项目中，很多时候避免不了要引入多个module作为jar使用，这时候，如果这些module的配置每次都要手动去配，会加大工作量和导致项目编译不统一等等各种问题，于是一种统一配置所有module的方式就变得有些必要
 
-具体看代码：-root/build.gradle
-`apply from: 'buildConfigs/dependencies.gradle'`
+具体看代码：
+
+`-root/build.gradle` 当中 `apply from: 'buildConfigs/dependencies.gradle'`
 可以在顶部发现这样一段话，这段代码目的在于，在Project的整体配置当中通配到`buildConfigs/dependencies.gradle`目录下的这个文件，是的该文件下定义的属性可以被任何一个子`module`运用到，这样就可以把一些全局的变量写在这个`dependencies.gradle`里，然后需要调用的地方配置一下即可
 
 然后在看`buildConfigs/dependencies.gradle`文件，里面配置了一些基本的版本信息VersionCode，和所有第三方引用的gradle配置行
-
-以第三方库的引用举例：
 
 dependencies.gradle 配置
 ```
@@ -80,6 +79,7 @@ dependencies {
 ```
 buildTypes {
         debug {
+            // 自定义的变量，这些变量在此处配置完成之后，build一下，会在`BuildConfig`类中看到对应配置的属性
             // 版本信息
             buildConfigField "String", "VERSION_SUFFIX", "\"_debug\""
             // 频道
@@ -90,7 +90,7 @@ buildTypes {
             zipAlignEnabled true
         }
 
-        release.initWith(buildTypes.debug)
+        release.initWith(buildTypes.debug) // 复用Debug当中部分配置
         release {
 
             // 版本信息
@@ -108,7 +108,7 @@ buildTypes {
             applicationVariants.all {
                 variant ->
                     variant.outputs.each { output ->
-                        def apkFile = output.outputFile
+                        def apkFile = output.outputFile // 获取到output里面生成的apk文件
                         if (apkFile != null && apkFile.name.endsWith('.apk')
                                 && variant.buildType.name.contains("release")) {
                             def fileName;
@@ -124,22 +124,22 @@ buildTypes {
                                 dirFile.mkdirs();
                             }
                             output.outputFile = new File(dir, fileName)
-                            println()
                         }
                     }
             }
         }
-    }
+}
+
+// 定义一个返回时间戳的方法
 def releaseTime() {
     return new Date().format("yyyyMMdd_HHmmss")
 }
 
 ```
-其中，`buildConfigField `指的是可自定义的变量，这些变量在此处配置完成之后，build一下，会在`BuildConfig`类中看到对应配置的属性，可以利用这个进行多渠道，多环境的配置。
+
 按照上面配置完成之后，可以在`AndroidStudio`的`BuildVariants`工具栏中找到你所配置的不同`buildType`，然后在你打包之前切换成对应的`buildType`即可
 
-后记：其实不要把gradle想的太可怕，gradle本身也是支持java代码的，所以你大可以利用java的思路去编写，不懂的地方请狗哥或者stackoverflow一下，总有一款适合您
-
+<strong>后记：</strong>其实不要把gradle想的太可怕，gradle本身也是支持java代码的，所以你大可以利用java的思路去编写，不懂的地方请狗哥或者stackoverflow一下，总有一款适合您
 
 
 
@@ -181,14 +181,15 @@ def releaseTime() {
    这一层的实现的核心是`domain`所提供的一系列的`repository`接口，其实从代码角度看，你会发现无数个实现了`repository`接口的类。
    这一些实现类就是这一层的核心。
    就像上面所介绍的那样，`repository`仓储在定义的时候，他本身并不关心这个仓储的实现方式，意味着，这可以是通过DB、或者Net、或者Cache，具体采用怎样方式把数据返回，仓储本身并不在意。
-> 题外话
-   那么我不知道是否有人考虑过这样一个问题，在很多成型的项目初期，如何定义数据库结构，这个问题往往会造成很大的困惑，往往项目初期几张简单的表能实现基本功能，然后随着项目迭代，避免会出现需要改表结构，甚至是增删表等各种恶心的问题。
-   此时，如果获取数据的方式是按照上文所陈述的仓储的方式的话，那么设想一下，是否会有这样的可能，在初期构建的时候仓储是通过Cache去返回数据，并不建库，这样初期数据全部都是存储在内存当中，这样当你想要修改一个数据结构的时候，你需要做的事情是否就少了很多。
-   然后等到项目(需求)稳定的时候，你再将仓储的实现方式调整成数据库。
-  当然这只是提供了一个思路。
+
+   > 题外话
+    那么我不知道是否有人考虑过这样一个问题，在很多成型的项目初期，如何定义数据库结构，这个问题往往会造成很大的困惑，往往项目初期几张简单的表能实现基本功能，然后随着项目迭代，避免会出现需要改表结构，甚至是增删表等各种恶心的问题。
+    此时，如果获取数据的方式是按照上文所陈述的仓储的方式的话，那么设想一下，是否会有这样的可能，在初期构建的时候仓储是通过Cache去返回数据，并不建库，这样初期数据全部都是存储在内存当中，这样当你想要修改一个数据结构的时候，你需要做的事情是否就少了很多。
+    然后等到项目(需求)稳定的时候，你再将仓储的实现方式调整成数据库。
+    当然这只是提供了一个思路。
   
 
-	回归正题，既然`domain`层已经把仓储定义完，那么这一层需要做的就变得相对简单，单一，
+    回归正题，既然`domain`层已经把仓储定义完，那么这一层需要做的就变得相对简单，单一，
 	就是获取数据，存储，输出
 	在Android的角度上看，这一层就是实现网络请求最合适的地方。
 
