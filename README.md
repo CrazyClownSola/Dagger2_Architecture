@@ -162,11 +162,11 @@ def releaseTime() {
 ### 层级定义：
 
 - <font color = #FF4081>presentation</font>
-	界面展示层，通常Activity，Fragment，View的代码都在这里，同时这是作为app启动的入口。
+	<font color = #FF4081>界面展示层</font>，通常Activity，Fragment，View的代码都在这里，同时这是作为app启动的入口。
 	理论上这里是不会出现任何和业务相关的逻辑代码，只负责界面的展示和一些工具的配置。
 	但是由于引入了`Dagger2`，这一层级还会持有`Component`,`Module`等转换器的实例，打到实例配置的作用。
 	这样这一层的代码就分成： UI相关 + 工具类 这样的形式
-- <font color = #FF4081>domain</font>
+- <font color = #FF4081> domain </font>
 	业务逻辑层，如果你有观察过`domain/build.gradle`你会发现这样一行代码
 	`apply plugin: 'java'`
 	这代表了，整个domain层的代码是纯java的，和android搭不上什么关系
