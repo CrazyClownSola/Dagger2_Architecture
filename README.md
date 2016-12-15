@@ -290,7 +290,100 @@ public class MainApplication extends Application {
         appComponent.inject(this); // 初始化后第一次申请
         mUtil.getTestString();
     }
+}
 
+```
+
+上面是简单用法，具体可以参考官方文档，有介绍
+然后涉及到SubComponent，会恶心一些
+
+```
+@Singleton // 定义组件中的实例的为单例，整个组件的生命周期中只有一个实例
+@Component( // 定义这个接口为组件标志
+        modules = { // 定义这个组建的module
+                AppModule.class,
+                SubComponentBindingModule.class // 万恶之源
+        }
+)
+public interface AppComponent {
+    // 这种方式叫做，显示注入，这个方法的配置等于告诉Dagger，我需要把MainApplication当中所有有@Inject的类注入到这个组件当中去
+    void inject(MainApplication application);
+}
+
+@Module(
+        subcomponents = { // 这个subcomponents是新版多出来的属性，让Module可以对应多个子组件
+                DataBaseComponent.class
+        }
+)
+public abstract class SubComponentBindingModule {// 这个类的本意是，将所有的SubComponent统一化，然后以Map的方式存放在Application中
+
+    @IntoMap // 将这个实例绑定到 MainApplication所持有的实例Map中去
+    @Provides // 注意这个标注，这里可以替换成自定义的标注的，如果是自定义的，说明这个组件的生命周期是隶属于自己的，并不依附于父类的生命周期，但是如果是@Provides意味着这个组件的生命周期是附属于父类的，这点很关键，用多了会知道里面的问题
+    @SubMapKey(type = ESubType.TYPE_DB, index = 1)// 定义Map的Key，这等于是在告诉Dagger，对应这个key的value用`DataBaseComponent.Builder`这个实例去替换
+    public SubComponentBuilder dataBaseComponentBuilder(DataBaseComponent.Builder impl) {
+        return impl;
+    }
+}
+
+@MapKey(unwrapValue = false)// 定义这个标注的属性为复数位
+public @interface SubMapKey { // 自定义标注的登场，
+    ESubType type();
+
+    int index();
+}
+
+// 定义一个接口去量化SubComponent
+public interface SubComponentBuilder<Module, Component> {
+    SubComponentBuilder<Module, Component> moduleBuild(Module module); // 提供初始化
+
+    Component build(); // 获取实例
+}
+
+
+@Subcomponent(
+        modules = DataBaseComponent.DataBaseModule.class // 当前组件的Module
+)
+public interface DataBaseComponent { // 如果自己研究会发现这个组件在AppComponent是以单例存在的原因在于`SubComponentBindingModule# @Provides`具体请参考官方文档
+
+    @Subcomponent.Builder // 注意有这个标注的只能是interface或者抽象类
+    interface Builder extends SubComponentBuilder<DataBaseModule, DataBaseComponent> {
+    }
+
+    @Module
+    class DataBaseModule {
+        // 定义各种实例绑定
+
+    }
+}
+
+// 调用的地方来了
+public class MainApplication extends Application implements HasSubComponentBuilders {
+
+    @Inject // 这个map不需要去实例化，Dagger会自己帮你完成实例的过程，并且将DataBaseComponent组件自行存入这个map中，你可以debug试一下，不要问我怎么知道的
+    Map<SubMapKey, SubComponentBuilder> subComponentBuilderMap;
+
+    ...
+    ...
+    ...
+    ...
+
+    @Override // 接口实现
+    public SubComponentBuilder getSubComponentBuild(ESubType type, int index) {
+        SubComponentBuilder builder = subComponentBuilderMap.get(
+                SubMapKeyCreator.createSubMapKey(type, index));
+        // ? 一个疑问点是，这个Module的实例是否依旧是单例
+        if (type == ESubType.TYPE_DB && builder instanceof DataBaseComponent.Builder) {
+            ((DataBaseComponent.Builder) builder)
+                    .moduleBuild(new DataBaseComponent.DataBaseModule()); // 这是初始化的操作 ，这部分用法我个人有点异议，后续我会调整看看
+        }
+        return builder;
+    }
+}
+
+// 提供给外部去获取AppComponent当中存有的SubComponent实例的接口，这样做就可以避免在Activity当中再去存有Activity所需的Component了
+public interface HasSubComponentBuilders {
+
+    SubComponentBuilder getSubComponentBuild(ESubType type, int index);
 }
 
 ```
