@@ -161,12 +161,14 @@ def releaseTime() {
 
 ### 层级定义：
 
-- <font color = #FF4081>presentation</font>
-	<font color = #FF4081>界面展示层</font>，通常Activity，Fragment，View的代码都在这里，同时这是作为app启动的入口。
+- <strong>presentation</strong>
+
+	界面展示层，通常Activity，Fragment，View的代码都在这里，同时这是作为app启动的入口。
 	理论上这里是不会出现任何和业务相关的逻辑代码，只负责界面的展示和一些工具的配置。
 	但是由于引入了`Dagger2`，这一层级还会持有`Component`,`Module`等转换器的实例，打到实例配置的作用。
 	这样这一层的代码就分成： UI相关 + 工具类 这样的形式
-- <font color = #FF4081> domain </font>
+- <strong>domain</strong>
+
 	业务逻辑层，如果你有观察过`domain/build.gradle`你会发现这样一行代码
 	`apply plugin: 'java'`
 	这代表了，整个domain层的代码是纯java的，和android搭不上什么关系
@@ -175,7 +177,8 @@ def releaseTime() {
 	对于其他层而言，这一层就是一个拥有茫茫多接口的server，调用层并不用关心接口具体的实现，调用层只需要对自己所需要的case进行接口访问，然后数据会通过回调以约定好的数据结构返回回来。
 	然后回到实现部分，这时候一个新的概念需要提出`repository`仓储，仓储也是一个泛化的概念，他的本质是一个数据存储的地方，但是这个数据存储的方式仓储本身并没有明确定义。
 	简单点说就是在`domain`层需要定义出业务所需的不同的数据仓储接口，然后在实现具体某个case的接口的时候，该层就会调用对应的仓储接口去获取数据，当然具体仓储如何实现，这并不是这一层所关心的，关心这个实现的是下面一层`data`。
-- <font color = #FF4081>data</font>
+- <strong>data</strong>
+
    数据层，顾名思义，处理数据的地方，然而很明显，如果没有个明确的目标，光说这种处理数据，估计会被人打死0 0
    这一层的实现的核心是`domain`所提供的一系列的`repository`接口，其实从代码角度看，你会发现无数个实现了`repository`接口的类。
    这一些实现类就是这一层的核心。
@@ -214,12 +217,81 @@ def releaseTime() {
 ##### 基本元素
 
 - Component 组件
+
     核心概念，`Dagger2`当中最大的一个元素。
     从Android角度看，Component在大多数的情况下对应的是Application和Activity
-    从`Dagger2`本身的角度看，Component并没有局限性，
-- Module
+    从`Dagger2`本身的角度看，Component并没有局限性，只要是一个可以持有实例，并且拥有自己的生命周期的，都可以认知为一个Component
 
-- SubComponent
+- Module 模块组
+
+    依存于Component存在的模块，一般和Component成双成对出现(FFF团举起了火把)，作用是分配实例，对Component当中注入的抽象类或接口进行实例绑定
+
+- SubComponent 子组件
+
+    Dagger2 2.X版本之后更新的新的标注，但是在2.7版本之前不是很好用，2.7版本之后更新了对于这个注解的适配。
+    顾名思义子组件，依附于一个ParentComponent存在的组建，很像java的继承的概念。
 
 - Inject
+
+    注入，标记了@Inject的类，会被注入到对应的组件中去。
+
+
+##### 用法整合
+
+看代码吧
+
+```
+@Singleton // 定义组件中的实例的为单例，整个组件的生命周期中只有一个实例
+@Component( // 定义这个接口为组件标志
+        modules = { // 定义这个组建的module
+                AppModule.class
+        }
+)
+public interface AppComponent {
+    // 这种方式叫做，显示注入，这个方法的配置等于告诉Dagger，我需要把MainApplication当中所有有@Inject的类注入到这个组件当中去
+    void inject(MainApplication application);
+}
+
+@Module // 标记这个类为Module
+public class AppModule { // 这是一种简单使用的方式
+
+    public AppModule() {
+    }
+
+    @Provides // 标记，我不知道该怎么解释这个，就是有了这个 寻找实例的时候会对应的该方法的实现
+    @Singleton
+    Utils provideUtils() {
+        return new Utils();
+    }
+}
+
+public class Utils {
+
+    public String getTestString() {
+        return "Text";
+    }
+
+}
+
+public class MainApplication extends Application {
+
+    @Inject // 注入
+    Utils mUtil;
+
+    // 组件实例，这里缓存了Component实例，是在于组件实例的第一次初始化。
+    private AppComponent appComponent;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        // 这里的`DaggerAppComponent`是编译之后Dagger自己生成的类，找不到这个类，编译一下
+        // 很多时候会发现写好代码，编译不通过，然后不知道错在哪儿的时候，可以参考`DaggerAppComponent`
+        appComponent = DaggerAppComponent.builder().build();
+        appComponent.inject(this); // 初始化后第一次申请
+        mUtil.getTestString();
+    }
+
+}
+
+```
 

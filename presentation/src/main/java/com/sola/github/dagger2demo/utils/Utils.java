@@ -1,19 +1,10 @@
-package com.sola.github.dagger2demo.di.app;
-
-import com.sola.github.dagger2demo.utils.Utils;
-
-import javax.inject.Singleton;
-
-import dagger.Module;
-import dagger.Provides;
+package com.sola.github.dagger2demo.utils;
 
 /**
  * Created by slove
- * 2016/12/14.
- * 标记接口：指定Application生命周期中所持有的实例
+ * 2016/12/15.
  */
-@Module
-public class AppModule {
+public class Utils {
     // ===========================================================
     // Constants
     // ===========================================================
@@ -26,9 +17,6 @@ public class AppModule {
     // Constructors
     // ===========================================================
 
-    public AppModule() {
-    }
-
     // ===========================================================
     // Getter & Setter
     // ===========================================================
@@ -37,15 +25,13 @@ public class AppModule {
     // Methods for/from SuperClass/Interfaces
     // ===========================================================
 
-    @Provides
-    @Singleton
-    Utils provideUtils() {
-        return new Utils();
-    }
-
     // ===========================================================
     // Methods
     // ===========================================================
+
+    public String getTestString() {
+        return "Text";
+    }
 
     // ===========================================================
     // Inner and Anonymous Classes
