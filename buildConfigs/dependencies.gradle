@@ -1,0 +1,63 @@
+ext {
+    androidVersionCode = 1 // 备注一下，Code19以下的版本，需要注意进行环信帐号的自主申请功能的实现
+    androidVersionName = "1.0.0"
+
+    //Android
+    buildToolsVersion = "24.0.2"
+    minSdkVersion = 14
+    targetSdkVersion = 23
+    compileSdkVersion = 25
+
+    //libraries 惯用库包
+    daggerVersion = '2.8'
+    gsonVersion = '2.6.2'
+
+    supportV7Version = '24.2.0'
+
+    retrofitVersion = '2.1.0'
+    annotationVersion = '4.0.0'
+
+    rxJavaVersion = '1.2.2'
+    rxAndroidVersion = '1.2.1'
+
+    autoValueVersion = '1.2'
+
+    javaxVersion = '1.2'
+    butterKnifeVersion = '8.4.0'
+
+    appDependencies = [
+            androidSupport        : "com.android.support:support-annotations:${supportV7Version}",
+            androidannotations    : "org.androidannotations:androidannotations:${annotationVersion}",
+            androidannotations_api: "org.androidannotations:androidannotations-api:${annotationVersion}",
+            // dagger2 库包
+            daggerCompiler        : "com.google.dagger:dagger-compiler:${daggerVersion}",
+            dagger                : "com.google.dagger:dagger:${daggerVersion}",
+            // rxJava
+            rxJava                : "io.reactivex:rxjava:${rxJavaVersion}",
+            rxAndroid             : "io.reactivex:rxandroid:${rxAndroidVersion}",
+            // supportV7系列
+            recyclerView          : "com.android.support:recyclerview-v7:${supportV7Version}",
+            appcompat             : "com.android.support:appcompat-v7:${supportV7Version}",
+            cardview              : "com.android.support:cardview-v7:${supportV7Version}",
+            design                : "com.android.support:design:${supportV7Version}",
+            palette               : "com.android.support:palette-v7:${supportV7Version}",
+            // retrofit 网络请求框架
+            retrofit              : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
+            retrofit_gson         : "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
+            retrofit_adapter      : "com.squareup.retrofit2:adapter-rxjava:${retrofitVersion}",
+
+            // 自定义注解的工具类
+            auto_value            : "com.google.auto.value:auto-value:${autoValueVersion}",
+            // 解决编译的build文件下会产生的java注解调用出错的问题
+            javax_annotation      : "javax.annotation:javax.annotation-api:${javaxVersion}",
+
+            // butter_knife
+            butter_knife          : "com.jakewharton:butterknife:${butterKnifeVersion}",
+            butter_knife_compiler : "com.jakewharton:butterknife-compiler:${butterKnifeVersion}",
+
+            gson                  : "com.google.code.gson:gson:${gsonVersion}",
+
+            sola_container        : "com.github.crazyclownsola:recycler_container:1.0.7@aar",
+    ]
+
+}

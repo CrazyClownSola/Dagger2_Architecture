@@ -1,0 +1,22 @@
+apply plugin: 'java'
+
+apply plugin: 'me.tatarka.retrolambda'
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
+
+configurations {
+    provided
+}
+
+dependencies {
+//    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    def domainDependencies = rootProject.ext.appDependencies
+
+    provided domainDependencies.daggerCompiler
+
+    compile domainDependencies.dagger
+    compile domainDependencies.rxJava
+
+}

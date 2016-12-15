@@ -1,0 +1,66 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'net.ltgt.apt'
+
+android {
+
+    def config = rootProject.extensions.getByName("ext")
+
+    compileSdkVersion config.getAt("compileSdkVersion")
+    buildToolsVersion config.getAt("buildToolsVersion")
+
+    defaultConfig {
+
+        applicationId "com.sola.github.dagger2demo"
+
+        minSdkVersion config.getAt("minSdkVersion")
+        targetSdkVersion config.getAt("targetSdkVersion")
+        versionCode config.getAt("androidVersionCode")
+        versionName config.getAt("androidVersionName")
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    // 新的test机制，有待研究
+    testCompile 'junit:junit:4.12'
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    def dependencies = rootProject.ext.appDependencies
+
+    compile dependencies.auto_value
+    apt dependencies.auto_value
+
+    compile dependencies.javax_annotation
+//
+    compile dependencies.butter_knife
+    annotationProcessor dependencies.butter_knife_compiler
+
+    apt dependencies.daggerCompiler
+    compile dependencies.dagger
+
+    compile dependencies.recyclerView
+    compile dependencies.appcompat
+    compile dependencies.cardview
+    compile dependencies.design
+    compile dependencies.palette
+
+}
