@@ -155,6 +155,7 @@ def releaseTime() {
 
 
 具体几个层级的关系图如下
+
 ![image](https://github.com/CrazyClownSola/Dagger2Demo/blob/master/pictures/structure_introduction.png)
 
 
