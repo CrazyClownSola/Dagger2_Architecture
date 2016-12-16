@@ -75,7 +75,7 @@ public class TestActivity extends RxBaseActivity {
         TestPresenter presenter = ((TestActivityComponent.Builder)
                 ((HasSubComponentBuilders) getApplication())
                         .getSubComponentBuild(ESubType.TYPE_ACTIVITY, 1))
-                .moduleBuild(new TestActivityComponent.MainActivityModule(this))
+                .moduleBuild(new TestActivityComponent.TestActivityModule(this))
                 .build()
                 .getMainPresenter();
         if (getApplication() instanceof HasSubComponentBuilders) {

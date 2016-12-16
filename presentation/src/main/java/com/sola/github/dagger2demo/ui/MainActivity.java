@@ -2,9 +2,17 @@ package com.sola.github.dagger2demo.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.sola.github.dagger2demo.R;
+import com.sola.github.dagger2demo.di.activity.MainActivityComponent;
+import com.sola.github.dagger2demo.di.base.HasSubComponentBuilders;
+import com.sola.github.dagger2demo.enums.ESubType;
+import com.sola.github.dagger2demo.ui.presenter.MainPresenter;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 
@@ -22,8 +30,11 @@ public class MainActivity extends RxBaseActivity {
     // Fields
     // ===========================================================
 
-    @BindView(R.id.id_tool_bar)
-    Toolbar id_tool_bar;
+    @Inject
+    MainPresenter mainPresenter;
+
+    @BindView(R.id.id_recycler_view)
+    RecyclerView id_recycler_view;
 
     // ===========================================================
     // Constructors
@@ -45,7 +56,21 @@ public class MainActivity extends RxBaseActivity {
 
     @Override
     protected void doAfterView() {
+        initComponent();
 
+        id_recycler_view.setLayoutManager(new LinearLayoutManager(getContext()));
+        id_recycler_view.setItemAnimator(new DefaultItemAnimator());
+
+//        mainPresenter
+    }
+
+    private void initComponent() {
+        if (getApplication() instanceof HasSubComponentBuilders) {
+            ((MainActivityComponent.Builder) ((HasSubComponentBuilders) getApplication())
+                    .getSubComponentBuild(ESubType.TYPE_ACTIVITY, 2))
+                    .build()
+                    .inject(this);
+        }
     }
 
     // ===========================================================

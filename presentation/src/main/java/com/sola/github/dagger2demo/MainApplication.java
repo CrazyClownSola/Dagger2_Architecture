@@ -2,6 +2,7 @@ package com.sola.github.dagger2demo;
 
 import android.app.Application;
 
+import com.sola.github.dagger2demo.di.activity.MainActivityComponent;
 import com.sola.github.dagger2demo.di.app.AppComponent;
 import com.sola.github.dagger2demo.di.app.DaggerAppComponent;
 import com.sola.github.dagger2demo.di.base.HasSubComponentBuilders;
@@ -66,6 +67,9 @@ public class MainApplication extends Application implements HasSubComponentBuild
         if (type == ESubType.TYPE_DB && builder instanceof DataBaseComponent.Builder) {
             ((DataBaseComponent.Builder) builder)
                     .moduleBuild(new DataBaseComponent.DataBaseModule());
+        } else if (type == ESubType.TYPE_ACTIVITY && builder instanceof MainActivityComponent.Builder) {
+            ((MainActivityComponent.Builder) builder)
+                    .moduleBuild(new MainActivityComponent.MainActivityModule());
         }
         return builder;
     }

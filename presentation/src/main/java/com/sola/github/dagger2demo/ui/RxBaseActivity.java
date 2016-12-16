@@ -1,5 +1,6 @@
 package com.sola.github.dagger2demo.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
@@ -7,6 +8,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.lang.ref.WeakReference;
 
 import butterknife.ButterKnife;
 
@@ -23,6 +26,8 @@ public abstract class RxBaseActivity extends AppCompatActivity {
     // ===========================================================
     // Fields
     // ===========================================================
+
+    protected final WeakReference<Context> mContext = new WeakReference<>(this);
 
     // ===========================================================
     // Constructors
@@ -70,6 +75,10 @@ public abstract class RxBaseActivity extends AppCompatActivity {
     // ===========================================================
     // Methods
     // ===========================================================
+
+    protected Context getContext() {
+        return mContext.get();
+    }
 
     // ===========================================================
     // Inner and Anonymous Classes

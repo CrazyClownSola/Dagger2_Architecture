@@ -19,7 +19,7 @@ import dagger.Subcomponent;
  */
 @ActivityScope
 @Subcomponent(
-        modules = TestActivityComponent.MainActivityModule.class
+        modules = TestActivityComponent.TestActivityModule.class
 )
 public interface TestActivityComponent extends ActivityComponent<TestActivity> {
     // ===========================================================
@@ -31,14 +31,14 @@ public interface TestActivityComponent extends ActivityComponent<TestActivity> {
     // ===========================================================
 
     @Subcomponent.Builder
-    interface Builder extends SubComponentBuilder<MainActivityModule, TestActivityComponent> {
+    interface Builder extends SubComponentBuilder<TestActivityModule, TestActivityComponent> {
 
     }
 
     @Module
-    class MainActivityModule extends ActivityModule<TestActivity> {
+    class TestActivityModule extends ActivityModule<TestActivity> {
 
-        public MainActivityModule(TestActivity context) {
+        public TestActivityModule(TestActivity context) {
             super(context);
         }
 
