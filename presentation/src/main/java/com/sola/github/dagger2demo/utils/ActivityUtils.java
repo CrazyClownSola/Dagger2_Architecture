@@ -1,10 +1,15 @@
 package com.sola.github.dagger2demo.utils;
 
+import com.sola.github.dagger2demo.di.scope.ActivityScope;
+
+import javax.inject.Inject;
+
 /**
  * Created by slove
- * 2016/12/15.
+ * 2016/12/16.
  */
-public class Utils {
+@ActivityScope
+public class ActivityUtils {
     // ===========================================================
     // Constants
     // ===========================================================
@@ -17,6 +22,10 @@ public class Utils {
     // Constructors
     // ===========================================================
 
+    @Inject
+    ActivityUtils() {
+    }
+
     // ===========================================================
     // Getter & Setter
     // ===========================================================
@@ -28,10 +37,6 @@ public class Utils {
     // ===========================================================
     // Methods
     // ===========================================================
-
-    public String getTestString() {
-        return "Utils Str";
-    }
 
     // ===========================================================
     // Inner and Anonymous Classes

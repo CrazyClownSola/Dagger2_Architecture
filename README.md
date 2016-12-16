@@ -318,7 +318,8 @@ public interface AppComponent {
 public abstract class SubComponentBindingModule {// 这个类的本意是，将所有的SubComponent统一化，然后以Map的方式存放在Application中
 
     @IntoMap // 将这个实例绑定到 MainApplication所持有的实例Map中去
-    @Provides // 注意这个标注，这里可以替换成自定义的标注的，如果是自定义的，说明这个组件的生命周期是隶属于自己的，并不依附于父类的生命周期，但是如果是@Provides意味着这个组件的生命周期是附属于父类的，这点很关键，用多了会知道里面的问题
+    // @Provides // 注意这个标注，持有
+    @Binds // 这个是绑定
     @SubMapKey(type = ESubType.TYPE_DB, index = 1)// 定义Map的Key，这等于是在告诉Dagger，对应这个key的value用`DataBaseComponent.Builder`这个实例去替换
     public SubComponentBuilder dataBaseComponentBuilder(DataBaseComponent.Builder impl) {
         return impl;
@@ -373,8 +374,10 @@ public class MainApplication extends Application implements HasSubComponentBuild
                 SubMapKeyCreator.createSubMapKey(type, index));
         // ? 一个疑问点是，这个Module的实例是否依旧是单例
         if (type == ESubType.TYPE_DB && builder instanceof DataBaseComponent.Builder) {
+            // 这是初始化的操作 ，这部分用法是我个人觉得这样会好一些，确保Module的唯一性，方便后期显示调用的时候不需要再新建Module
+            // 当然可能每次调用都用新的Module也是一种需求？
             ((DataBaseComponent.Builder) builder)
-                    .moduleBuild(new DataBaseComponent.DataBaseModule()); // 这是初始化的操作 ，这部分用法我个人有点异议，后续我会调整看看
+                    .moduleBuild(new DataBaseComponent.DataBaseModule());
         }
         return builder;
     }
@@ -388,3 +391,129 @@ public interface HasSubComponentBuilders {
 
 ```
 
+初步用法是上面这个样子的，当然这只是初步使用
+伴随代码的更新我会一点一点阐述出这整个框架的魅力
+
+<strong>@Inject 用法需要注意的一个问题</strong>
+> 可能刚开始用Dagger的时候，看demo会觉得Inject一下好像就能用了，好神奇神马的，可是当自己写起来的时候，往往这个部分的配置是最难也最不怎么容易理解的部分
+> 对于这个部分，我仅说说个人的看法
+
+`Component`获取实例的方式大致可分为两种：
+
+注：这命名是我自己定义的，官方并没有这么解释过。
+
+- 显式获取
+> 多数用在Fragment和其他没有自己的生命周期的地方上
+
+    ```
+    // 定义组件
+    @Singleton // 单例
+    @Component(
+        module = AComponent.AModule.class
+    )
+    interface AComponent {
+
+       // build之后你会在`DaggerAComponent`当中找到`Provider<ClassA>`这样的代码，
+       // 表示Dagger已经默认将ClassA个ClassA中标记为@Inject的类同时给引入Component中去了
+        ClassA provideClassA();
+
+        @Module
+        class AModule {
+        }
+    }
+
+    // 定义需要注入组件的类
+    public class ClassA {
+
+        @Inject
+        public ClassA(){
+        }
+
+        public void doSomething(){
+            ...
+        }
+    }
+
+    ```
+
+    ```
+    // 引用的地方
+    public class ClassB {
+
+        private AComponent component;
+
+        public void init(){
+            component = DaggerAComponent.create();
+            test();
+        }
+
+        public void test(){
+            // 显示调用，由于ClassB 本身并没有注入到AComponent当中去，导致ClassB当中不能直接使用AComponent当中已有的实例
+            // 直接通过AComponent所暴露出的接口进行访问
+            ClassA classA = component.provideClassA();
+            classA.doSomething();
+        }
+    }
+
+    ```
+
+
+- 隐式获取
+> 多数用在Activity当中
+
+
+    ```
+    // 定义组件
+    @Singleton // 单例
+    @Component(
+        module = AComponent.AModule.class
+    )
+    interface AComponent {
+
+       // build之后你会在`DaggerAComponent`当中找到`Provider<ClassB>`和`Provider<ClassA>`这样的代码，
+       // 表示Dagger已经默认将ClassB当中标记为@Inject的类同时给引入Component中去了
+       void inject(ClassB classB);
+
+        @Module
+        class AModule {
+        }
+    }
+
+    // 定义需要注入组件的类
+    public class ClassA {
+
+        @Inject
+        public ClassA(){
+        }
+
+        public void doSomething(){
+            ...
+        }
+    }
+
+    ```
+
+    ```
+    // 引用的地方
+    public class ClassB {
+
+        private AComponent component;
+
+        @Inject // Inject有连带性，有点一人升天，全家齐飞的敢叫
+        ClassA classA;
+
+        public void init(){
+            component = DaggerAComponent.create();
+            component.inject(this); // 这里是将ClassB 注入到组件AComponent当中去，经由这一步操作之后，ClassB就可以很放心的直接使用AComponent当中所持有的类
+            test();
+        }
+
+        public void test(){
+            // 无需在意实例的创建，直接使用
+            classA.doSomething();
+        }
+    }
+
+    ```
+
+基础知识如上

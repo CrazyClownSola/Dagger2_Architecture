@@ -2,9 +2,9 @@ package com.sola.github.dagger2demo.utils;
 
 /**
  * Created by slove
- * 2016/12/15.
+ * 2016/12/16.
  */
-public class Utils {
+public class SubUtils {
     // ===========================================================
     // Constants
     // ===========================================================
@@ -16,6 +16,9 @@ public class Utils {
     // ===========================================================
     // Constructors
     // ===========================================================
+
+    public SubUtils() {
+    }
 
     // ===========================================================
     // Getter & Setter
@@ -29,8 +32,8 @@ public class Utils {
     // Methods
     // ===========================================================
 
-    public String getTestString() {
-        return "Utils Str";
+    public String init() {
+        return "Sub Str";
     }
 
     // ===========================================================

@@ -1,10 +1,18 @@
-package com.sola.github.dagger2demo.utils;
+package com.sola.github.dagger2demo.ui.presenter;
+
+import com.sola.github.dagger2demo.di.scope.ActivityScope;
+import com.sola.github.dagger2demo.utils.PresenterUtils;
+import com.sola.github.dagger2demo.utils.SubUtils;
+import com.sola.github.dagger2demo.utils.Utils;
+
+import javax.inject.Inject;
 
 /**
  * Created by slove
- * 2016/12/15.
+ * 2016/12/16.
  */
-public class Utils {
+@ActivityScope
+public class TestPresenter implements IPresenter {
     // ===========================================================
     // Constants
     // ===========================================================
@@ -13,9 +21,21 @@ public class Utils {
     // Fields
     // ===========================================================
 
+    private final Utils mUtils;
+    private final SubUtils subUtils;
+
+    @Inject
+    PresenterUtils presenterUtils;
+
     // ===========================================================
     // Constructors
     // ===========================================================
+
+    @Inject
+    TestPresenter(Utils mUtils, SubUtils subUtils) {
+        this.mUtils = mUtils;
+        this.subUtils = subUtils;
+    }
 
     // ===========================================================
     // Getter & Setter
@@ -29,8 +49,12 @@ public class Utils {
     // Methods
     // ===========================================================
 
-    public String getTestString() {
-        return "Utils Str";
+    public String subInit() {
+        return subUtils.init();
+    }
+
+    public String utilInit() {
+        return mUtils.getTestString();
     }
 
     // ===========================================================

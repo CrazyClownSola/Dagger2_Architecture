@@ -1,11 +1,29 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <style name="AppTheme" parent="@style/MaterialBaseTheme">
+        <!-- 注意这里两个属性没有android前缀 -->
+        <item name="windowNoTitle">true</item>
+
+        <item name="windowActionBar">false</item>
+
+    </style>
+
+    <!-- 运用Material Design 风格的界面Style -->
+    <style name="MaterialBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!--主色调之一，多数是ActionBar所呈现的颜色-->
+        <item name="colorPrimary">@color/primary</item>
+        <!--主色调中的深色，对应状态栏的颜色-->
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <!--强调色，对应控件被选中的颜色-->
+        <item name="colorAccent">@color/accent</item>
+        <!-- 默认源生控件的颜色，例如menu和back键 -->
+        <item name="colorControlNormal">@color/accent</item>
+
+        <item name="windowActionBar">false</item>
+
+        <item name="android:windowNoTitle">true</item>
+
     </style>
 
 </resources>

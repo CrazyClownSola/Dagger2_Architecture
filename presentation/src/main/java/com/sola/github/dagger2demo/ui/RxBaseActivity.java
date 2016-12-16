@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 
+import butterknife.ButterKnife;
+
 /**
  * Created by slove
  * 2016/12/14.
@@ -47,18 +49,21 @@ public abstract class RxBaseActivity extends AppCompatActivity {
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
         super.setContentView(layoutResID);
+        ButterKnife.bind(this);
         doAfterView();
     }
 
     @Override
     public void setContentView(View view) {
         super.setContentView(view);
+        ButterKnife.bind(this);
         doAfterView();
     }
 
     @Override
     public void setContentView(View view, ViewGroup.LayoutParams params) {
         super.setContentView(view, params);
+        ButterKnife.bind(this);
         doAfterView();
     }
 

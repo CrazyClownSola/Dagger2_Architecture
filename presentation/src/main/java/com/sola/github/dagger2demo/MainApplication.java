@@ -42,6 +42,7 @@ public class MainApplication extends Application implements HasSubComponentBuild
     // Getter & Setter
     // ===========================================================
 
+    @SuppressWarnings("unused")
     public AppComponent getAppComponent() {
         return appComponent;
     }
@@ -53,7 +54,7 @@ public class MainApplication extends Application implements HasSubComponentBuild
     @Override
     public void onCreate() {
         super.onCreate();
-        appComponent = DaggerAppComponent.builder().build();
+        appComponent = DaggerAppComponent.create();
         appComponent.inject(this);
     }
 

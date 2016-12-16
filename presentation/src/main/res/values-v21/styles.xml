@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="@style/MaterialBaseTheme">
+        <!-- 注意这里两个属性没有android前缀 -->
+        <item name="windowNoTitle">true</item>
+
+        <item name="windowActionBar">false</item>
+
+        <!--底部导航栏的背景色-->
+        <item name="android:navigationBarColor">@color/primary_light</item>
+        <!--对应21版本的，Activity退出动画的设定-->
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <item name="android:windowAllowReturnTransitionOverlap">true</item>
+
+    </style>
+
+
+</resources>

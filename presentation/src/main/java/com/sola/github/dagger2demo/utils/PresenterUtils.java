@@ -1,10 +1,12 @@
 package com.sola.github.dagger2demo.utils;
 
+import javax.inject.Inject;
+
 /**
  * Created by slove
- * 2016/12/15.
+ * 2016/12/16.
  */
-public class Utils {
+public class PresenterUtils {
     // ===========================================================
     // Constants
     // ===========================================================
@@ -17,6 +19,10 @@ public class Utils {
     // Constructors
     // ===========================================================
 
+    @Inject
+    PresenterUtils(Utils mUtils) {
+    }
+
     // ===========================================================
     // Getter & Setter
     // ===========================================================
@@ -28,10 +34,6 @@ public class Utils {
     // ===========================================================
     // Methods
     // ===========================================================
-
-    public String getTestString() {
-        return "Utils Str";
-    }
 
     // ===========================================================
     // Inner and Anonymous Classes
