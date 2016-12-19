@@ -23,6 +23,12 @@ public interface BBSRepository {
     // Methods
     // ===========================================================
 
-    Observable<Collection<BBSDataDTO>> requestBBSList(int pageCount, int pageSize);
+    /**
+     * @param sectionId 页码
+     * @param pageNo    分页的Index
+     * @param pageSize  分页的总数
+     * @return 返回数据处理队列
+     */
+    Observable<Collection<BBSDataDTO>> requestBBSList(int sectionId, int pageNo, int pageSize);
 
 }

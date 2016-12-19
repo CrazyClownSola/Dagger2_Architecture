@@ -57,7 +57,7 @@ public class BBSCaseImpl extends ABBSCase {
     public void searchBBSList(
             int pageCount, int pageSize,
             Action1<Collection<BBSDataDTO>> onNext, Action1<ErrorDTO> onError) {
-        execute(repository.requestBBSList(pageCount, pageSize), onNext, getErrorAction(onError));
+        execute(repository.requestBBSList(1, pageCount, pageSize), onNext, getErrorAction(onError));
     }
 
     // ===========================================================

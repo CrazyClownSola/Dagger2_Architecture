@@ -9,7 +9,7 @@ public interface RestConfig {
     // Constants
     // ===========================================================
 
-    String BASE_URL = "https://api.weibo.com";
+    String BASE_URL = "http://192.168.54.87";
 
     // ===========================================================
     // Methods for/from SuperClass/Interfaces
