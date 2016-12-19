@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.sola.github.dagger2demo.di.activity.MainActivityComponent;
 import com.sola.github.dagger2demo.di.app.AppComponent;
+import com.sola.github.dagger2demo.di.app.AppModule;
 import com.sola.github.dagger2demo.di.app.DaggerAppComponent;
 import com.sola.github.dagger2demo.di.base.HasSubComponentBuilders;
 import com.sola.github.dagger2demo.di.base.SubComponentBuilder;
@@ -55,7 +56,9 @@ public class MainApplication extends Application implements HasSubComponentBuild
     @Override
     public void onCreate() {
         super.onCreate();
-        appComponent = DaggerAppComponent.create();
+        appComponent = DaggerAppComponent.builder().appModule(
+                new AppModule(this)).build();
+//        appComponent = DaggerAppComponent.create();
         appComponent.inject(this);
     }
 

@@ -1,6 +1,7 @@
 package com.sola.github.dagger2demo.ui.presenter;
 
 import com.sola.github.dagger2demo.di.scope.ActivityScope;
+import com.sola.github.domain.interactor.ABBSCase;
 
 import javax.inject.Inject;
 
@@ -18,12 +19,15 @@ public class MainPresenter implements IPresenter {
     // Fields
     // ===========================================================
 
+    private final ABBSCase abbsCase;
+
     // ===========================================================
     // Constructors
     // ===========================================================
 
     @Inject
-    public MainPresenter() {
+    MainPresenter(ABBSCase abbsCase) {
+        this.abbsCase = abbsCase;
     }
 
     // ===========================================================
@@ -34,7 +38,15 @@ public class MainPresenter implements IPresenter {
     // Methods for/from SuperClass/Interfaces
     // ===========================================================
 
-//    public void request
+    public void requestMainListData(int pageCount, int pageSize) {
+        abbsCase.searchBBSList(
+                pageCount, pageSize,
+                bbsDataDTOs -> {
+
+                }, errorDTO -> {
+
+                });
+    }
 
     // ===========================================================
     // Methods

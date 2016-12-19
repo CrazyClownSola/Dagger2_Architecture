@@ -1,12 +1,10 @@
-package com.sola.github.dagger2demo.utils;
-
-import javax.inject.Inject;
+package com.sola.github.tools.utils;
 
 /**
- * Created by slove
- * 2016/12/15.
+ * Created by zhangluji
+ * 2016/12/19.
  */
-public class Utils {
+public class StringUtils {
     // ===========================================================
     // Constants
     // ===========================================================
@@ -18,10 +16,6 @@ public class Utils {
     // ===========================================================
     // Constructors
     // ===========================================================
-
-    @Inject
-    public Utils() {
-    }
 
     // ===========================================================
     // Getter & Setter
@@ -35,8 +29,8 @@ public class Utils {
     // Methods
     // ===========================================================
 
-    public String getTestString() {
-        return "Utils Str";
+    public static boolean isEmpty(String str) {
+        return str == null || str.isEmpty();
     }
 
     // ===========================================================

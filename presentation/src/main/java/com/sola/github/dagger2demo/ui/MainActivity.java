@@ -61,7 +61,8 @@ public class MainActivity extends RxBaseActivity {
         id_recycler_view.setLayoutManager(new LinearLayoutManager(getContext()));
         id_recycler_view.setItemAnimator(new DefaultItemAnimator());
 
-//        mainPresenter
+
+
     }
 
     private void initComponent() {

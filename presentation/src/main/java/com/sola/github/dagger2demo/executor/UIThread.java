@@ -1,12 +1,19 @@
-package com.sola.github.dagger2demo.utils;
+package com.sola.github.dagger2demo.executor;
+
+
+import com.sola.github.domain.UIExecutorThread;
 
 import javax.inject.Inject;
 
+import rx.Scheduler;
+import rx.android.schedulers.AndroidSchedulers;
+
 /**
  * Created by slove
- * 2016/12/15.
+ * 2016/12/19.
  */
-public class Utils {
+public class UIThread implements UIExecutorThread {
+
     // ===========================================================
     // Constants
     // ===========================================================
@@ -20,7 +27,7 @@ public class Utils {
     // ===========================================================
 
     @Inject
-    public Utils() {
+    UIThread() {
     }
 
     // ===========================================================
@@ -31,13 +38,14 @@ public class Utils {
     // Methods for/from SuperClass/Interfaces
     // ===========================================================
 
+    @Override
+    public Scheduler getScheduler() {
+        return AndroidSchedulers.mainThread();
+    }
+
     // ===========================================================
     // Methods
     // ===========================================================
-
-    public String getTestString() {
-        return "Utils Str";
-    }
 
     // ===========================================================
     // Inner and Anonymous Classes

@@ -1,12 +1,22 @@
-package com.sola.github.dagger2demo.utils;
+package com.sola.github.domain.interactor;
 
-import javax.inject.Inject;
+import com.sola.github.domain.ErrorDTO;
+import com.sola.github.domain.ErrorDelegate;
+import com.sola.github.domain.NetExecutorThread;
+import com.sola.github.domain.UIExecutorThread;
+import com.sola.github.params.BBSDataDTO;
+
+import java.util.Collection;
+
+import rx.functions.Action1;
 
 /**
  * Created by slove
- * 2016/12/15.
+ * 2016/12/19.
+ * BBS业务模型
  */
-public class Utils {
+public abstract class ABBSCase extends ABaseConnectionCase {
+
     // ===========================================================
     // Constants
     // ===========================================================
@@ -19,8 +29,11 @@ public class Utils {
     // Constructors
     // ===========================================================
 
-    @Inject
-    public Utils() {
+    protected ABBSCase(
+            NetExecutorThread threadExecutor,
+            UIExecutorThread uiExecutor,
+            ErrorDelegate errorDelegate) {
+        super(threadExecutor, uiExecutor, errorDelegate);
     }
 
     // ===========================================================
@@ -31,13 +44,11 @@ public class Utils {
     // Methods for/from SuperClass/Interfaces
     // ===========================================================
 
+    public abstract void searchBBSList(int pageCount, int pageSize, Action1<Collection<BBSDataDTO>> onNext, Action1<ErrorDTO> onError);
+
     // ===========================================================
     // Methods
     // ===========================================================
-
-    public String getTestString() {
-        return "Utils Str";
-    }
 
     // ===========================================================
     // Inner and Anonymous Classes

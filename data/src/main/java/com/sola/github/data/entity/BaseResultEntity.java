@@ -1,12 +1,11 @@
-package com.sola.github.dagger2demo.utils;
-
-import javax.inject.Inject;
+package com.sola.github.data.entity;
 
 /**
- * Created by slove
- * 2016/12/15.
+ * Created by zhangluji
+ * 2016/12/19.
  */
-public class Utils {
+@SuppressWarnings("unused")
+public class BaseResultEntity {
     // ===========================================================
     // Constants
     // ===========================================================
@@ -15,17 +14,23 @@ public class Utils {
     // Fields
     // ===========================================================
 
+    private String message;
+
     // ===========================================================
     // Constructors
     // ===========================================================
 
-    @Inject
-    public Utils() {
-    }
-
     // ===========================================================
     // Getter & Setter
     // ===========================================================
+
+    public boolean isSuccess(){
+        return true;
+    }
+
+    public String getMessage() {
+        return message;
+    }
 
     // ===========================================================
     // Methods for/from SuperClass/Interfaces
@@ -34,10 +39,6 @@ public class Utils {
     // ===========================================================
     // Methods
     // ===========================================================
-
-    public String getTestString() {
-        return "Utils Str";
-    }
 
     // ===========================================================
     // Inner and Anonymous Classes

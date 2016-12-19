@@ -1,12 +1,10 @@
-package com.sola.github.dagger2demo.utils;
-
-import javax.inject.Inject;
+package com.sola.github.params;
 
 /**
- * Created by slove
- * 2016/12/15.
+ * Created by zhangluji
+ * 2016/12/19.
  */
-public class Utils {
+public class BBSDataDTO extends BBSBaseDTO {
     // ===========================================================
     // Constants
     // ===========================================================
@@ -15,17 +13,39 @@ public class Utils {
     // Fields
     // ===========================================================
 
+    /**
+     * 回复数量
+     */
+    private int replyCount;
+
+    /**
+     * 点赞数量
+     */
+    private int likeCount;
+
     // ===========================================================
     // Constructors
     // ===========================================================
 
-    @Inject
-    public Utils() {
-    }
-
     // ===========================================================
     // Getter & Setter
     // ===========================================================
+
+    public int getReplyCount() {
+        return replyCount;
+    }
+
+    public void setReplyCount(int replyCount) {
+        this.replyCount = replyCount;
+    }
+
+    public int getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
+    }
 
     // ===========================================================
     // Methods for/from SuperClass/Interfaces
@@ -34,10 +54,6 @@ public class Utils {
     // ===========================================================
     // Methods
     // ===========================================================
-
-    public String getTestString() {
-        return "Utils Str";
-    }
 
     // ===========================================================
     // Inner and Anonymous Classes

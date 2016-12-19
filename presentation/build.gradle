@@ -139,6 +139,11 @@ dependencies {
     apt dependencies.daggerCompiler
     compile dependencies.dagger
 
+    // rxJava 库包
+    compile dependencies.rxJava
+    //    compile dependencies.rxjava_async
+    compile dependencies.rxAndroid
+
     compile dependencies.recyclerView
     compile dependencies.appcompat
     compile dependencies.cardview
