@@ -1,21 +1,20 @@
-package com.sola.github.dagger2demo.ui.presenter;
+package com.sola.github.dagger2demo.ui.params;
 
-import com.sola.github.dagger2demo.di.scope.ActivityScope;
-import com.sola.github.domain.interactor.ABBSCase;
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.sola.github.params.BBSDataDTO;
 import com.sola.github.tools.delegate.IRecyclerViewClickDelegate;
 
-import java.util.Collection;
-
-import javax.inject.Inject;
-
-import rx.functions.Action1;
-
 /**
- * Created by slove
- * 2016/12/16.
+ * Created by zhangluji
+ * 2016/12/20.
  */
-@ActivityScope
-public class MainPresenter implements IPresenter {
+@SuppressWarnings("unused")
+public class BBSDataViewDTO extends BaseViewDTO<BBSDataDTO> implements IRecyclerViewClickDelegate {
+
     // ===========================================================
     // Constants
     // ===========================================================
@@ -24,15 +23,12 @@ public class MainPresenter implements IPresenter {
     // Fields
     // ===========================================================
 
-    private final ABBSCase abbsCase;
-
     // ===========================================================
     // Constructors
     // ===========================================================
 
-    @Inject
-    MainPresenter(ABBSCase abbsCase) {
-        this.abbsCase = abbsCase;
+    public BBSDataViewDTO(BBSDataDTO data) {
+        super(data);
     }
 
     // ===========================================================
@@ -43,14 +39,29 @@ public class MainPresenter implements IPresenter {
     // Methods for/from SuperClass/Interfaces
     // ===========================================================
 
-    public void requestMainListData(int pageCount, int pageSize, Action1<Collection<IRecyclerViewClickDelegate>> onNext) {
-        abbsCase.searchBBSList(
-                pageCount, pageSize,
-                bbsDataDTOs -> {
+    @Override
+    public void itemClick(View v) {
 
-                }, errorDTO -> {
+    }
 
-                });
+    @Override
+    public View getView(Context context, ViewGroup parent) {
+        return null;
+    }
+
+    @Override
+    public RecyclerView.ViewHolder getHolder(Context context, ViewGroup parent, int viewType) {
+        return null;
+    }
+
+    @Override
+    public void refreshView(Context context, RecyclerView.ViewHolder holder, int position) {
+
+    }
+
+    @Override
+    public int getViewType(int position) {
+        return 0;
     }
 
     // ===========================================================

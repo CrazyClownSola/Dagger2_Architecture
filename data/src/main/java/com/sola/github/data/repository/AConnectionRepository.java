@@ -5,6 +5,7 @@ import android.accounts.NetworkErrorException;
 import com.google.gson.Gson;
 import com.sola.github.data.entity.BaseResultEntity;
 import com.sola.github.data.net.ApiConnection;
+import com.sola.github.tools.utils.LogUtils;
 
 import java.util.Map;
 
@@ -68,7 +69,9 @@ abstract class AConnectionRepository {
             }
             builder.insert(0, "{").append("}");
         }
-        return builder.toString();
+        String str = builder.toString();
+        LogUtils.i(str);
+        return str;
     }
 
     /**
@@ -76,7 +79,9 @@ abstract class AConnectionRepository {
      * @return 返回经过Gson转换之后的字符串
      */
     String getEncryptStr(Object src) {
-        return mGson.toJson(src);
+        String str = mGson.toJson(src);
+        LogUtils.i(str);
+        return str;
     }
 
     <T extends BaseResultEntity> Observable<T> defaultErrorMapper(T dto) {

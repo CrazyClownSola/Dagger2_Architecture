@@ -1,21 +1,10 @@
-package com.sola.github.dagger2demo.ui.presenter;
-
-import com.sola.github.dagger2demo.di.scope.ActivityScope;
-import com.sola.github.domain.interactor.ABBSCase;
-import com.sola.github.tools.delegate.IRecyclerViewClickDelegate;
-
-import java.util.Collection;
-
-import javax.inject.Inject;
-
-import rx.functions.Action1;
+package com.sola.github.dagger2demo.ui.params;
 
 /**
- * Created by slove
- * 2016/12/16.
+ * Created by zhangluji
+ * 2016/12/20.
  */
-@ActivityScope
-public class MainPresenter implements IPresenter {
+abstract class BaseViewDTO<T> {
     // ===========================================================
     // Constants
     // ===========================================================
@@ -24,15 +13,14 @@ public class MainPresenter implements IPresenter {
     // Fields
     // ===========================================================
 
-    private final ABBSCase abbsCase;
+    protected T data;
 
     // ===========================================================
     // Constructors
     // ===========================================================
 
-    @Inject
-    MainPresenter(ABBSCase abbsCase) {
-        this.abbsCase = abbsCase;
+    BaseViewDTO(T data) {
+        this.data = data;
     }
 
     // ===========================================================
@@ -42,16 +30,6 @@ public class MainPresenter implements IPresenter {
     // ===========================================================
     // Methods for/from SuperClass/Interfaces
     // ===========================================================
-
-    public void requestMainListData(int pageCount, int pageSize, Action1<Collection<IRecyclerViewClickDelegate>> onNext) {
-        abbsCase.searchBBSList(
-                pageCount, pageSize,
-                bbsDataDTOs -> {
-
-                }, errorDTO -> {
-
-                });
-    }
 
     // ===========================================================
     // Methods

@@ -26,6 +26,10 @@
             android:name=".ui.TestActivity"
             />
 
+        <meta-data
+            android:name="CHANNEL_ID"
+            android:value="${CHANNEL_ID}"/>
+
     </application>
 
 </manifest>

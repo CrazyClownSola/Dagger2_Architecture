@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.sola.github.data.net.tools.GSONConverter;
 import com.sola.github.data.utils.ContextUtils;
 import com.sola.github.tools.utils.LogUtils;
 import com.sola.github.tools.utils.StringUtils;
@@ -31,7 +32,6 @@ import okhttp3.Request;
 import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by zhangluji
@@ -60,7 +60,7 @@ public class ApiConnection {
     private Retrofit.Builder builder =
             new Retrofit.Builder()
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                    .addConverterFactory(GsonConverterFactory.create(gson));
+                    .addConverterFactory(GSONConverter.create(gson));
 
     // ===========================================================
     // Constructors

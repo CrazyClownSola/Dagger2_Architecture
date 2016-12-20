@@ -37,5 +37,4 @@ public interface BBSService {
     @POST("/bbs/getBbsBySec")
     Observable<ABaseResponseEntity<ABaseResponseMoreListEntity<BBSDataEntity>>> requestBBSList(@Body String entryStr);
 
-
 }

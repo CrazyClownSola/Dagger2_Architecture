@@ -1,21 +1,19 @@
-package com.sola.github.dagger2demo.ui.presenter;
+package com.sola.github.tools.adapter;
 
-import com.sola.github.dagger2demo.di.scope.ActivityScope;
-import com.sola.github.domain.interactor.ABBSCase;
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+
 import com.sola.github.tools.delegate.IRecyclerViewClickDelegate;
 
 import java.util.Collection;
 
-import javax.inject.Inject;
-
-import rx.functions.Action1;
-
 /**
- * Created by slove
- * 2016/12/16.
+ * Created by zhangluji
+ * 2016/12/20.
  */
-@ActivityScope
-public class MainPresenter implements IPresenter {
+public class RecyclerClickBaseAdapter<Param extends IRecyclerViewClickDelegate>
+        extends RecyclerBaseAdapter<Param> {
+
     // ===========================================================
     // Constants
     // ===========================================================
@@ -24,15 +22,12 @@ public class MainPresenter implements IPresenter {
     // Fields
     // ===========================================================
 
-    private final ABBSCase abbsCase;
-
     // ===========================================================
     // Constructors
     // ===========================================================
 
-    @Inject
-    MainPresenter(ABBSCase abbsCase) {
-        this.abbsCase = abbsCase;
+    public RecyclerClickBaseAdapter(Context mContext, Collection<Param> list) {
+        super(mContext, list);
     }
 
     // ===========================================================
@@ -43,14 +38,12 @@ public class MainPresenter implements IPresenter {
     // Methods for/from SuperClass/Interfaces
     // ===========================================================
 
-    public void requestMainListData(int pageCount, int pageSize, Action1<Collection<IRecyclerViewClickDelegate>> onNext) {
-        abbsCase.searchBBSList(
-                pageCount, pageSize,
-                bbsDataDTOs -> {
-
-                }, errorDTO -> {
-
-                });
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        super.onBindViewHolder(holder, position);
+        Param delegate = getItemByPosition(position);
+        if (delegate != null)
+            holder.itemView.setOnClickListener(delegate::itemClick);
     }
 
     // ===========================================================

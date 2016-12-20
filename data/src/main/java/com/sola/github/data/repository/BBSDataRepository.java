@@ -57,12 +57,11 @@ public class BBSDataRepository extends AConnectionRepository implements BBSRepos
         map.put("pageNo", pageNo);
         map.put("pageSize", pageSize);
         return apiConnection.createService(BBSService.BASE_URL, BBSService.class)
-                .requestBBSList(getEncryptStrByMap(map))
+                .requestBBSList(getEncryptStr(map))
                 .flatMap(this::defaultErrorMapper)
                 .flatMap(response ->
                         Observable.just(transform(response.getData().getList())));
     }
-
 
     // ===========================================================
     // Methods

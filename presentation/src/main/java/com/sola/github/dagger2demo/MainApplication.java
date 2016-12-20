@@ -65,7 +65,7 @@ public class MainApplication extends Application implements HasSubComponentBuild
     @Override
     public SubComponentBuilder getSubComponentBuild(ESubType type, int index) {
         SubComponentBuilder builder = subComponentBuilderMap.get(
-                SubMapKeyCreator.createSubMapKey(type, 1));
+                SubMapKeyCreator.createSubMapKey(type, index));
         // ? 一个疑问点是，这个Module的实例是否依旧是单例
         if (type == ESubType.TYPE_DB && builder instanceof DataBaseComponent.Builder) {
             ((DataBaseComponent.Builder) builder)

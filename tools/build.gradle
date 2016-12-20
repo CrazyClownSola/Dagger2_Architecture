@@ -39,4 +39,10 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.1.0'
     testCompile 'junit:junit:4.12'
+
+    def dependencies = rootProject.ext.appDependencies
+    // supportV7的包中的特有的一些控件
+    compile dependencies.recyclerView
+    compile dependencies.appcompat
+
 }

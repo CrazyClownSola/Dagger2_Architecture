@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+
+    <color name="color_default_blue">#1ea7fe</color>
+    <color name="color_default_black">#3a3a3a</color>
+    <color name="color_default_white">#FFFFFF</color>
+    <color name="color_default_gray">#f7f7f7</color>
+    <color name="color_default_divider_gray">#d7d8d9</color>
+    <color name="color_default_text_gray">#979797</color>
+    <color name="color_default_red">#d53c36</color>
+
 </resources>
