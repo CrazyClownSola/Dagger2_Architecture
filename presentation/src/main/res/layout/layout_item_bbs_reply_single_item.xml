@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="15dp">
+
+
+    <ImageView
+        android:id="@+id/id_image_user_photo"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_centerVertical="true"
+        android:contentDescription="@null"
+        android:src="@drawable/icon_default_user_photo"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_toRightOf="@+id/id_image_user_photo"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/id_text_bbs_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:text="SUMMER"
+            android:textColor="@color/color_default_black"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/id_text_bbs_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:maxLines="1"
+            android:text="SUMMER"
+            android:textColor="@color/color_default_text_gray"
+            android:textSize="10sp"
+            />
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -58,7 +58,6 @@ public class MainApplication extends Application implements HasSubComponentBuild
         super.onCreate();
         appComponent = DaggerAppComponent.builder().appModule(
                 new AppModule(this)).build();
-//        appComponent = DaggerAppComponent.create();
         appComponent.inject(this);
     }
 

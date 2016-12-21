@@ -10,9 +10,8 @@ import com.sola.github.tools.delegate.IRecyclerViewClickDelegate;
 
 /**
  * Created by zhangluji
- * 2016/12/20.
+ * 2016/12/21.
  */
-@SuppressWarnings("unused")
 public class BBSDataViewDTO extends BaseViewDTO<BBSDataDTO> implements IRecyclerViewClickDelegate {
 
     // ===========================================================
@@ -27,7 +26,7 @@ public class BBSDataViewDTO extends BaseViewDTO<BBSDataDTO> implements IRecycler
     // Constructors
     // ===========================================================
 
-    public BBSDataViewDTO(BBSDataDTO data) {
+    BBSDataViewDTO(BBSDataDTO data) {
         super(data);
     }
 
@@ -38,15 +37,9 @@ public class BBSDataViewDTO extends BaseViewDTO<BBSDataDTO> implements IRecycler
     // ===========================================================
     // Methods for/from SuperClass/Interfaces
     // ===========================================================
-
     @Override
     public void itemClick(View v) {
 
-    }
-
-    @Override
-    public View getView(Context context, ViewGroup parent) {
-        return null;
     }
 
     @Override
@@ -59,11 +52,6 @@ public class BBSDataViewDTO extends BaseViewDTO<BBSDataDTO> implements IRecycler
 
     }
 
-    @Override
-    public int getViewType(int position) {
-        return 0;
-    }
-
     // ===========================================================
     // Methods
     // ===========================================================
@@ -71,5 +59,12 @@ public class BBSDataViewDTO extends BaseViewDTO<BBSDataDTO> implements IRecycler
     // ===========================================================
     // Inner and Anonymous Classes
     // ===========================================================
+
+    class ViewHolder extends RecyclerView.ViewHolder {
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+        }
+    }
 
 }

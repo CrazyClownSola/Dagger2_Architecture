@@ -1,13 +1,11 @@
-package com.sola.github.dagger2demo.ui.params;
-
-import com.sola.github.tools.delegate.IRecyclerViewDelegate;
-import com.sola.github.tools.utils.TypeBuilder;
+package com.sola.github.data.entity.net;
 
 /**
  * Created by zhangluji
- * 2016/12/20.
+ * 2016/12/21.
  */
-abstract class BaseViewDTO<T> implements IRecyclerViewDelegate {
+@SuppressWarnings("unused")
+public class BBSPostsReplyEntity extends BBSPostsBaseEntity {
     // ===========================================================
     // Constants
     // ===========================================================
@@ -16,28 +14,37 @@ abstract class BaseViewDTO<T> implements IRecyclerViewDelegate {
     // Fields
     // ===========================================================
 
-    protected T data;
+    private String replyUserId;
+
+    private String replyUserName;
 
     // ===========================================================
     // Constructors
     // ===========================================================
 
-    BaseViewDTO(T data) {
-        this.data = data;
-    }
-
     // ===========================================================
     // Getter & Setter
     // ===========================================================
 
+    public String getReplyUserId() {
+        return replyUserId;
+    }
+
+    public void setReplyUserId(String replyUserId) {
+        this.replyUserId = replyUserId;
+    }
+
+    public String getReplyUserName() {
+        return replyUserName;
+    }
+
+    public void setReplyUserName(String replyUserName) {
+        this.replyUserName = replyUserName;
+    }
+
     // ===========================================================
     // Methods for/from SuperClass/Interfaces
     // ===========================================================
-
-    @Override
-    public int getViewType(int position) {
-        return TypeBuilder.getInstance().generateId();
-    }
 
     // ===========================================================
     // Methods

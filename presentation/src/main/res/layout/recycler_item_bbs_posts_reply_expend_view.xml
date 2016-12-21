@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:cardElevation="3dp"
+    app:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_text_left_line_background_bbs_data"
+        android:orientation="horizontal"
+        >
+
+        <RelativeLayout
+            android:id="@+id/id_include_user"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/id_btn_quick_reply"
+            android:layout_alignParentTop="true">
+
+            <ImageView
+                android:id="@+id/id_image_user_photo"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@null"
+                android:src="@drawable/icon_default_user_photo"
+                />
+
+            <TextView
+                android:id="@+id/id_text_bbs_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/id_image_user_photo"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:text="user"
+                android:textColor="@color/color_default_text_gray"
+                android:textSize="10sp"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/id_include_user"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:id="@+id/id_text_bbs_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:paddingBottom="10dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingStart="10dp"
+                android:paddingTop="10dp"
+                android:text="SUMMER"
+                android:textColor="@color/color_default_black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                />
+
+            <LinearLayout
+                android:id="@+id/id_include_reply_items"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/id_btn_quick_reply"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/color_primary_shape_default_header"
+            android:drawableLeft="@drawable/icon_reply_64"
+            android:drawablePadding="20dp"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:text="Quick Reply"
+            android:textSize="10sp"
+            />
+
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>

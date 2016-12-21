@@ -2,7 +2,6 @@ package com.sola.github.tools.delegate;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.view.ViewGroup;
 
 /**
@@ -22,14 +21,14 @@ public interface IRecyclerViewDelegate {
     // Methods
     // ===========================================================
 
-    /**
-     * 获取布局
-     *
-     * @param context context容器
-     * @param parent  父类布局
-     * @return 返回布局View
-     */
-    View getView(Context context, ViewGroup parent);
+//    /**
+//     * 获取布局
+//     *
+//     * @param context context容器
+//     * @param parent  父类布局
+//     * @return 返回布局View
+//     */
+//    View getView(Context context, ViewGroup parent);
 
     /**
      * 构建Holder

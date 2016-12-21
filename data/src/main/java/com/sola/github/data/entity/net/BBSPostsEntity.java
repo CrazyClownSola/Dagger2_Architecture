@@ -1,13 +1,15 @@
-package com.sola.github.dagger2demo.ui.params;
+package com.sola.github.data.entity.net;
 
-import com.sola.github.tools.delegate.IRecyclerViewDelegate;
-import com.sola.github.tools.utils.TypeBuilder;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 /**
  * Created by zhangluji
- * 2016/12/20.
+ * 2016/12/21.
  */
-abstract class BaseViewDTO<T> implements IRecyclerViewDelegate {
+@SuppressWarnings("unused")
+public class BBSPostsEntity extends BBSPostsBaseEntity {
     // ===========================================================
     // Constants
     // ===========================================================
@@ -16,28 +18,59 @@ abstract class BaseViewDTO<T> implements IRecyclerViewDelegate {
     // Fields
     // ===========================================================
 
-    protected T data;
+    private int status;
+
+    @SerializedName("likes")
+    private int likeCount;
+
+    @SerializedName("replys")
+    private int replyCount;
+
+    private List<BBSPostsReplyEntity> replyList;
 
     // ===========================================================
     // Constructors
     // ===========================================================
 
-    BaseViewDTO(T data) {
-        this.data = data;
-    }
-
     // ===========================================================
     // Getter & Setter
     // ===========================================================
 
+    public int getStatus() {
+        return status;
+    }
+
+    public int getLikeCount() {
+        return likeCount;
+    }
+
+    public int getReplyCount() {
+        return replyCount;
+    }
+
+    public List<BBSPostsReplyEntity> getReplyList() {
+        return replyList;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
+    }
+
+    public void setReplyCount(int replyCount) {
+        this.replyCount = replyCount;
+    }
+
+    public void setReplyList(List<BBSPostsReplyEntity> replyList) {
+        this.replyList = replyList;
+    }
+
     // ===========================================================
     // Methods for/from SuperClass/Interfaces
     // ===========================================================
-
-    @Override
-    public int getViewType(int position) {
-        return TypeBuilder.getInstance().generateId();
-    }
 
     // ===========================================================
     // Methods

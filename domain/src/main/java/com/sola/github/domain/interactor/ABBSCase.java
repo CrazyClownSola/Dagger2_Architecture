@@ -5,8 +5,10 @@ import com.sola.github.domain.ErrorDelegate;
 import com.sola.github.domain.NetExecutorThread;
 import com.sola.github.domain.UIExecutorThread;
 import com.sola.github.params.BBSDataDTO;
+import com.sola.github.params.BBSPostsDTO;
 
 import java.util.Collection;
+import java.util.List;
 
 import rx.functions.Action1;
 
@@ -45,6 +47,10 @@ public abstract class ABBSCase extends ABaseConnectionCase {
     // ===========================================================
 
     public abstract void searchBBSList(int pageCount, int pageSize, Action1<Collection<BBSDataDTO>> onNext, Action1<ErrorDTO> onError);
+
+    public abstract void getPostsReplyList(
+            int postsId, Action1<List<BBSPostsDTO>> onNext, Action1<ErrorDTO> onError);
+
 
     // ===========================================================
     // Methods

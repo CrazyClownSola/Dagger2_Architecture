@@ -2,16 +2,20 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape>
-            <solid android:color="#187cbb"/>
+            <solid android:color="@color/color_default_divider_gray"/>
         </shape>
     </item>
     <item
-        android:bottom="1dp">
+        android:top="1dp">
         <shape>
-            <gradient
-                android:angle="270"
-                android:endColor="#11b7f9"
-                android:startColor="#1ea7fe"/>
+            <solid android:color="@color/color_default_white"/>
         </shape>
+
+        <!--<shape>-->
+        <!--<gradient-->
+        <!--android:angle="270"-->
+        <!--android:endColor="#11b7f9"-->
+        <!--android:startColor="#1ea7fe"/>-->
+        <!--</shape>-->
     </item>
 </layer-list>

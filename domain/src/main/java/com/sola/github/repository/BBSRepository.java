@@ -1,6 +1,7 @@
 package com.sola.github.repository;
 
 import com.sola.github.params.BBSDataDTO;
+import com.sola.github.params.BBSPostsDTO;
 
 import java.util.Collection;
 
@@ -31,4 +32,5 @@ public interface BBSRepository {
      */
     Observable<Collection<BBSDataDTO>> requestBBSList(int sectionId, int pageNo, int pageSize);
 
+    Observable<Collection<BBSPostsDTO>> requestBBSPostsList(int postsId);
 }

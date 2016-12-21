@@ -3,6 +3,7 @@ package com.sola.github.data.net;
 import com.sola.github.data.entity.net.ABaseResponseEntity;
 import com.sola.github.data.entity.net.ABaseResponseMoreListEntity;
 import com.sola.github.data.entity.net.BBSDataEntity;
+import com.sola.github.data.entity.net.BBSPostsEntity;
 import com.sola.github.data.utils.RestConfig;
 
 import retrofit2.http.Body;
@@ -36,5 +37,9 @@ public interface BBSService {
      */
     @POST("/bbs/getBbsBySec")
     Observable<ABaseResponseEntity<ABaseResponseMoreListEntity<BBSDataEntity>>> requestBBSList(@Body String entryStr);
+
+
+    @POST("/posts/reply/list")
+    Observable<ABaseResponseEntity<ABaseResponseMoreListEntity<BBSPostsEntity>>> requestBBSPostsList(@Body String entryStr);
 
 }
