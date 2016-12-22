@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="string_html_bbs_data_like_and_reply_count">%1$d 点赞 · %2$d评论</string>
+
+    <string name="string_html_bbs_data_reply_count">回复数 %1$d</string>
+
+</resources>

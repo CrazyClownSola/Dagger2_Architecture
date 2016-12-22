@@ -6,7 +6,7 @@ import com.sola.github.domain.NetExecutorThread;
 import com.sola.github.domain.UIExecutorThread;
 import com.sola.github.domain.interactor.ABBSCase;
 import com.sola.github.params.BBSDataDTO;
-import com.sola.github.params.BBSPostsDTO;
+import com.sola.github.params.BBSPostsMainReplyDTO;
 import com.sola.github.repository.BBSRepository;
 
 import java.util.Collection;
@@ -64,7 +64,7 @@ public class BBSCaseImpl extends ABBSCase {
 
     @Override
     public void getPostsReplyList(
-            int postsId, Action1<List<BBSPostsDTO>> onNext, Action1<ErrorDTO> onError) {
+            int postsId, Action1<List<BBSPostsMainReplyDTO>> onNext, Action1<ErrorDTO> onError) {
         // 这里写法有很多种，可以任君挑选
         // 同时，可以在这里进行一次数据处理
         execute(repository.requestBBSPostsList(postsId)

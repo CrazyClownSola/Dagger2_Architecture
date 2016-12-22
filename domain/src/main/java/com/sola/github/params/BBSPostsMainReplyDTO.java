@@ -5,9 +5,10 @@ import java.util.List;
 /**
  * Created by zhangluji
  * 2016/12/21.
+ * 帖子中，单个回复的主体，当中包含一些子回复
  */
 @SuppressWarnings("unused")
-public class BBSPostsDTO extends BBSPostsBaseDTO {
+public class BBSPostsMainReplyDTO extends BBSPostsBaseDTO {
     // ===========================================================
     // Constants
     // ===========================================================
@@ -22,7 +23,7 @@ public class BBSPostsDTO extends BBSPostsBaseDTO {
 
     private int replyCount;
 
-    private List<BBSPostsReplyDTO> replyList;
+    private List<BBSPostsSingleReplyDTO> replyList;
 
     // ===========================================================
     // Constructors
@@ -56,11 +57,11 @@ public class BBSPostsDTO extends BBSPostsBaseDTO {
         this.replyCount = replyCount;
     }
 
-    public List<BBSPostsReplyDTO> getReplyList() {
+    public List<BBSPostsSingleReplyDTO> getReplyList() {
         return replyList;
     }
 
-    public void setReplyList(List<BBSPostsReplyDTO> replyList) {
+    public void setReplyList(List<BBSPostsSingleReplyDTO> replyList) {
         this.replyList = replyList;
     }
 

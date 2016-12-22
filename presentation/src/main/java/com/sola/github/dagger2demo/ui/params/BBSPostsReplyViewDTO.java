@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sola.github.dagger2demo.R;
-import com.sola.github.params.BBSPostsDTO;
+import com.sola.github.params.BBSPostsMainReplyDTO;
 import com.sola.github.tools.delegate.IRecyclerViewClickDelegate;
 import com.sola.github.tools.utils.TypeBuilder;
 
@@ -19,9 +19,10 @@ import butterknife.ButterKnife;
 /**
  * Created by zhangluji
  * 2016/12/20.
+ * 帖子的回复数据结构
  */
 @SuppressWarnings("unused")
-public class BBSPostsViewDTO extends BaseViewDTO<BBSPostsDTO> implements IRecyclerViewClickDelegate {
+public class BBSPostsReplyViewDTO extends BaseViewDTO<BBSPostsMainReplyDTO> implements IRecyclerViewClickDelegate {
 
     // ===========================================================
     // Constants
@@ -40,7 +41,7 @@ public class BBSPostsViewDTO extends BaseViewDTO<BBSPostsDTO> implements IRecycl
     // Constructors
     // ===========================================================
 
-    public BBSPostsViewDTO(BBSPostsDTO data) {
+    public BBSPostsReplyViewDTO(BBSPostsMainReplyDTO data) {
         super(data);
         viewType = NORMAL_VIEW_TYPE;
     }

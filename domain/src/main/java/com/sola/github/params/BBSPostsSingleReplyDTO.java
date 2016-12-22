@@ -3,9 +3,10 @@ package com.sola.github.params;
 /**
  * Created by zhangluji
  * 2016/12/21.
+ * 回复的回复，对于某个评论的单独回复数据
  */
 @SuppressWarnings("unused")
-public class BBSPostsReplyDTO extends BBSPostsBaseDTO {
+public class BBSPostsSingleReplyDTO extends BBSPostsBaseDTO {
     // ===========================================================
     // Constants
     // ===========================================================

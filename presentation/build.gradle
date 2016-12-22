@@ -143,6 +143,8 @@ dependencies {
     apt dependencies.daggerCompiler
     compile dependencies.dagger
 
+    compile dependencies.picasso
+
     // rxJava 库包
     compile dependencies.rxJava
     //    compile dependencies.rxjava_async

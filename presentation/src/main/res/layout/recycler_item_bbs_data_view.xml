@@ -1,7 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/selector_recycler_item_press"
+    android:orientation="vertical"
+    android:padding="10dp">
 
-</LinearLayout>
+
+    <ImageView
+        android:id="@+id/id_image_user_photo"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@null"
+        android:src="@drawable/icon_logo"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="6dp"
+        android:layout_toRightOf="@+id/id_image_user_photo"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/id_text_bbs_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:text="官方推荐"
+            android:textColor="@color/color_default_text_gray"
+            android:textSize="10sp"
+            />
+
+        <TextView
+            android:id="@+id/id_text_bbs_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:ellipsize="marquee"
+            android:maxLines="1"
+            android:text="SUMMER"
+            android:textColor="@color/color_default_black"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/id_text_bbs_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:maxLines="3"
+            android:text="SUMMER"
+            android:textColor="@color/color_default_text_gray"
+            android:textSize="11sp"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="7dp">
+
+            <TextView
+                android:id="@+id/id_text_bbs_create_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:text="SUMMER"
+                android:textColor="@color/color_default_text_gray"
+                android:textSize="10sp"
+                />
+
+            <TextView
+                android:id="@+id/id_text_bbs_comment_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:maxLines="1"
+                android:text="SUMMER"
+                android:textColor="@color/color_default_text_gray"
+                android:textSize="10sp"
+                />
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

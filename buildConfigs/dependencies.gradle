@@ -25,6 +25,8 @@ ext {
     javaxVersion = '1.2'
     butterKnifeVersion = '8.4.0'
 
+    picassoVersion = '2.5.2'
+
     appDependencies = [
             androidannotations    : "org.androidannotations:androidannotations:${annotationVersion}",
             androidannotations_api: "org.androidannotations:androidannotations-api:${annotationVersion}",
@@ -57,6 +59,8 @@ ext {
             butter_knife_compiler : "com.jakewharton:butterknife-compiler:${butterKnifeVersion}",
 
             gson                  : "com.google.code.gson:gson:${gsonVersion}",
+
+            picasso               : "com.squareup.picasso:picasso:${picassoVersion}",
 
             sola_container        : "com.github.crazyclownsola:recycler_container:1.0.7@aar",
     ]

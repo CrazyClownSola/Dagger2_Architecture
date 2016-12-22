@@ -19,6 +19,15 @@
         所以后期我决定不再依赖AA,而是选择更纯粹的用于UI界面注入的butterknife,优点就是更针对性，更轻量化。
     - SupportV7 相关, recyclerView;appcompat;cardView;design;palette等，这部分的依赖主要是帮助项目去实现基于[Material Design](https://developer.android.google.cn/design/index.html)风格的设计代码
         `Material Design`这东西，单独拉出来说 一两天都讲不完，所以这个就请自行去研究吧，反正，很炫酷，我很喜欢
+    - [picasso](https://github.com/square/picasso) `square`公司是个很靠谱的公司，提供了很多很实用的第三方库，当中很出名的就是`picasso`了，`picasso`图片处理库，优势在于使用简单，内部实现讲究几个基本原则：
+        - 在adapter中回收和取消当前的下载；
+        - 使用最少的内存完成复杂的图形转换操作；
+        - 自动的内存和硬盘缓存；
+        - 图形转换操作，如变换大小，旋转等，提供了接口来让用户可以自定义转换操作；
+        - 加载载网络或本地资源；
+        Cache的算法采用的是Lrucacha，主要是get和set方法，存储的结构采用了LinkedHashMap，这种map内部实现了lru算法（Least Recently Used 近期最少使用算法）。
+
+    嘛... 谁用谁知道
 
 - Net网络请求相关
     - [retrofit2.0](https://github.com/square/retrofit) 网络请求相关的库包，个人觉得这是个处理网络请求最好的第三方库，同时也是个延展性非常好的框架，本身框架自带对于[OkHttp](https://github.com/square/okhttp)、[RxJava](https://github.com/ReactiveX/RxJava)等的支持，联合起来使用效果更佳
@@ -516,6 +525,54 @@ public interface HasSubComponentBuilders {
 
     ```
 
+
+## View相关
+> 其实犹豫过，这部分是否要单独拉出来说，这部分的主题是`RecyclerView`，想必很多人都关注过这个，并且去用过这个控件
+> `RecyclerView`控件的强大，并不需要我去多描述什么。
+> 但是在使用的时候，还是有一些以前ListView的习惯，遗留在这里面，比方说茫茫多的Adapter，Data和View之间的绑定等等
+> 嘛，google官方提出的概念是，希望开发人员更多的去使用ViewHolder去做View的构建，在代码上更好的实现的View和Data的分离
+> 在使用了蛮长一段时间的这个控件，结合自身的一些习惯，个人整理了一些用法，在此分享下
+
+### Adapter
+> `RecyclerView`的核心离不开`Adapter`，适配器是呈现界面的决定因素，`Adapter`当中界面元素和Data数据的绑定是一切的根源
+
+`RecyclerView`提供了一个基本的`Adapter`类
+ 代码如下:RecyclerView.java
+```
+/**
+ * Base class for an Adapter
+ *
+ * <p>Adapters provide a binding from an app-specific data set to views that are displayed
+ * within a {@link RecyclerView}.</p>
+ */
+public static abstract class Adapter<VH extends ViewHolder>{
+
+    // 关键方法
+    // 根据ViewType创建不同的ViewHolder
+    public abstract VH onCreateViewHolder(ViewGroup parent, int viewType);
+
+    // 界面绑定，根据position位置，进行Data和Holder之间的绑定
+    public abstract void onBindViewHolder(VH holder, int position);
+
+    ……
+    ……
+    ……
+}
+
+```
+
+很明显，狗哥的意思是让我们定义一个Adapter去继承他，然后绑定到对应的RecyclerView当中去
+从这个角度看，这和ListView很像，然后套用以前ListView构建的思路，这里应该有很多个不同的Adapter，去适配不同界面
+总觉得这样有点麻烦
+于是网上出现的更多的会是这样的代码
+
+```
+
+public MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+}
+
+
+```
 
 
 

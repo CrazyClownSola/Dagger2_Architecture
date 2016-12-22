@@ -1,5 +1,10 @@
 package com.sola.github.data.entity.net;
 
+import com.google.gson.annotations.SerializedName;
+import com.sola.github.tools.utils.StringUtils;
+
+import java.util.Date;
+
 /**
  * Created by zhangluji
  * 2016/12/19.
@@ -34,7 +39,7 @@ public class BBSDataEntity {
     /**
      * 创造时间
      */
-    private String createTime;
+    private long createTime;
 
     /**
      * 更新时间
@@ -45,6 +50,16 @@ public class BBSDataEntity {
      * 内容
      */
     private String content;
+
+    @SerializedName("replyNum")
+    private int replyCount;
+
+    @SerializedName("todayReplyNum")
+    private int todayReplyCount;
+
+    private String appLink;
+
+    private String appApkName;
 
     // ===========================================================
     // Constructors
@@ -86,20 +101,23 @@ public class BBSDataEntity {
         this.pic = pic;
     }
 
-    public String getCreateTime() {
-        return createTime;
-    }
+//    public String getTimeStr() {
+//        if (StringUtils.isEmpty(createTime))
+//            return "";
+//        else {
+//            Date date = null;
+//            DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+//            try {
+//                date = sdf.parse(createTime);
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//            }
+//            return date == null ? createTime : StringUtils.getFormTime(date);
+//        }
+//    }
 
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
-    }
-
-    public String getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(String updateTime) {
-        this.updateTime = updateTime;
+    public String getTimeStr() {
+        return createTime <= 0 ? ("" + createTime) : StringUtils.getFormTime(new Date(createTime));
     }
 
     public String getContent() {
@@ -108,6 +126,38 @@ public class BBSDataEntity {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public int getReplyCount() {
+        return replyCount;
+    }
+
+    public void setReplyCount(int replyCount) {
+        this.replyCount = replyCount;
+    }
+
+    public int getTodayReplyCount() {
+        return todayReplyCount;
+    }
+
+    public void setTodayReplyCount(int todayReplyCount) {
+        this.todayReplyCount = todayReplyCount;
+    }
+
+    public String getAppLink() {
+        return appLink;
+    }
+
+    public void setAppLink(String appLink) {
+        this.appLink = appLink;
+    }
+
+    public String getAppApkName() {
+        return appApkName;
+    }
+
+    public void setAppApkName(String appApkName) {
+        this.appApkName = appApkName;
     }
 
     // ===========================================================

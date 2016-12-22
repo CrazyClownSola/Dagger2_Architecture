@@ -27,19 +27,9 @@ class BBSBaseDTO {
     private String title;
 
     /**
-     * 图片
+     * 显示时间
      */
-    private String pic;
-
-    /**
-     * 创造时间
-     */
-    private String createTime;
-
-    /**
-     * 更新时间
-     */
-    private String updateTime;
+    private String displayTime;
 
     /**
      * 内容
@@ -78,36 +68,20 @@ class BBSBaseDTO {
         this.title = title;
     }
 
-    public String getPic() {
-        return pic;
-    }
-
-    public void setPic(String pic) {
-        this.pic = pic;
-    }
-
-    public String getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
-    }
-
-    public String getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(String updateTime) {
-        this.updateTime = updateTime;
-    }
-
     public String getContent() {
         return content;
     }
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getDisplayTime() {
+        return displayTime;
+    }
+
+    public void setDisplayTime(String displayTime) {
+        this.displayTime = displayTime;
     }
 
     // ===========================================================

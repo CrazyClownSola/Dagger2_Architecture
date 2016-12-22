@@ -6,8 +6,8 @@ import com.sola.github.data.entity.net.BBSPostsReplyEntity;
 import com.sola.github.data.net.ApiConnection;
 import com.sola.github.data.net.BBSService;
 import com.sola.github.params.BBSDataDTO;
-import com.sola.github.params.BBSPostsDTO;
-import com.sola.github.params.BBSPostsReplyDTO;
+import com.sola.github.params.BBSPostsMainReplyDTO;
+import com.sola.github.params.BBSPostsSingleReplyDTO;
 import com.sola.github.repository.BBSRepository;
 
 import java.util.Collection;
@@ -68,7 +68,7 @@ public class BBSDataRepository extends AConnectionRepository implements BBSRepos
     }
 
     @Override
-    public Observable<Collection<BBSPostsDTO>> requestBBSPostsList(int postsId) {
+    public Observable<Collection<BBSPostsMainReplyDTO>> requestBBSPostsList(int postsId) {
         Map<String, Object> map = new HashMap<>();
         map.put("postsId", postsId);
         map.put("orderBy", 1);
@@ -101,16 +101,20 @@ public class BBSDataRepository extends AConnectionRepository implements BBSRepos
         BBSDataDTO retDto = new BBSDataDTO();
         retDto.setId(entity.getId());
         retDto.setContent(entity.getContent());
-        retDto.setCreateTime(entity.getCreateTime());
+        retDto.setDisplayTime(entity.getTimeStr());
         retDto.setPic(entity.getPic());
         retDto.setServiceId(entity.getServiceId());
         retDto.setTitle(entity.getTitle());
-        retDto.setUpdateTime(entity.getUpdateTime());
+
+        retDto.setAppLink(entity.getAppLink());
+        retDto.setAppPkgName(entity.getAppApkName());
+        retDto.setReplyCount(entity.getReplyCount());
+
         return retDto;
     }
 
-    private Collection<BBSPostsDTO> replyListTransform(List<BBSPostsEntity> list) {
-        Collection<BBSPostsDTO> retList = new LinkedList<>();
+    private Collection<BBSPostsMainReplyDTO> replyListTransform(List<BBSPostsEntity> list) {
+        Collection<BBSPostsMainReplyDTO> retList = new LinkedList<>();
         if (list != null)
             for (BBSPostsEntity entity : list) {
                 retList.add(replyTransform(entity));
@@ -118,8 +122,8 @@ public class BBSDataRepository extends AConnectionRepository implements BBSRepos
         return retList;
     }
 
-    private BBSPostsDTO replyTransform(BBSPostsEntity entity) {
-        BBSPostsDTO retDto = new BBSPostsDTO();
+    private BBSPostsMainReplyDTO replyTransform(BBSPostsEntity entity) {
+        BBSPostsMainReplyDTO retDto = new BBSPostsMainReplyDTO();
         retDto.setDateTime(entity.getTimeStr());
         retDto.setTimeStamp(entity.getTimestamp());
         retDto.setLikeCount(entity.getLikeCount());
@@ -136,8 +140,8 @@ public class BBSDataRepository extends AConnectionRepository implements BBSRepos
         return retDto;
     }
 
-    private List<BBSPostsReplyDTO> itemTransform(List<BBSPostsReplyEntity> replyList) {
-        List<BBSPostsReplyDTO> retList = new LinkedList<>();
+    private List<BBSPostsSingleReplyDTO> itemTransform(List<BBSPostsReplyEntity> replyList) {
+        List<BBSPostsSingleReplyDTO> retList = new LinkedList<>();
         if (replyList != null) {
             for (BBSPostsReplyEntity entity :
                     replyList) {
@@ -147,8 +151,8 @@ public class BBSDataRepository extends AConnectionRepository implements BBSRepos
         return retList;
     }
 
-    private BBSPostsReplyDTO itemTransform(BBSPostsReplyEntity entity) {
-        BBSPostsReplyDTO retDto = new BBSPostsReplyDTO();
+    private BBSPostsSingleReplyDTO itemTransform(BBSPostsReplyEntity entity) {
+        BBSPostsSingleReplyDTO retDto = new BBSPostsSingleReplyDTO();
         retDto.setUserPic(entity.getUserPic());
         retDto.setUserName(entity.getUserName());
         retDto.setUserId(entity.getUserId());

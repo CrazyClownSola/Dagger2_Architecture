@@ -27,7 +27,7 @@ class BBSPostsBaseEntity {
 
     private String content;
 
-    private String createTime;
+    private long createTime;
 
     private String updateTime;
 
@@ -64,11 +64,6 @@ class BBSPostsBaseEntity {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
     }
 
     public String getUserId() {
@@ -111,35 +106,44 @@ class BBSPostsBaseEntity {
         this.userPic = userPic;
     }
 
+//    public long getTimestamp() {
+//        if (StringUtils.isEmpty(createTime))
+//            return 0;
+//        else {
+//            Date date = null;
+//            DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+//            try {
+//                date = sdf.parse(createTime);
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//            }
+//            return date == null ? 0 : date.getTime();
+//        }
+//    }
+//
+//    public String getTimeStr() {
+//        if (StringUtils.isEmpty(createTime))
+//            return "";
+//        else {
+//            Date date = null;
+//            DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+//            try {
+//                date = sdf.parse(createTime);
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//            }
+//            return date == null ? createTime : StringUtils.getFormTime(date);
+//        }
+//    }
+
     public long getTimestamp() {
-        if (StringUtils.isEmpty(createTime))
-            return 0;
-        else {
-            Date date = null;
-            DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-            try {
-                date = sdf.parse(createTime);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            return date == null ? 0 : date.getTime();
-        }
+        return createTime;
     }
 
     public String getTimeStr() {
-        if (StringUtils.isEmpty(createTime))
-            return "";
-        else {
-            Date date = null;
-            DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-            try {
-                date = sdf.parse(createTime);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            return date == null ? createTime : StringUtils.getFormTime(date);
-        }
+        return createTime <= 0 ? ("" + createTime) : StringUtils.getFormTime(new Date(createTime));
     }
+
 
     // ===========================================================
     // Methods for/from SuperClass/Interfaces
