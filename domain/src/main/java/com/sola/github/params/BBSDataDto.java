@@ -4,6 +4,7 @@ package com.sola.github.params;
  * Created by zhangluji
  * 2016/12/19.
  */
+@SuppressWarnings("unused")
 public class BBSDataDTO extends BBSBaseDTO {
     // ===========================================================
     // Constants
@@ -19,9 +20,13 @@ public class BBSDataDTO extends BBSBaseDTO {
     private int replyCount;
 
     /**
-     * 点赞数量
+     * 图片
      */
-    private int likeCount;
+    private String pic;
+
+    private String appLink;
+
+    private String appPkgName;
 
     // ===========================================================
     // Constructors
@@ -39,12 +44,28 @@ public class BBSDataDTO extends BBSBaseDTO {
         this.replyCount = replyCount;
     }
 
-    public int getLikeCount() {
-        return likeCount;
+    public String getAppLink() {
+        return appLink;
     }
 
-    public void setLikeCount(int likeCount) {
-        this.likeCount = likeCount;
+    public void setAppLink(String appLink) {
+        this.appLink = appLink;
+    }
+
+    public String getAppPkgName() {
+        return appPkgName;
+    }
+
+    public void setAppPkgName(String appPkgName) {
+        this.appPkgName = appPkgName;
+    }
+
+    public String getPic() {
+        return pic;
+    }
+
+    public void setPic(String pic) {
+        this.pic = pic;
     }
 
     // ===========================================================

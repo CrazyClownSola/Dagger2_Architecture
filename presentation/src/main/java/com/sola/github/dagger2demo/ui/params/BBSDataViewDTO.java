@@ -14,10 +14,6 @@ import com.sola.github.tools.delegate.IRecyclerViewClickDelegate;
 import com.sola.github.tools.utils.StringUtils;
 import com.squareup.picasso.Picasso;
 
-import butterknife.BindView;
-import butterknife.BindViews;
-import butterknife.ButterKnife;
-
 /**
  * Created by zhangluji
  * 2016/12/21.
