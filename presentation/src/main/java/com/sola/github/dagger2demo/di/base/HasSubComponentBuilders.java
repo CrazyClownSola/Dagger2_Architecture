@@ -1,9 +1,5 @@
 package com.sola.github.dagger2demo.di.base;
 
-import android.content.Context;
-
-import com.sola.github.dagger2demo.enums.ESubType;
-
 /**
  * Created by slove
  * 2016/12/14.
@@ -19,7 +15,12 @@ public interface HasSubComponentBuilders {
     // Methods for/from SuperClass/Interfaces
     // ===========================================================
 
-    SubComponentBuilder getSubComponentBuild(ESubType type, int index);
+    /**
+     * @param type  不同类型的模块组
+     * @param index 序列值，暂且没啥用
+     * @return 返回对应的子模块组
+     */
+    SubComponentBuilder getSubComponentBuild(int type, int index);
 
     // ===========================================================
     // Methods

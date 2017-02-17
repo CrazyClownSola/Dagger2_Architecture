@@ -1,12 +1,8 @@
 package com.sola.github.dagger2demo.di.subs;
 
-import android.content.Context;
+import android.util.Log;
 
-import com.sola.github.dagger2demo.di.base.ActivityModule;
 import com.sola.github.dagger2demo.di.base.SubComponentBuilder;
-import com.sola.github.dagger2demo.di.scope.DataScope;
-
-import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Subcomponent;
@@ -27,6 +23,8 @@ public interface DataBaseComponent {
     // Constants
     // ===========================================================
 
+    String TAG = "Sola";
+
     // ===========================================================
     // Methods for/from SuperClass/Interfaces
     // ===========================================================
@@ -42,6 +40,11 @@ public interface DataBaseComponent {
     @Module
     class DataBaseModule {
 
+        public DataBaseModule() {
+            Log.d(TAG, "DataBaseModule() called");
+        }
     }
+
+    void testConnect();
 
 }

@@ -5,9 +5,7 @@ import android.content.Context;
 
 import com.sola.github.dagger2demo.executor.NetExecutor;
 import com.sola.github.dagger2demo.executor.UIThread;
-import com.sola.github.dagger2demo.utils.Utils;
 import com.sola.github.data.exception.ErrorDelegateImpl;
-import com.sola.github.data.net.ApiConnection;
 import com.sola.github.data.repository.BBSDataRepository;
 import com.sola.github.domain.ErrorDelegate;
 import com.sola.github.domain.NetExecutorThread;
@@ -20,7 +18,6 @@ import java.lang.ref.WeakReference;
 
 import javax.inject.Singleton;
 
-import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 
@@ -40,6 +37,8 @@ public class AppModule {
     // ===========================================================
 
     private final WeakReference<Application> mApplication;
+
+//    private Navigator na
 
     // ===========================================================
     // Constructors

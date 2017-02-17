@@ -1,11 +1,13 @@
 package com.sola.github.params;
 
+import java.io.Serializable;
+
 /**
  * Created by zhangluji
  * 2016/12/19.
  */
 @SuppressWarnings("unused")
-public class BBSDataDTO extends BBSBaseDTO {
+public class BBSDataDTO extends BBSBaseDTO implements Serializable {
     // ===========================================================
     // Constants
     // ===========================================================

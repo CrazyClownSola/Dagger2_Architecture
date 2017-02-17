@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.sola.github.dagger2demo.R;
+
 import java.lang.ref.WeakReference;
 
 import butterknife.ButterKnife;
@@ -49,6 +51,7 @@ public abstract class RxBaseActivity extends AppCompatActivity {
     @Override
     public void setIntent(Intent newIntent) {
         super.setIntent(newIntent);
+        initExtras(newIntent);
     }
 
     @Override
@@ -72,6 +75,18 @@ public abstract class RxBaseActivity extends AppCompatActivity {
         doAfterView();
     }
 
+    @Override
+    public void startActivityForResult(Intent intent, int requestCode) {
+        super.startActivityForResult(intent, requestCode);
+        overridePendingTransition(R.anim.fade_in_left, R.anim.activity_back);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(0, R.anim.push_right_out);
+    }
+
     // ===========================================================
     // Methods
     // ===========================================================
@@ -85,5 +100,7 @@ public abstract class RxBaseActivity extends AppCompatActivity {
     // ===========================================================
 
     protected abstract void doAfterView();
+
+    protected abstract void initExtras(Intent intent);
 
 }

@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.sola.github.dagger2demo.R;
 import com.sola.github.params.BBSDataDTO;
-import com.sola.github.tools.delegate.IRecyclerViewClickDelegate;
+import com.sola.github.tools.delegate.IRecyclerViewDelegate;
 import com.sola.github.tools.utils.StringUtils;
 import com.squareup.picasso.Picasso;
 
@@ -19,7 +19,7 @@ import com.squareup.picasso.Picasso;
  * 2016/12/21.
  * 帖子的View结构，和帖子数据结构进行绑定
  */
-public class BBSDataViewDTO extends BaseViewDTO<BBSDataDTO> implements IRecyclerViewClickDelegate {
+public class BBSDataViewDTO extends BaseViewDTO<BBSDataDTO> implements IRecyclerViewDelegate {
 
     // ===========================================================
     // Constants
@@ -44,12 +44,6 @@ public class BBSDataViewDTO extends BaseViewDTO<BBSDataDTO> implements IRecycler
     // ===========================================================
     // Methods for/from SuperClass/Interfaces
     // ===========================================================
-
-    @Override
-    public void itemClick(View v) {
-        // 跳转Item详情界面的点击事件
-
-    }
 
     @Override
     public RecyclerView.ViewHolder getHolder(Context context, ViewGroup parent, int viewType) {

@@ -1,5 +1,7 @@
 package com.sola.github.dagger2demo.di.activity;
 
+import android.util.Log;
+
 import com.sola.github.dagger2demo.di.base.ActivityComponent;
 import com.sola.github.dagger2demo.di.base.SubComponentBuilder;
 import com.sola.github.dagger2demo.di.scope.ActivityScope;
@@ -17,9 +19,12 @@ import dagger.Subcomponent;
         modules = MainActivityComponent.MainActivityModule.class
 )
 public interface MainActivityComponent extends ActivityComponent<MainActivity> {
+
     // ===========================================================
     // Constants
     // ===========================================================
+
+    String TAG = "Sola";
 
     // ===========================================================
     // Methods for/from SuperClass/Interfaces
@@ -27,12 +32,14 @@ public interface MainActivityComponent extends ActivityComponent<MainActivity> {
 
     @Subcomponent.Builder
     interface Builder extends SubComponentBuilder<MainActivityModule, MainActivityComponent> {
+
     }
 
     @Module
     class MainActivityModule {
 
         public MainActivityModule() {
+            Log.d(TAG, "MainActivityModule() called");
         }
     }
 

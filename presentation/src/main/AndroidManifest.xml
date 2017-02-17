@@ -26,6 +26,8 @@
             android:name=".ui.TestActivity"
             />
 
+        <activity android:name=".ui.BBSDetailActivity"/>
+
         <meta-data
             android:name="CHANNEL_ID"
             android:value="${CHANNEL_ID}"/>

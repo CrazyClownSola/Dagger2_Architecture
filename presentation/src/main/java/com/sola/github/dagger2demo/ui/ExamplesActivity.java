@@ -1,13 +1,15 @@
-package com.sola.github.dagger2demo.ui.params;
+package com.sola.github.dagger2demo.ui;
 
-import com.sola.github.tools.delegate.IRecyclerViewDelegate;
-import com.sola.github.tools.utils.TypeBuilder;
+import android.content.Intent;
 
 /**
  * Created by zhangluji
- * 2016/12/20.
+ * 2017/2/17.
+ *
+ * 用于测试实例的Activity
  */
-public abstract class BaseViewDTO<T> implements IRecyclerViewDelegate {
+public class ExamplesActivity extends RxBaseActivity {
+
     // ===========================================================
     // Constants
     // ===========================================================
@@ -16,35 +18,28 @@ public abstract class BaseViewDTO<T> implements IRecyclerViewDelegate {
     // Fields
     // ===========================================================
 
-    protected T data;
-
     // ===========================================================
     // Constructors
     // ===========================================================
-
-    BaseViewDTO(T data) {
-        this.data = data;
-    }
 
     // ===========================================================
     // Getter & Setter
     // ===========================================================
 
-    public T getData() {
-        return data;
-    }
 
-    public void setData(T data) {
-        this.data = data;
-    }
 
     // ===========================================================
     // Methods for/from SuperClass/Interfaces
     // ===========================================================
 
     @Override
-    public int getViewType(int position) {
-        return TypeBuilder.getInstance().generateId();
+    protected void doAfterView() {
+
+    }
+
+    @Override
+    protected void initExtras(Intent intent) {
+
     }
 
     // ===========================================================

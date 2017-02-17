@@ -3,9 +3,15 @@
 
 
     <style name="STYLE_TOOL_TITLE_TEXT">
-        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textColor">@color/color_default_white</item>
         <item name="android:textSize">14sp</item>
         <item name="android:gravity">center</item>
+    </style>
+
+    <style name="STYLE_TOOL_SUB_TITLE_TEXT">
+        <item name="android:textColor">@color/color_default_white</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:gravity">top</item>
     </style>
 
 </resources>

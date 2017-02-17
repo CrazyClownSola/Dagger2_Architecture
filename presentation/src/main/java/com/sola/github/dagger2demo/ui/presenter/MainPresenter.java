@@ -2,9 +2,10 @@ package com.sola.github.dagger2demo.ui.presenter;
 
 import com.sola.github.dagger2demo.di.scope.ActivityScope;
 import com.sola.github.dagger2demo.ui.params.BBSDataViewDTO;
+import com.sola.github.dagger2demo.ui.params.BaseViewDTO;
+import com.sola.github.domain.ErrorDTO;
 import com.sola.github.domain.interactor.ABBSCase;
 import com.sola.github.params.BBSDataDTO;
-import com.sola.github.tools.delegate.IRecyclerViewClickDelegate;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -48,13 +49,12 @@ public class MainPresenter implements IPresenter {
 
     public void requestMainListData(
             int pageCount, int pageSize,
-            Action1<Collection<IRecyclerViewClickDelegate>> onNext) {
+            Action1<Collection<BaseViewDTO<BBSDataDTO>>> onNext,
+            Action1<ErrorDTO> onError) {
         abbsCase.searchBBSList(
                 pageCount, pageSize,
                 bbsDataDTOs -> onNext.call(transform(bbsDataDTOs)),
-                errorDTO -> {
-
-                });
+                onError);
     }
 
 
@@ -62,8 +62,8 @@ public class MainPresenter implements IPresenter {
     // Methods
     // ===========================================================
 
-    private Collection<IRecyclerViewClickDelegate> transform(Collection<BBSDataDTO> bbsDataDTOs) {
-        Collection<IRecyclerViewClickDelegate> retList = new LinkedList<>();
+    private Collection<BaseViewDTO<BBSDataDTO>> transform(Collection<BBSDataDTO> bbsDataDTOs) {
+        Collection<BaseViewDTO<BBSDataDTO>> retList = new LinkedList<>();
         if (bbsDataDTOs != null) {
             for (BBSDataDTO dto :
                     bbsDataDTOs) {

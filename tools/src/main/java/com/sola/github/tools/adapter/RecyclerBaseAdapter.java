@@ -3,6 +3,7 @@ package com.sola.github.tools.adapter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseIntArray;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.sola.github.tools.delegate.IRecyclerViewDelegate;
@@ -34,6 +35,8 @@ public class RecyclerBaseAdapter<Param extends IRecyclerViewDelegate>
 
     private final WeakReference<Context> mContext;
 
+    private OnRecyclerItemClickListener<Param> listener;
+
     private List<Param> cacheList;
 
     /**
@@ -59,6 +62,10 @@ public class RecyclerBaseAdapter<Param extends IRecyclerViewDelegate>
     // Getter & Setter
     // ===========================================================
 
+    public void setListener(OnRecyclerItemClickListener<Param> listener) {
+        this.listener = listener;
+    }
+
     public List<Param> getCacheList() {
         return cacheList;
     }
@@ -73,17 +80,25 @@ public class RecyclerBaseAdapter<Param extends IRecyclerViewDelegate>
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        // 可以看出这里主要是通过不同的类型在cache的数据当中找到对应的代理
         IRecyclerViewDelegate delegate = getItemByViewType(viewType);
         if (delegate == null)
             return null;
+        // 返回代理中所实现的ViewHolder
         return delegate.getHolder(mContext.get(), parent, viewType);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        // 这里思路和ListView，BindData的思路很像，找到数组中对应position的数据进行数据绑定
         if (position < 0 || position >= cacheList.size())
             return;
-        cacheList.get(position).refreshView(mContext.get(), holder, position);
+        Param item = cacheList.get(position);
+        if (item == null)
+            return;
+        item.refreshView(mContext.get(), holder, position);
+        if (listener != null)
+            holder.itemView.setOnClickListener(v -> listener.onClick(v, item));
     }
 
     @Override
@@ -185,5 +200,9 @@ public class RecyclerBaseAdapter<Param extends IRecyclerViewDelegate>
     // ===========================================================
     // Inner and Anonymous Classes
     // ===========================================================
+
+    public interface OnRecyclerItemClickListener<Param> {
+        void onClick(View v, Param viewDto);
+    }
 
 }

@@ -32,4 +32,7 @@ public interface AppComponent {
     // ===========================================================
 
     void inject(MainApplication application);
+
+//    Navigator provideNavigator();
+
 }

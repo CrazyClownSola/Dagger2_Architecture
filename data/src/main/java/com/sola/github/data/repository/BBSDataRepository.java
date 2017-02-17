@@ -87,6 +87,8 @@ public class BBSDataRepository extends AConnectionRepository implements BBSRepos
     // Methods
     // ===========================================================
 
+    // ------------- 分割线(这里的transform可以考虑使用一个同意的mapper 类去做处理，当然也可以就直接写在这里) --------------
+
     private Collection<BBSDataDTO> transform(List<BBSDataEntity> data) {
         Collection<BBSDataDTO> retList = new LinkedList<>();
         if (data != null && data.size() != 0) {

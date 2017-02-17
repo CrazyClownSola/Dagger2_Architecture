@@ -1,5 +1,8 @@
 package com.sola.github.data.entity;
 
+import com.google.gson.annotations.SerializedName;
+import com.sola.github.tools.utils.StringUtils;
+
 /**
  * Created by zhangluji
  * 2016/12/19.
@@ -14,7 +17,11 @@ public class BaseResultEntity {
     // Fields
     // ===========================================================
 
+    @SerializedName("errorMsg")
     private String message;
+
+    @SerializedName("responseCode")
+    private String code;
 
     // ===========================================================
     // Constructors
@@ -24,12 +31,16 @@ public class BaseResultEntity {
     // Getter & Setter
     // ===========================================================
 
-    public boolean isSuccess(){
-        return true;
+    public boolean isSuccess() {
+        return !StringUtils.isEmpty(code) && code.equalsIgnoreCase("1000");
     }
 
     public String getMessage() {
         return message;
+    }
+
+    public String getCode() {
+        return code;
     }
 
     // ===========================================================

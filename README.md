@@ -1,4 +1,4 @@
-# Dagger2Demo
+# Dagger2-Retrofit-RxJava-Retrolambda
 > 经历过Dagger2，最初2.X的版本到现在2.8的版本迭代，Dagger2越来越受到各方面的关注
 > 这一次迭代的版本，对于SubComponent进行了功能优化，赋予了这个标注应有的意义
 > 这个Demo结合自己做项目的经验，尝试在各种情况下去最大化利用Dagger2进行代码的构建
@@ -337,9 +337,22 @@ public abstract class SubComponentBindingModule {// 这个类的本意是，将�
 
 @MapKey(unwrapValue = false)// 定义这个标注的属性为复数位
 public @interface SubMapKey { // 自定义标注的登场，
-    ESubType type();
+    //ESubType type();
+    int type(); // 鉴于狗哥强烈的建议，这里用一种新的方式去替换原有的枚举，谁让枚举消耗实在太大，不适合
 
     int index();
+}
+
+// 狗哥提倡的是代替枚举的比较好的实现
+@IntDef({TYPE_DB, TYPE_CACHE, TYPE_ACTIVITY})
+@Retention(RetentionPolicy.SOURCE)
+public @interface ESubType {
+
+    int TYPE_DB = 0;
+
+    int TYPE_CACHE = 1;
+
+    int TYPE_ACTIVITY = 2;
 }
 
 // 定义一个接口去量化SubComponent
@@ -569,10 +582,277 @@ public static abstract class Adapter<VH extends ViewHolder>{
 ```
 
 public MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+
+    ...
+    ....
+    .....
+    ......
+
+}
+
+public ListAdapter1 extends  RecyclerView.Adapter<RecyclerView.ViewHolder>{
+
+    ...
+    ....
+    .....
+    ......
+
 }
 
 
 ```
+
+诸如此类，一个界面对应一个Adapter这样的写法，个人还是比较反感去这样实现代码，个人推崇一些更加松耦合一些的代码实现方式。
+缘由这样的想法，结合自己的研究，整合出现在个人常用的一套方式去构架RecyclerView的界面
+
+下面的实现核心思路，对于我所有的界面而言，我的Adapter只有一个，利用自定义接口`IRecyclerViewDelegate`或者`IRecyclerViewClickDelegate`后者是前者的子类
+利用这个接口去通配界面代码的数据结构
+
+核心代码如下
+RecyclerBaseAdapter
+
+```
+
+public class RecyclerBaseAdapter<Param extends IRecyclerViewDelegate>
+        extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    private static final String TAG = "Sola";
+
+    private final WeakReference<Context> mContext;
+
+    private OnRecyclerItemClickListener<Param> listener;
+
+    private List<Param> cacheList;
+
+    /**
+     * viewType 和 ViewHolder之间的关系序列
+     * 由于考量到轻量化的问题，这里并没有以 {viewType : ViewHolder}的方式去做实现
+     * 而是采用 {viewType : position}的方式，这里position表示viewType第一次出现的位置
+     */
+    private SparseIntArray typeRelationship = new SparseIntArray();
+
+    public RecyclerBaseAdapter(
+            Context mContext,
+            Collection<Param> list
+    ) {
+        this.mContext = new WeakReference<>(mContext);
+        refreshList(list);
+    }
+
+
+    public void setListener(OnRecyclerItemClickListener<Param> listener) {
+        this.listener = listener;
+    }
+
+    public List<Param> getCacheList() {
+        return cacheList;
+    }
+
+    public Context getContext() {
+        return mContext.get();
+    }
+
+   @Override
+   public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+       // 可以看出这里主要是通过不同的类型在cache的数据当中找到对应的代理
+       IRecyclerViewDelegate delegate = getItemByViewType(viewType);
+       if (delegate == null)
+           return null;
+       // 返回代理中所实现的ViewHolder
+       return delegate.getHolder(mContext.get(), parent, viewType);
+   }
+
+   @Override
+   public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+       // 这里思路和ListView，BindData的思路很像，找到数组中对应position的数据进行数据绑定
+       if (position < 0 || position >= cacheList.size())
+           return;
+       Param item = cacheList.get(position);
+       if (item == null)
+           return;
+       item.refreshView(mContext.get(), holder, position);
+       if (listener != null)
+           holder.itemView.setOnClickListener(v -> listener.onClick(v, item));
+   }
+
+   @Override
+   public int getItemCount() {
+       return cacheList == null ? 0 : cacheList.size();
+   }
+
+   @Override
+   public int getItemViewType(int position) {
+       if (cacheList == null || cacheList.size() == 0)
+           return -1;
+       else {
+           int viewType = cacheList.get(position).getViewType(position);
+           if (typeRelationship.indexOfKey(viewType) < 0) {
+               // 入口处，注意这里的实现是确保唯一性，只有第一次发现新的ViewType的时候才记录当前位置
+               typeRelationship.put(viewType, position);
+           }
+           return viewType;
+       }
+   }
+
+   ....
+
+}
+
+```
+
+具体的界面实现类
+
+BBSDataViewDTO.java
+```
+
+// 数据和界面的绑定是由继承这个抽象类的实例去实现的
+public abstract class BaseViewDTO<T> implements IRecyclerViewDelegate {
+
+    protected T data; // 界面所需要绑定的数据
+
+    BaseViewDTO(T data) {
+        this.data = data;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
+
+    @Override
+    public int getViewType(int position) {
+        // 为了确保每次的Type唯一，这里用了这种统一生成id的方式
+        return TypeBuilder.getInstance().generateId();
+    }
+
+}
+
+
+public class BBSDataViewDTO extends BaseViewDTO<BBSDataDTO> implements IRecyclerViewDelegate {
+
+    public BBSDataViewDTO(BBSDataDTO data) {
+        super(data);
+    }
+
+    @Override
+    public RecyclerView.ViewHolder getHolder(Context context, ViewGroup parent, int viewType) {
+        // 界面的初始化
+        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.xxx, parent, false));
+    }
+
+    @Override
+    public void refreshView(Context context, RecyclerView.ViewHolder holder, int position) {
+        if (data == null)
+            return; // 这样做会在界面复用的时候有一些问题
+        ViewHolder viewHolder = (ViewHolder) holder;
+
+        // 界面控件和数据进行绑定
+    }
+
+    private class ViewHolder extends RecyclerView.ViewHolder {
+
+
+        TextView ....;
+
+        ViewHolder(View itemView) {
+            super(itemView);
+            // 这里不用BindView的原因在于，BindView的使用需要public这个ViewHolder，这样会有一个警告，看上去不爽
+            // 控件的初始化
+        }
+    }
+
+}
+
+```
+
+调用的地方
+MainActivity
+```
+
+public class MainActivity extends RxBaseActivity {
+
+    @BindView(R.id.id_recycler_view)
+    RecyclerView id_recycler_view;
+
+    // RecyclerView的适配器
+    RecyclerBaseAdapter<BaseViewDTO<BBSDataDTO>> adapter;
+
+    @Override
+    protected void doAfterView() {
+        ...
+        ...
+        // RecyclerView 的基础配置代码
+        id_recycler_view.setLayoutManager(new LinearLayoutManager(getContext()));
+        id_recycler_view.setItemAnimator(new DefaultItemAnimator());
+        id_recycler_view.addItemDecoration(new LinearDecoration(
+                getContext(),
+                LinearDecoration.VERTICAL_LIST).setMargins(
+                DensityUtil.dip2px(getContext(), 50), 0,
+                DensityUtil.dip2px(getContext(), 10), 0));
+
+        adapter = new RecyclerBaseAdapter<>(getContext(), null);// 这里可以大胆的在初始化的时候数据给空，并不影响界面
+        id_recycler_view.setAdapter(adapter);
+
+        ...
+        ...
+    }
+
+
+    private void requestData() {
+        mainPresenter.requestMainListData(1, 20,
+                viewDTOs -> // 这是请求数据返回的结果
+                        adapter.refreshList(viewDTOs), // 这一行代码是具体的adapter数据绑定的入口
+                errorDTO -> Toast.makeText(
+                        getContext(), errorDTO.getErrorMessage(), Toast.LENGTH_SHORT).show());
+    }
+
+}
+
+```
+
+MainPresenter.java
+```
+
+@ActivityScope
+public class MainPresenter implements IPresenter {
+
+    private final ABBSCase abbsCase;
+
+    @Inject
+    MainPresenter(ABBSCase abbsCase) {
+        this.abbsCase = abbsCase;
+    }
+
+    public void requestMainListData(
+            int pageCount, int pageSize,
+            Action1<Collection<BaseViewDTO<BBSDataDTO>>> onNext,
+            Action1<ErrorDTO> onError) {
+        abbsCase.searchBBSList(
+                pageCount, pageSize,
+                bbsDataDTOs -> onNext.call(transform(bbsDataDTOs)),
+                onError);
+    }
+
+    private Collection<BaseViewDTO<BBSDataDTO>> transform(Collection<BBSDataDTO> bbsDataDTOs) {
+        Collection<BaseViewDTO<BBSDataDTO>> retList = new LinkedList<>();
+        if (bbsDataDTOs != null) {
+            for (BBSDataDTO dto :
+                    bbsDataDTOs) {
+            // 核心代码是这段，这里是在list数组中插入了BBSDataViewDTO的数据集合,配合MainActivity中的adapter.refreshList(viewDTOs)，界面刷新完成
+                retList.add(new BBSDataViewDTO(dto));
+            }
+        }
+        return retList;
+    }
+
+}
+
+```
+
+以上是我个人惯用的RecyclerView的构建方式，仅供参考
 
 
 

@@ -13,6 +13,7 @@ import dagger.multibindings.IntoMap;
 /**
  * Created by slove
  * 2016/12/14.
+ * 作为Component组件绑定关系用的Module
  */
 @Module(
         subcomponents = {
@@ -46,21 +47,18 @@ public abstract class SubComponentBindingModule {
 //    @Provides
     @Binds
     @SubMapKey(type = ESubType.TYPE_DB, index = 1)
-    // 其实暂且没想到更好的 区分方式 用Enum?
     abstract SubComponentBuilder dataBaseComponentBuilder(DataBaseComponent.Builder impl);
 
     @IntoMap // 将这个实例绑定到 MainApplication所持有的实例Map中去
 //    @Provides
     @Binds
     @SubMapKey(type = ESubType.TYPE_ACTIVITY, index = 1)
-    // 其实暂且没想到更好的 区分方式 用Enum?
     abstract SubComponentBuilder testActivityComponentBuilder(TestActivityComponent.Builder impl);
 
     @IntoMap // 将这个实例绑定到 MainApplication所持有的实例Map中去
 //    @Provides
     @Binds
     @SubMapKey(type = ESubType.TYPE_ACTIVITY, index = 2)
-    // 其实暂且没想到更好的 区分方式 用Enum?
     abstract SubComponentBuilder mainActivityComponentBuilder(MainActivityComponent.Builder impl);
 
     // ===========================================================

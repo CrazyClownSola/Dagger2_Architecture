@@ -1,13 +1,11 @@
-package com.sola.github.dagger2demo.ui.params;
-
-import com.sola.github.tools.delegate.IRecyclerViewDelegate;
-import com.sola.github.tools.utils.TypeBuilder;
+package com.sola.github.dagger2demo.di.subs;
 
 /**
  * Created by zhangluji
- * 2016/12/20.
+ * 2017/2/17.
+ * todo 复合向跳转的组件，主要测试方向，对应一个需求点，需要跳转多个Activity的组件化，特点这些Activity 公用同一个Case逻辑系列
  */
-public abstract class BaseViewDTO<T> implements IRecyclerViewDelegate {
+public class CompoundJumpActivityComponent {
     // ===========================================================
     // Constants
     // ===========================================================
@@ -16,36 +14,17 @@ public abstract class BaseViewDTO<T> implements IRecyclerViewDelegate {
     // Fields
     // ===========================================================
 
-    protected T data;
-
     // ===========================================================
     // Constructors
     // ===========================================================
-
-    BaseViewDTO(T data) {
-        this.data = data;
-    }
 
     // ===========================================================
     // Getter & Setter
     // ===========================================================
 
-    public T getData() {
-        return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
-    }
-
     // ===========================================================
     // Methods for/from SuperClass/Interfaces
     // ===========================================================
-
-    @Override
-    public int getViewType(int position) {
-        return TypeBuilder.getInstance().generateId();
-    }
 
     // ===========================================================
     // Methods

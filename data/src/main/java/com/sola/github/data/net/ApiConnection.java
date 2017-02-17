@@ -21,6 +21,7 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
@@ -38,6 +39,7 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
  * 2016/12/19.
  */
 @SuppressWarnings("unused")
+@Singleton
 public class ApiConnection {
     // ===========================================================
     // Constants

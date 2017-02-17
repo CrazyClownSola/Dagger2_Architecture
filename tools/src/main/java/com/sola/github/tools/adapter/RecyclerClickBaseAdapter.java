@@ -34,6 +34,12 @@ public class RecyclerClickBaseAdapter<Param extends IRecyclerViewClickDelegate>
     // Getter & Setter
     // ===========================================================
 
+    @Override
+    public void setListener(OnRecyclerItemClickListener<Param> listener) {
+        // 注意这里不去实现 listener 的赋值，意在控制itemListener在Param当中去实现，而不是提供公有出listener
+        // 其实这几实现super方法也行
+    }
+
     // ===========================================================
     // Methods for/from SuperClass/Interfaces
     // ===========================================================

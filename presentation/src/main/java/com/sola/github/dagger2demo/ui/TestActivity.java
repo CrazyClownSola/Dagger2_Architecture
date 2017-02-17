@@ -1,5 +1,6 @@
 package com.sola.github.dagger2demo.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.TextView;
@@ -71,19 +72,25 @@ public class TestActivity extends RxBaseActivity {
 
     @Override
     protected void doAfterView() {
-        // 这里采用显示调用
-        TestPresenter presenter = ((TestActivityComponent.Builder)
-                ((HasSubComponentBuilders) getApplication())
-                        .getSubComponentBuild(ESubType.TYPE_ACTIVITY, 1))
-                .moduleBuild(new TestActivityComponent.TestActivityModule(this))
-                .build()
-                .getMainPresenter();
         if (getApplication() instanceof HasSubComponentBuilders) {
+            // 这里采用显示调用
+            TestPresenter presenter = ((TestActivityComponent.Builder)
+                    ((HasSubComponentBuilders) getApplication())
+                            .getSubComponentBuild(ESubType.TYPE_ACTIVITY, 1))
+                    .moduleBuild(new TestActivityComponent.TestActivityModule(this))
+                    .build()
+                    .getMainPresenter();
+
             String text = presenter.utilInit();
             id_text_title.setText(text);
             text = presenter.subInit();
             id_text_second.setText(text);
         }
+    }
+
+    @Override
+    protected void initExtras(Intent intent) {
+
     }
 
     // ===========================================================
