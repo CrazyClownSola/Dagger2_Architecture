@@ -1,8 +1,8 @@
 package com.sola.github.data.exception;
 
 
-import com.sola.github.domain.ErrorDTO;
-import com.sola.github.domain.ErrorDelegate;
+import com.sola.github.domain.exception.ErrorDTO;
+import com.sola.github.domain.exception.ErrorDelegate;
 import com.sola.github.tools.utils.LogUtils;
 
 import java.io.IOException;

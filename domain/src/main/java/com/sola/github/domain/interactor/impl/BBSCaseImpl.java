@@ -1,13 +1,13 @@
 package com.sola.github.domain.interactor.impl;
 
-import com.sola.github.domain.ErrorDTO;
-import com.sola.github.domain.ErrorDelegate;
-import com.sola.github.domain.NetExecutorThread;
-import com.sola.github.domain.UIExecutorThread;
+import com.sola.github.domain.exception.ErrorDTO;
+import com.sola.github.domain.exception.ErrorDelegate;
+import com.sola.github.domain.executor.NetExecutorThread;
+import com.sola.github.domain.executor.UIExecutorThread;
 import com.sola.github.domain.interactor.ABBSCase;
-import com.sola.github.params.BBSDataDTO;
-import com.sola.github.params.BBSPostsMainReplyDTO;
-import com.sola.github.repository.BBSRepository;
+import com.sola.github.domain.params.params.bbs.BBSDataDTO;
+import com.sola.github.domain.params.params.bbs.BBSPostsMainReplyDTO;
+import com.sola.github.domain.repository.repository.BBSRepository;
 
 import java.util.Collection;
 import java.util.List;

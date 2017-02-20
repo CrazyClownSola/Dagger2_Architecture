@@ -1,23 +1,23 @@
-package com.sola.github.domain.interactor;
+package com.sola.github.domain.cases.impl;
 
+import com.sola.github.domain.cases.AUserCenterCase;
 import com.sola.github.domain.exception.ErrorDTO;
 import com.sola.github.domain.exception.ErrorDelegate;
 import com.sola.github.domain.executor.NetExecutorThread;
 import com.sola.github.domain.executor.UIExecutorThread;
-import com.sola.github.domain.params.params.bbs.BBSDataDTO;
-import com.sola.github.domain.params.params.bbs.BBSPostsMainReplyDTO;
+import com.sola.github.domain.params.params.uc.UserInfoDTO;
+import com.sola.github.domain.repository.repository.UserCenterRepository;
 
-import java.util.Collection;
-import java.util.List;
+import javax.inject.Inject;
 
 import rx.functions.Action1;
 
 /**
- * Created by slove
- * 2016/12/19.
- * BBS业务模型
+ * Created by zhangluji
+ * 2017/2/20.
+ * Case的实现可以通过很多种方式去做
  */
-public abstract class ABBSCase extends ABaseConnectionCase {
+public class UserCenterCaseImpl extends AUserCenterCase {
 
     // ===========================================================
     // Constants
@@ -27,15 +27,21 @@ public abstract class ABBSCase extends ABaseConnectionCase {
     // Fields
     // ===========================================================
 
+    private final UserCenterRepository userCenterRepository;
+
     // ===========================================================
     // Constructors
     // ===========================================================
 
-    protected ABBSCase(
+    @Inject
+    UserCenterCaseImpl(
             NetExecutorThread threadExecutor,
-            UIExecutorThread uiExecutor,
-            ErrorDelegate errorDelegate) {
-        super(threadExecutor, uiExecutor, errorDelegate);
+            UIExecutorThread postExecutionThread,
+            ErrorDelegate errorPresenter,
+            UserCenterRepository userCenterRepository) {
+        super(threadExecutor, postExecutionThread, errorPresenter);
+        this.userCenterRepository = userCenterRepository;
+
     }
 
     // ===========================================================
@@ -46,10 +52,10 @@ public abstract class ABBSCase extends ABaseConnectionCase {
     // Methods for/from SuperClass/Interfaces
     // ===========================================================
 
-    public abstract void searchBBSList(int pageCount, int pageSize, Action1<Collection<BBSDataDTO>> onNext, Action1<ErrorDTO> onError);
-
-    public abstract void getPostsReplyList(
-            int postsId, Action1<List<BBSPostsMainReplyDTO>> onNext, Action1<ErrorDTO> onError);
+    @Override
+    public void requestUserInfo(String userId, Action1<UserInfoDTO> onNext, Action1<ErrorDTO> onError) {
+        execute(userCenterRepository.requestUserInfo(userId), onNext, getErrorAction(onError));
+    }
 
     // ===========================================================
     // Methods

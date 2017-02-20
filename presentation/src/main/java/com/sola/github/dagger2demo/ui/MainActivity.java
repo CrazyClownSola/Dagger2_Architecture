@@ -11,7 +11,7 @@ import android.view.MotionEvent;
 import android.widget.Toast;
 
 import com.sola.github.dagger2demo.R;
-import com.sola.github.dagger2demo.di.activity.MainActivityComponent;
+import com.sola.github.dagger2demo.di.subs.MainActivityComponent;
 import com.sola.github.dagger2demo.di.base.HasSubComponentBuilders;
 import com.sola.github.dagger2demo.enums.ESubType;
 import com.sola.github.dagger2demo.navigator.BundleFactory;
@@ -20,7 +20,7 @@ import com.sola.github.dagger2demo.ui.params.BaseViewDTO;
 import com.sola.github.dagger2demo.ui.presenter.MainPresenter;
 import com.sola.github.dagger2demo.utils.DensityUtil;
 import com.sola.github.dagger2demo.utils.LinearDecoration;
-import com.sola.github.params.BBSDataDTO;
+import com.sola.github.domain.params.params.bbs.BBSDataDTO;
 import com.sola.github.tools.adapter.RecyclerBaseAdapter;
 
 import javax.inject.Inject;

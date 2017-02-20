@@ -1,13 +1,16 @@
-package com.sola.github.domain;
+package com.sola.github.data.repository;
 
-import java.io.Serializable;
+import com.sola.github.domain.params.params.uc.UserInfoDTO;
+import com.sola.github.domain.repository.repository.UserCenterRepository;
+
+import rx.Observable;
 
 /**
- * Created by slove
- * 2016/12/19.
- * 通配的一个Error处理数据结构
+ * Created by zhangluji
+ * 2017/2/20.
  */
-public class ErrorDTO implements Serializable {
+public class UserCenterDataRepository implements UserCenterRepository {
+
     // ===========================================================
     // Constants
     // ===========================================================
@@ -15,11 +18,6 @@ public class ErrorDTO implements Serializable {
     // ===========================================================
     // Fields
     // ===========================================================
-
-    private String errorMessage;
-
-    private String timestamp;
-
 
     // ===========================================================
     // Constructors
@@ -29,25 +27,15 @@ public class ErrorDTO implements Serializable {
     // Getter & Setter
     // ===========================================================
 
-    public String getErrorMessage() {
-        return errorMessage;
-    }
-
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
-    }
-
-    public String getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
-    }
-
     // ===========================================================
     // Methods for/from SuperClass/Interfaces
     // ===========================================================
+
+    @Override
+    public Observable<UserInfoDTO> requestUserInfo(String userId) {
+        // 网络请求
+        return null;
+    }
 
     // ===========================================================
     // Methods

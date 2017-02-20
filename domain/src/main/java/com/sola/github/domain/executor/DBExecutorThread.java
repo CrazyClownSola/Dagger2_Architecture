@@ -1,14 +1,15 @@
-package com.sola.github.domain;
+package com.sola.github.domain.executor;
 
-import rx.functions.Action0;
-import rx.functions.Action1;
+import java.util.concurrent.Executor;
+
+import rx.Scheduler;
 
 /**
- * Created by slove
- * 2016/12/19.
+ * Created by zhangluji
+ * 2017/2/20.
+ * 数据库线程队列
  */
-@SuppressWarnings("unused")
-public interface ErrorDelegate {
+public interface DBExecutorThread extends Executor {
     // ===========================================================
     // Constants
     // ===========================================================
@@ -21,10 +22,5 @@ public interface ErrorDelegate {
     // Methods
     // ===========================================================
 
-    Action1<Throwable> onError();
-
-    Action1<Throwable> onError(Action0 func);
-
-    Action1<Throwable> onError(Action1<ErrorDTO> func);
-
+    Scheduler getScheduler();
 }

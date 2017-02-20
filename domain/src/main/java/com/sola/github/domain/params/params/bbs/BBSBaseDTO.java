@@ -1,12 +1,11 @@
-package com.sola.github.params;
+package com.sola.github.domain.params.params.bbs;
 
 /**
  * Created by zhangluji
- * 2016/12/21.
- * 回复的回复，对于某个评论的单独回复数据
+ * 2016/12/19.
  */
 @SuppressWarnings("unused")
-public class BBSPostsSingleReplyDTO extends BBSPostsBaseDTO {
+class BBSBaseDTO {
     // ===========================================================
     // Constants
     // ===========================================================
@@ -15,9 +14,27 @@ public class BBSPostsSingleReplyDTO extends BBSPostsBaseDTO {
     // Fields
     // ===========================================================
 
-    private String replyUserId;
+    private int id;
 
-    private String replyUserName;
+    /**
+     * 对应服务Id
+     */
+    private String serviceId;
+
+    /**
+     * 标题
+     */
+    private String title;
+
+    /**
+     * 显示时间
+     */
+    private String displayTime;
+
+    /**
+     * 内容
+     */
+    private String content;
 
     // ===========================================================
     // Constructors
@@ -27,20 +44,44 @@ public class BBSPostsSingleReplyDTO extends BBSPostsBaseDTO {
     // Getter & Setter
     // ===========================================================
 
-    public String getReplyUserId() {
-        return replyUserId;
+    public int getId() {
+        return id;
     }
 
-    public void setReplyUserId(String replyUserId) {
-        this.replyUserId = replyUserId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getReplyUserName() {
-        return replyUserName;
+    public String getServiceId() {
+        return serviceId;
     }
 
-    public void setReplyUserName(String replyUserName) {
-        this.replyUserName = replyUserName;
+    public void setServiceId(String serviceId) {
+        this.serviceId = serviceId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getDisplayTime() {
+        return displayTime;
+    }
+
+    public void setDisplayTime(String displayTime) {
+        this.displayTime = displayTime;
     }
 
     // ===========================================================

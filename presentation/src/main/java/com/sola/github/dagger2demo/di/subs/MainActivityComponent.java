@@ -1,4 +1,4 @@
-package com.sola.github.dagger2demo.di.activity;
+package com.sola.github.dagger2demo.di.subs;
 
 import android.util.Log;
 

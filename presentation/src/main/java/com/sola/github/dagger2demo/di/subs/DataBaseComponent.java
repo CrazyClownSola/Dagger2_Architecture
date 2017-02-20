@@ -45,6 +45,6 @@ public interface DataBaseComponent {
         }
     }
 
-    void testConnect();
+//    void testConnect();
 
 }

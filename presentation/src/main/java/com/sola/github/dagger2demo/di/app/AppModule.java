@@ -7,12 +7,14 @@ import com.sola.github.dagger2demo.executor.NetExecutor;
 import com.sola.github.dagger2demo.executor.UIThread;
 import com.sola.github.data.exception.ErrorDelegateImpl;
 import com.sola.github.data.repository.BBSDataRepository;
-import com.sola.github.domain.ErrorDelegate;
-import com.sola.github.domain.NetExecutorThread;
-import com.sola.github.domain.UIExecutorThread;
+import com.sola.github.data.repository.demo.UserCenterDataDemoRepository;
+import com.sola.github.domain.exception.ErrorDelegate;
+import com.sola.github.domain.executor.NetExecutorThread;
+import com.sola.github.domain.executor.UIExecutorThread;
 import com.sola.github.domain.interactor.ABBSCase;
 import com.sola.github.domain.interactor.impl.BBSCaseImpl;
-import com.sola.github.repository.BBSRepository;
+import com.sola.github.domain.repository.repository.BBSRepository;
+import com.sola.github.domain.repository.repository.UserCenterRepository;
 
 import java.lang.ref.WeakReference;
 
@@ -37,8 +39,6 @@ public class AppModule {
     // ===========================================================
 
     private final WeakReference<Application> mApplication;
-
-//    private Navigator na
 
     // ===========================================================
     // Constructors
@@ -93,6 +93,12 @@ public class AppModule {
     @Provides
     @Singleton
     BBSRepository provideBBSRepository(BBSDataRepository repository) {
+        return repository;
+    }
+
+    @Provides
+    @Singleton
+    UserCenterRepository provideUserCenterRepository(UserCenterDataDemoRepository repository) {
         return repository;
     }
 

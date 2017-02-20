@@ -1,12 +1,14 @@
-package com.sola.github.domain;
+package com.sola.github.domain.repository.repository;
 
-import rx.Scheduler;
+import com.sola.github.domain.params.params.uc.UserInfoDTO;
+
+import rx.Observable;
 
 /**
- * Created by slove
- * 2016/12/19.
+ * Created by zhangluji
+ * 2017/2/20.
  */
-public interface UIExecutorThread {
+public interface UserCenterRepository {
     // ===========================================================
     // Constants
     // ===========================================================
@@ -19,6 +21,6 @@ public interface UIExecutorThread {
     // Methods
     // ===========================================================
 
-    Scheduler getScheduler();
+    Observable<UserInfoDTO> requestUserInfo(String userId);
 
 }

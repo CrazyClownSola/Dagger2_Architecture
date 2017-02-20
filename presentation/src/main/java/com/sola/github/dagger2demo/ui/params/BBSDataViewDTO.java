@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sola.github.dagger2demo.R;
-import com.sola.github.params.BBSDataDTO;
+import com.sola.github.domain.params.params.bbs.BBSDataDTO;
 import com.sola.github.tools.delegate.IRecyclerViewDelegate;
 import com.sola.github.tools.utils.StringUtils;
 import com.squareup.picasso.Picasso;

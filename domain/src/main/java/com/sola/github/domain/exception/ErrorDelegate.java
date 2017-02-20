@@ -1,14 +1,14 @@
-package com.sola.github.domain;
+package com.sola.github.domain.exception;
 
-import java.util.concurrent.Executor;
-
-import rx.Scheduler;
+import rx.functions.Action0;
+import rx.functions.Action1;
 
 /**
  * Created by slove
  * 2016/12/19.
  */
-public interface NetExecutorThread extends Executor {
+@SuppressWarnings("unused")
+public interface ErrorDelegate {
     // ===========================================================
     // Constants
     // ===========================================================
@@ -21,6 +21,10 @@ public interface NetExecutorThread extends Executor {
     // Methods
     // ===========================================================
 
-    Scheduler getScheduler();
+    Action1<Throwable> onError();
+
+    Action1<Throwable> onError(Action0 func);
+
+    Action1<Throwable> onError(Action1<ErrorDTO> func);
 
 }

@@ -1,7 +1,7 @@
-package com.sola.github.repository;
+package com.sola.github.domain.repository.repository;
 
-import com.sola.github.params.BBSDataDTO;
-import com.sola.github.params.BBSPostsMainReplyDTO;
+import com.sola.github.domain.params.params.bbs.BBSDataDTO;
+import com.sola.github.domain.params.params.bbs.BBSPostsMainReplyDTO;
 
 import java.util.Collection;
 

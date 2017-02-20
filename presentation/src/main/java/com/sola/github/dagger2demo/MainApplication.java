@@ -2,7 +2,7 @@ package com.sola.github.dagger2demo;
 
 import android.app.Application;
 
-import com.sola.github.dagger2demo.di.activity.MainActivityComponent;
+import com.sola.github.dagger2demo.di.subs.MainActivityComponent;
 import com.sola.github.dagger2demo.di.app.AppComponent;
 import com.sola.github.dagger2demo.di.app.AppModule;
 import com.sola.github.dagger2demo.di.app.DaggerAppComponent;

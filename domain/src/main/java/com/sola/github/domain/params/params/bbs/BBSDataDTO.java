@@ -1,4 +1,4 @@
-package com.sola.github.params;
+package com.sola.github.domain.params.params.bbs;
 
 import java.io.Serializable;
 

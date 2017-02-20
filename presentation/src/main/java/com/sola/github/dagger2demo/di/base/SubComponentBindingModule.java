@@ -1,7 +1,8 @@
 package com.sola.github.dagger2demo.di.base;
 
-import com.sola.github.dagger2demo.di.activity.MainActivityComponent;
+import com.sola.github.dagger2demo.di.subs.MainActivityComponent;
 import com.sola.github.dagger2demo.di.scope.SubMapKey;
+import com.sola.github.dagger2demo.di.subs.CompoundJumpActivityComponent;
 import com.sola.github.dagger2demo.di.subs.DataBaseComponent;
 import com.sola.github.dagger2demo.di.subs.TestActivityComponent;
 import com.sola.github.dagger2demo.enums.ESubType;
@@ -19,9 +20,11 @@ import dagger.multibindings.IntoMap;
         subcomponents = {
                 TestActivityComponent.class,
                 DataBaseComponent.class,
-                MainActivityComponent.class
+                MainActivityComponent.class,
+                CompoundJumpActivityComponent.class
         }
 )
+@SuppressWarnings("unused")
 public abstract class SubComponentBindingModule {
     // ===========================================================
     // Constants
@@ -44,22 +47,24 @@ public abstract class SubComponentBindingModule {
     // ===========================================================
 
     @IntoMap // 将这个实例绑定到 MainApplication所持有的实例Map中去
-//    @Provides
     @Binds
     @SubMapKey(type = ESubType.TYPE_DB, index = 1)
-    abstract SubComponentBuilder dataBaseComponentBuilder(DataBaseComponent.Builder impl);
+    abstract SubComponentBuilder dataBaseComponentBuilder(DataBaseComponent.Builder builder);
 
     @IntoMap // 将这个实例绑定到 MainApplication所持有的实例Map中去
-//    @Provides
     @Binds
     @SubMapKey(type = ESubType.TYPE_ACTIVITY, index = 1)
-    abstract SubComponentBuilder testActivityComponentBuilder(TestActivityComponent.Builder impl);
+    abstract SubComponentBuilder testActivityComponentBuilder(TestActivityComponent.Builder builder);
 
     @IntoMap // 将这个实例绑定到 MainApplication所持有的实例Map中去
-//    @Provides
     @Binds
     @SubMapKey(type = ESubType.TYPE_ACTIVITY, index = 2)
-    abstract SubComponentBuilder mainActivityComponentBuilder(MainActivityComponent.Builder impl);
+    abstract SubComponentBuilder mainActivityComponentBuilder(MainActivityComponent.Builder builder);
+
+    @IntoMap
+    @Binds
+    @SubMapKey(type = ESubType.TYPE_ACTIVITY, index = 3)
+    abstract SubComponentBuilder compoundJumpComponentBuilder(CompoundJumpActivityComponent.Builder builder);
 
     // ===========================================================
     // Methods

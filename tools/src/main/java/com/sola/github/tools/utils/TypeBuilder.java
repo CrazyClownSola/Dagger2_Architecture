@@ -1,9 +1,12 @@
 package com.sola.github.tools.utils;
 
+import java.util.Random;
+
 /**
  * Created by zhangluji
  * 2016/12/21.
  */
+@SuppressWarnings("unused")
 public class TypeBuilder {
     // ===========================================================
     // Constants
@@ -19,12 +22,15 @@ public class TypeBuilder {
 
     private static TypeBuilder instance;
 
+    private final Random random;
+
     // ===========================================================
     // Constructors
     // ===========================================================
 
     private TypeBuilder() {
         cacheType = DEFAULT_INIT_TYPE;
+        random = new Random();
     }
 
     // ===========================================================
@@ -45,6 +51,19 @@ public class TypeBuilder {
         return ++cacheType;
     }
 
+    /**
+     * @return 生成随机ID
+     */
+    public int generateRanId() {
+        return random.nextInt();
+    }
+
+    /**
+     * @return 生成随机ID
+     */
+    public int generateRanId(int n) {
+        return random.nextInt(n);
+    }
     // ===========================================================
     // Methods
     // ===========================================================

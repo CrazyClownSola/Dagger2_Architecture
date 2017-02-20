@@ -1,11 +1,19 @@
-package com.sola.github.params;
+package com.sola.github.data.repository.demo;
+
+import com.sola.github.domain.params.params.uc.UserInfoDTO;
+import com.sola.github.domain.repository.repository.UserCenterRepository;
+import com.sola.github.tools.utils.TypeBuilder;
+
+import javax.inject.Inject;
+
+import rx.Observable;
 
 /**
  * Created by zhangluji
- * 2016/12/19.
+ * 2017/2/20.
  */
-@SuppressWarnings("unused")
-class BBSBaseDTO {
+public class UserCenterDataDemoRepository implements UserCenterRepository {
+
     // ===========================================================
     // Constants
     // ===========================================================
@@ -14,83 +22,41 @@ class BBSBaseDTO {
     // Fields
     // ===========================================================
 
-    private int id;
-
-    /**
-     * 对应服务Id
-     */
-    private String serviceId;
-
-    /**
-     * 标题
-     */
-    private String title;
-
-    /**
-     * 显示时间
-     */
-    private String displayTime;
-
-    /**
-     * 内容
-     */
-    private String content;
-
     // ===========================================================
     // Constructors
     // ===========================================================
+
+    @Inject
+    UserCenterDataDemoRepository() {
+    }
 
     // ===========================================================
     // Getter & Setter
     // ===========================================================
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getServiceId() {
-        return serviceId;
-    }
-
-    public void setServiceId(String serviceId) {
-        this.serviceId = serviceId;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getDisplayTime() {
-        return displayTime;
-    }
-
-    public void setDisplayTime(String displayTime) {
-        this.displayTime = displayTime;
-    }
-
     // ===========================================================
     // Methods for/from SuperClass/Interfaces
     // ===========================================================
 
+    @Override
+    public Observable<UserInfoDTO> requestUserInfo(String userId) {
+        return Observable.just(buildUserData()); // 测试用，这里直接返回测试build数据
+    }
+
     // ===========================================================
     // Methods
     // ===========================================================
+
+    private UserInfoDTO buildUserData() {
+        UserInfoDTO retDto = new UserInfoDTO();
+        retDto.setId(TypeBuilder.getInstance().generateRanId());
+        retDto.setName("测试人名");
+        retDto.setAge(TypeBuilder.getInstance().generateRanId(100));
+        retDto.setMobile("1111111111");
+        retDto.setGender("N");
+        retDto.setUserId("000x");
+        return retDto;
+    }
 
     // ===========================================================
     // Inner and Anonymous Classes

@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sola.github.dagger2demo.R;
-import com.sola.github.params.BBSPostsMainReplyDTO;
+import com.sola.github.domain.params.params.bbs.BBSPostsMainReplyDTO;
 import com.sola.github.tools.delegate.IRecyclerViewClickDelegate;
 import com.sola.github.tools.utils.TypeBuilder;
 
@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
  * 帖子的回复数据结构
  */
 @SuppressWarnings("unused")
-public class BBSPostsReplyViewDTO extends BaseViewDTO<BBSPostsMainReplyDTO> implements IRecyclerViewClickDelegate {
+class BBSPostsReplyViewDTO extends BaseViewDTO<BBSPostsMainReplyDTO> implements IRecyclerViewClickDelegate {
 
     // ===========================================================
     // Constants
@@ -97,7 +97,7 @@ public class BBSPostsReplyViewDTO extends BaseViewDTO<BBSPostsMainReplyDTO> impl
     // Inner and Anonymous Classes
     // ===========================================================
 
-    public class ExpendViewHolder extends ViewHolder {
+    class ExpendViewHolder extends ViewHolder {
 
         @BindView(R.id.id_btn_quick_reply)
         TextView id_btn_quick_reply;

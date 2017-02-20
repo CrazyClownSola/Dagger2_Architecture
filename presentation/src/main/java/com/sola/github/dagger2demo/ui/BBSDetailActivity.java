@@ -10,7 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import com.sola.github.dagger2demo.R;
 import com.sola.github.dagger2demo.ui.params.BaseViewDTO;
 import com.sola.github.dagger2demo.utils.LinearDecoration;
-import com.sola.github.params.BBSDataDTO;
+import com.sola.github.domain.params.params.bbs.BBSDataDTO;
 import com.sola.github.tools.adapter.RecyclerBaseAdapter;
 
 import butterknife.BindView;

@@ -5,10 +5,10 @@ import com.sola.github.data.entity.net.BBSPostsEntity;
 import com.sola.github.data.entity.net.BBSPostsReplyEntity;
 import com.sola.github.data.net.ApiConnection;
 import com.sola.github.data.net.BBSService;
-import com.sola.github.params.BBSDataDTO;
-import com.sola.github.params.BBSPostsMainReplyDTO;
-import com.sola.github.params.BBSPostsSingleReplyDTO;
-import com.sola.github.repository.BBSRepository;
+import com.sola.github.domain.params.params.bbs.BBSDataDTO;
+import com.sola.github.domain.params.params.bbs.BBSPostsMainReplyDTO;
+import com.sola.github.domain.params.params.bbs.BBSPostsSingleReplyDTO;
+import com.sola.github.domain.repository.repository.BBSRepository;
 
 import java.util.Collection;
 import java.util.HashMap;

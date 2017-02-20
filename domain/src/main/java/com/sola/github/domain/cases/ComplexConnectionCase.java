@@ -1,5 +1,4 @@
-package com.sola.github.domain.interactor;
-
+package com.sola.github.domain.cases;
 
 import com.sola.github.domain.exception.ErrorDTO;
 import com.sola.github.domain.exception.ErrorDelegate;
@@ -22,11 +21,11 @@ import rx.schedulers.Schedulers;
 import rx.subscriptions.Subscriptions;
 
 /**
- * Created by slove
- * 2016/12/19.
+ * author: Sola
+ * 2016/1/8
  */
 @SuppressWarnings("unused")
-abstract class ABaseConnectionCase {
+abstract class ComplexConnectionCase {
     // ===========================================================
     // Constants
     // ===========================================================
@@ -37,9 +36,9 @@ abstract class ABaseConnectionCase {
 
     private final Executor threadExecutor;
 
-    private final UIExecutorThread uiExecutor;
+    private final UIExecutorThread uiExecutorThread;
 
-    private final ErrorDelegate errorDelegate;
+    private final ErrorDelegate errorPresenter;
 
     private Subscription subscription = Subscriptions.empty();
 
@@ -47,27 +46,39 @@ abstract class ABaseConnectionCase {
     // Constructors
     // ===========================================================
 
-    ABaseConnectionCase(Executor threadExecutor, UIExecutorThread uiExecutor, ErrorDelegate errorDelegate) {
+    ComplexConnectionCase(
+            Executor threadExecutor,
+            UIExecutorThread postExecutionThread,
+            ErrorDelegate errorPresenter
+    ) {
         this.threadExecutor = threadExecutor;
-        this.uiExecutor = uiExecutor;
-        this.errorDelegate = errorDelegate;
+        this.uiExecutorThread = postExecutionThread;
+        this.errorPresenter = errorPresenter;
     }
 
     // ===========================================================
     // Getter & Setter
     // ===========================================================
 
-    public UIExecutorThread getUiExecutor() {
-        return uiExecutor;
+    protected UIExecutorThread getUiExecutorThread() {
+        return uiExecutorThread;
     }
 
-    public Executor getThreadExecutor() {
+    protected Executor getThreadExecutor() {
         return threadExecutor;
     }
 
     // ===========================================================
     // Methods for/from SuperClass/Interfaces
     // ===========================================================
+
+    // ===========================================================
+    // Methods
+    // ===========================================================
+
+    protected Action1<Throwable> getErrorAction(Action1<ErrorDTO> onError) {
+        return onError == null ? errorPresenter.onError() : errorPresenter.onError(onError);
+    }
 
     /**
      * 提交请求
@@ -81,8 +92,8 @@ abstract class ABaseConnectionCase {
                                Action1<Throwable> onError) {
         observable
                 .subscribeOn(Schedulers.from(threadExecutor))
-                .observeOn(uiExecutor.getScheduler())
-                .subscribe(onNext, onError == null ? errorDelegate.onError() : onError);
+                .observeOn(uiExecutorThread.getScheduler())
+                .subscribe(onNext, onError == null ? errorPresenter.onError() : onError);
     }
 
     protected <T> Subscription executeRtn(Observable<T> observable,
@@ -90,17 +101,18 @@ abstract class ABaseConnectionCase {
                                           Action1<Throwable> onError) {
         return observable
                 .subscribeOn(Schedulers.from(threadExecutor))
-                .observeOn(uiExecutor.getScheduler())
-                .subscribe(onNext, onError == null ? errorDelegate.onError() : onError);
+                .observeOn(uiExecutorThread.getScheduler())
+                .subscribe(onNext, onError == null ? errorPresenter.onError() : onError);
     }
 
     protected <T> void executeDefer(Func0<Observable<T>> function,
                                     Action1<? super T> onNext,
                                     Action1<Throwable> onError) {
+//        this.subscription =
         Observable.defer(function)
                 .subscribeOn(Schedulers.from(threadExecutor))
-                .observeOn(uiExecutor.getScheduler())
-                .subscribe(onNext, onError == null ? errorDelegate.onError() : onError);
+                .observeOn(uiExecutorThread.getScheduler())
+                .subscribe(onNext, onError == null ? errorPresenter.onError() : onError);
     }
 
 
@@ -127,8 +139,8 @@ abstract class ABaseConnectionCase {
                         subscriber.onError(e);
                     }
                 }).subscribeOn(Schedulers.from(threadExecutor))
-                .observeOn(uiExecutor.getScheduler())
-                .subscribe(onNext, onError == null ? errorDelegate.onError() : onError);
+                .observeOn(uiExecutorThread.getScheduler())
+                .subscribe(onNext, onError == null ? errorPresenter.onError() : onError);
     }
 
 
@@ -136,7 +148,7 @@ abstract class ABaseConnectionCase {
                                             Action1<? super Result> onNext,
                                             Action1<Throwable> onError) {
         func.call(object).subscribe(onNext,
-                onError == null ? errorDelegate.onError() : onError);
+                onError == null ? errorPresenter.onError() : onError);
     }
 
     /**
@@ -159,9 +171,9 @@ abstract class ABaseConnectionCase {
                 subscriber.onError(e);
             }
         }).subscribeOn(Schedulers.from(threadExecutor))
-                .observeOn(uiExecutor.getScheduler())
+                .observeOn(uiExecutorThread.getScheduler())
                 .subscribe(o -> {
-                }, onError == null ? errorDelegate.onError() : onError);
+                }, onError == null ? errorPresenter.onError() : onError);
     }
 
     protected void execute(Action0 func,
@@ -176,9 +188,9 @@ abstract class ABaseConnectionCase {
                 subscriber.onError(e);
             }
         }).subscribeOn(Schedulers.from(threadExecutor))
-                .observeOn(uiExecutor.getScheduler())
+                .observeOn(uiExecutorThread.getScheduler())
                 .subscribe(o -> {
-                }, onError == null ? errorDelegate.onError() : onError);
+                }, onError == null ? errorPresenter.onError() : onError);
     }
 
 
@@ -196,9 +208,9 @@ abstract class ABaseConnectionCase {
                 subscriber.onError(e);
             }
         }).subscribeOn(Schedulers.from(threadExecutor))
-                .observeOn(uiExecutor.getScheduler())
+                .observeOn(uiExecutorThread.getScheduler())
                 .subscribe(o -> {
-                }, onError == null ? errorDelegate.onError() : onError);
+                }, onError == null ? errorPresenter.onError() : onError);
     }
 
     protected <T1, T2, T3, T4, T5, T6> void execute(
@@ -215,9 +227,9 @@ abstract class ABaseConnectionCase {
                 subscriber.onError(e);
             }
         }).subscribeOn(Schedulers.from(threadExecutor))
-                .observeOn(uiExecutor.getScheduler())
+                .observeOn(uiExecutorThread.getScheduler())
                 .subscribe(o -> {
-                }, onError == null ? errorDelegate.onError() : onError);
+                }, onError == null ? errorPresenter.onError() : onError);
     }
 
     protected <T1, T2, T3, T4, T5> void execute(
@@ -234,9 +246,9 @@ abstract class ABaseConnectionCase {
                 subscriber.onError(e);
             }
         }).subscribeOn(Schedulers.from(threadExecutor))
-                .observeOn(uiExecutor.getScheduler())
+                .observeOn(uiExecutorThread.getScheduler())
                 .subscribe(o -> {
-                }, onError == null ? errorDelegate.onError() : onError);
+                }, onError == null ? errorPresenter.onError() : onError);
     }
 
 
@@ -253,9 +265,9 @@ abstract class ABaseConnectionCase {
                 subscriber.onError(e);
             }
         }).subscribeOn(Schedulers.from(threadExecutor))
-                .observeOn(uiExecutor.getScheduler())
+                .observeOn(uiExecutorThread.getScheduler())
                 .subscribe(o -> {
-                }, onError == null ? errorDelegate.onError() : onError);
+                }, onError == null ? errorPresenter.onError() : onError);
     }
 
     protected <T1, T2> void execute(
@@ -271,9 +283,9 @@ abstract class ABaseConnectionCase {
                 subscriber.onError(e);
             }
         }).subscribeOn(Schedulers.from(threadExecutor))
-                .observeOn(uiExecutor.getScheduler())
+                .observeOn(uiExecutorThread.getScheduler())
                 .subscribe(o -> {
-                }, onError == null ? errorDelegate.onError() : onError);
+                }, onError == null ? errorPresenter.onError() : onError);
     }
 
     /**
@@ -295,13 +307,10 @@ abstract class ABaseConnectionCase {
                 subscriber.onError(e);
             }
         }).subscribeOn(Schedulers.from(threadExecutor))
-                .observeOn(uiExecutor.getScheduler())
-                .subscribe(onNext, onError == null ? errorDelegate.onError() : onError);
+                .observeOn(uiExecutorThread.getScheduler())
+                .subscribe(onNext, onError == null ? errorPresenter.onError() : onError);
     }
 
-    // ===========================================================
-    // Methods
-    // ===========================================================
 
     /**
      * 关闭RxJava流程
@@ -310,10 +319,6 @@ abstract class ABaseConnectionCase {
         if (subscription != null && !subscription.isUnsubscribed()) {
             subscription.unsubscribe();
         }
-    }
-
-    protected Action1<Throwable> getErrorAction(Action1<ErrorDTO> onError) {
-        return onError == null ? errorDelegate.onError() : errorDelegate.onError(onError);
     }
 
     // ===========================================================

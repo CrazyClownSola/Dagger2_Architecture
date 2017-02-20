@@ -1,7 +1,7 @@
 package com.sola.github.dagger2demo.executor;
 
 
-import com.sola.github.domain.UIExecutorThread;
+import com.sola.github.domain.executor.UIExecutorThread;
 
 import javax.inject.Inject;
 

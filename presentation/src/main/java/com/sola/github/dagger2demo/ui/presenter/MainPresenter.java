@@ -3,9 +3,9 @@ package com.sola.github.dagger2demo.ui.presenter;
 import com.sola.github.dagger2demo.di.scope.ActivityScope;
 import com.sola.github.dagger2demo.ui.params.BBSDataViewDTO;
 import com.sola.github.dagger2demo.ui.params.BaseViewDTO;
-import com.sola.github.domain.ErrorDTO;
+import com.sola.github.domain.exception.ErrorDTO;
 import com.sola.github.domain.interactor.ABBSCase;
-import com.sola.github.params.BBSDataDTO;
+import com.sola.github.domain.params.params.bbs.BBSDataDTO;
 
 import java.util.Collection;
 import java.util.LinkedList;

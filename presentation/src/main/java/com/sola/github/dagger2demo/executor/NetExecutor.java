@@ -3,7 +3,7 @@ package com.sola.github.dagger2demo.executor;
 import android.support.annotation.NonNull;
 
 
-import com.sola.github.domain.NetExecutorThread;
+import com.sola.github.domain.executor.NetExecutorThread;
 
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;

@@ -1,24 +1,13 @@
-package com.sola.github.domain.interactor;
+package com.sola.github.domain.exception;
 
-import com.sola.github.domain.exception.ErrorDTO;
-import com.sola.github.domain.exception.ErrorDelegate;
-import com.sola.github.domain.executor.NetExecutorThread;
-import com.sola.github.domain.executor.UIExecutorThread;
-import com.sola.github.domain.params.params.bbs.BBSDataDTO;
-import com.sola.github.domain.params.params.bbs.BBSPostsMainReplyDTO;
-
-import java.util.Collection;
-import java.util.List;
-
-import rx.functions.Action1;
+import java.io.Serializable;
 
 /**
  * Created by slove
  * 2016/12/19.
- * BBS业务模型
+ * 通配的一个Error处理数据结构
  */
-public abstract class ABBSCase extends ABaseConnectionCase {
-
+public class ErrorDTO implements Serializable {
     // ===========================================================
     // Constants
     // ===========================================================
@@ -27,29 +16,38 @@ public abstract class ABBSCase extends ABaseConnectionCase {
     // Fields
     // ===========================================================
 
+    private String errorMessage;
+
+    private String timestamp;
+
+
     // ===========================================================
     // Constructors
     // ===========================================================
-
-    protected ABBSCase(
-            NetExecutorThread threadExecutor,
-            UIExecutorThread uiExecutor,
-            ErrorDelegate errorDelegate) {
-        super(threadExecutor, uiExecutor, errorDelegate);
-    }
 
     // ===========================================================
     // Getter & Setter
     // ===========================================================
 
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
+
     // ===========================================================
     // Methods for/from SuperClass/Interfaces
     // ===========================================================
-
-    public abstract void searchBBSList(int pageCount, int pageSize, Action1<Collection<BBSDataDTO>> onNext, Action1<ErrorDTO> onError);
-
-    public abstract void getPostsReplyList(
-            int postsId, Action1<List<BBSPostsMainReplyDTO>> onNext, Action1<ErrorDTO> onError);
 
     // ===========================================================
     // Methods
