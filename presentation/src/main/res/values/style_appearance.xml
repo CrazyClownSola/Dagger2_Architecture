@@ -14,4 +14,11 @@
         <item name="android:gravity">top</item>
     </style>
 
+
+    <style name="HEADER_TOOLBAR_TITLE" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">?colorControlNormal</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

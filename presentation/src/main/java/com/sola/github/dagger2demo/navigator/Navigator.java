@@ -32,6 +32,8 @@ public class Navigator {
     // Constants
     // ===========================================================
 
+    private static final String TAG = "Sola/Navigator";
+
     // ===========================================================
     // Fields
     // ===========================================================
@@ -42,7 +44,7 @@ public class Navigator {
 
     @Inject
     Navigator() {
-        Log.d("Sola", "Navigator: constructor");
+        Log.d(TAG, "Navigator: constructor");
     }
 
     // ===========================================================

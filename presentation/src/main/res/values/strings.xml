@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Dagger2Demo</string>
+
+
+    <string name="str_user_info_age">%1$d岁</string>
+
 </resources>

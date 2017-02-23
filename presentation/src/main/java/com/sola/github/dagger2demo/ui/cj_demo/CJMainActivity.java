@@ -1,26 +1,24 @@
-package com.sola.github.dagger2demo.ui;
+package com.sola.github.dagger2demo.ui.cj_demo;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.widget.TextView;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.sola.github.dagger2demo.R;
-import com.sola.github.dagger2demo.di.base.HasSubComponentBuilders;
-import com.sola.github.dagger2demo.di.subs.TestActivityComponent;
-import com.sola.github.dagger2demo.enums.ESubType;
-import com.sola.github.dagger2demo.ui.presenter.TestPresenter;
-import com.sola.github.dagger2demo.utils.ActivityUtils;
-
-import javax.inject.Inject;
+import com.sola.github.tools.adapter.RecyclerBaseAdapter;
+import com.sola.github.tools.delegate.IRecyclerViewDelegate;
 
 import butterknife.BindView;
 
 /**
- * Created by slove
- * 2016/12/14.
+ * Created by zhangluji
+ * 2017/2/22.
+ * 用于测试CompoundJump 跳转的
  */
-public class TestActivity extends RxBaseActivity {
+public class CJMainActivity extends ACJBaseActivity {
 
     // ===========================================================
     // Constants
@@ -30,17 +28,10 @@ public class TestActivity extends RxBaseActivity {
     // Fields
     // ===========================================================
 
-//    @Inject
-//    TestPresenter presenter;
+    @BindView(R.id.id_recycler_view)
+    RecyclerView id_recycler_view;
 
-    @Inject
-    ActivityUtils utils;
-
-    @BindView(R.id.id_text_title)
-    TextView id_text_title;
-
-    @BindView(R.id.id_text_second)
-    TextView id_text_second;
+    RecyclerBaseAdapter<IRecyclerViewDelegate> adapter;
 
     // ===========================================================
     // Constructors
@@ -57,25 +48,19 @@ public class TestActivity extends RxBaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test);
+        setContentView(R.layout.activity_cj_main);
     }
 
     @Override
     protected void doAfterView() {
-        if (getApplication() instanceof HasSubComponentBuilders) {
-            // 这里采用显示调用
-            TestPresenter presenter = ((TestActivityComponent.Builder)
-                    ((HasSubComponentBuilders) getApplication())
-                            .getSubComponentBuild(ESubType.TYPE_ACTIVITY, 1))
-                    .moduleBuild(new TestActivityComponent.TestActivityModule(this))
-                    .build()
-                    .getMainPresenter();
-
-            String text = presenter.utilInit();
-            id_text_title.setText(text);
-            text = presenter.subInit();
-            id_text_second.setText(text);
-        }
+        getToastUtils().makeToast(this, "我还在测试", Toast.LENGTH_SHORT);
+        if (adapter == null)
+            adapter = new RecyclerBaseAdapter<>(getContext(), null);
+        id_recycler_view.setItemAnimator(new DefaultItemAnimator()); // 默认的一些加载动效可能很多人无法接受
+        id_recycler_view.setAdapter(adapter);
+        getPresenter().requestUserInfo("",
+                iRecyclerViewDelegate -> adapter.addItem(iRecyclerViewDelegate),
+                errorDTO -> getToastUtils().makeToast(this, "测试数据", Toast.LENGTH_SHORT));
     }
 
     @Override

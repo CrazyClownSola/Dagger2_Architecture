@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".ui.EmptyActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -26,7 +26,15 @@
             android:name=".ui.TestActivity"
             />
 
+        <activity
+            android:name=".ui.MainActivity"
+            />
+
         <activity android:name=".ui.BBSDetailActivity"/>
+
+        <activity android:name=".ui.cj_demo.CJMainActivity"/>
+
+        <activity android:name=".ui.cj_demo.CJSecondActivity"/>
 
         <meta-data
             android:name="CHANNEL_ID"

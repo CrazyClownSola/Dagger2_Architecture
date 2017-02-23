@@ -1,62 +1,61 @@
-package com.sola.github.dagger2demo.ui.params;
+package com.sola.github.dagger2demo.utils;
 
 import android.content.Context;
 import android.support.annotation.StringRes;
+import android.widget.Toast;
 
-import com.sola.github.tools.delegate.IRecyclerViewDelegate;
-import com.sola.github.tools.utils.TypeBuilder;
+import com.sola.github.tools.utils.LogUtils;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Created by zhangluji
- * 2016/12/20.
+ * 2017/2/23.
+ * 考量到会用到这个所以独立出来写
+ * 后续记得补充一些控制toast 显示的方法
  */
+@Singleton
 @SuppressWarnings("unused")
-public abstract class BaseViewDTO<T> implements IRecyclerViewDelegate {
+public class ToastUtils {
+
     // ===========================================================
     // Constants
     // ===========================================================
+
+    private final static String TAG = "Sola/ToastUtils";
 
     // ===========================================================
     // Fields
     // ===========================================================
 
-    protected T data;
-
     // ===========================================================
     // Constructors
     // ===========================================================
 
-    BaseViewDTO(T data) {
-        this.data = data;
+    @Inject
+    ToastUtils() {
+        LogUtils.i(TAG, "ToastUtils() called");
     }
 
     // ===========================================================
     // Getter & Setter
     // ===========================================================
 
-    public T getData() {
-        return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
-    }
-
     // ===========================================================
     // Methods for/from SuperClass/Interfaces
     // ===========================================================
-
-    @Override
-    public int getViewType(int position) {
-        return TypeBuilder.getInstance().generateId();
-    }
 
     // ===========================================================
     // Methods
     // ===========================================================
 
-    String getResourceStr(Context context, @StringRes int resId, Object... param) {
-        return context.getString(resId, param);
+    public void makeToast(Context context, CharSequence text, int duration) {
+        Toast.makeText(context, text, duration).show();
+    }
+
+    public void makeToast(Context context, @StringRes int resId, int duration) {
+        Toast.makeText(context, resId, duration).show();
     }
 
     // ===========================================================

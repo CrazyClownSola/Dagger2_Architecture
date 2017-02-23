@@ -3,8 +3,9 @@ package com.sola.github.data.repository;
 import com.sola.github.data.entity.net.BBSDataEntity;
 import com.sola.github.data.entity.net.BBSPostsEntity;
 import com.sola.github.data.entity.net.BBSPostsReplyEntity;
-import com.sola.github.data.net.ApiConnection;
+import com.sola.github.data.net.AApiConnection;
 import com.sola.github.data.net.BBSService;
+import com.sola.github.data.scope.HttpRestAdapter;
 import com.sola.github.domain.params.params.bbs.BBSDataDTO;
 import com.sola.github.domain.params.params.bbs.BBSPostsMainReplyDTO;
 import com.sola.github.domain.params.params.bbs.BBSPostsSingleReplyDTO;
@@ -38,8 +39,11 @@ public class BBSDataRepository extends AConnectionRepository implements BBSRepos
     // Constructors
     // ===========================================================
 
+    /**
+     * @param apiConnection {@link HttpRestAdapter}定义了实现为ApiHttpConnection
+     */
     @Inject
-    BBSDataRepository(ApiConnection apiConnection) {
+    BBSDataRepository(@HttpRestAdapter AApiConnection apiConnection) {
         super(apiConnection);
     }
 

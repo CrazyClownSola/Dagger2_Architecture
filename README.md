@@ -267,7 +267,7 @@ public class AppModule { // 这是一种简单使用的方式
     public AppModule() {
     }
 
-    @Provides // 标记，我不知道该怎么解释这个，就是有了这个 寻找实例的时候会对应的该方法的实现
+    @Provides // This annotation means that method below provides dependency 自己翻译去
     @Singleton
     Utils provideUtils() {
         return new Utils();

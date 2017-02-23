@@ -9,10 +9,11 @@ import javax.inject.Scope;
 /**
  * Created by slove
  * 2016/12/14.
+ * 对于不同生命周期定义不同的Scope
  */
 @Scope
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ActivityScope {
+public @interface CJScope {
 
 }

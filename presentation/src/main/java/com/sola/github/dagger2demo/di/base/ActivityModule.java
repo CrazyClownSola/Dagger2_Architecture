@@ -40,7 +40,7 @@ public abstract class ActivityModule<T> {
     // ===========================================================
 
     @Provides
-    public T provideActivity() {
+    T provideActivity() {
         return context.get();
     }
 

@@ -93,6 +93,7 @@ public class GSONConverter extends Converter.Factory {
     }
 
     private final class GSONRequestBodyConverter<T> implements Converter<T, RequestBody> {
+
         private final MediaType MEDIA_TYPE = MediaType.parse("application/json; charset=UTF-8");
 
         @Override

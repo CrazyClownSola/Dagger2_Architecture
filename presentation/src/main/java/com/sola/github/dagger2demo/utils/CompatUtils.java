@@ -39,6 +39,8 @@ public class CompatUtils {
     // Methods
     // ===========================================================
 
+
+
     @SuppressWarnings("deprecation")
     public static Spanned fromHtml(String source) {
         Spanned result;

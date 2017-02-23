@@ -1,10 +1,7 @@
 package com.sola.github.data.net;
 
 import android.content.Context;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.os.Bundle;
+import android.util.Pair;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -14,14 +11,12 @@ import com.sola.github.tools.utils.LogUtils;
 import com.sola.github.tools.utils.StringUtils;
 
 import java.io.IOException;
-import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 import java.security.SecureRandom;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
@@ -36,11 +31,11 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 
 /**
  * Created by zhangluji
- * 2016/12/19.
+ * 2017/2/23.
  */
 @SuppressWarnings("unused")
-@Singleton
-public class ApiConnection {
+public class ApiHttpsConnection extends AApiConnection {
+
     // ===========================================================
     // Constants
     // ===========================================================
@@ -49,32 +44,23 @@ public class ApiConnection {
     // Fields
     // ===========================================================
 
-    private final WeakReference<Context> context;
-
     private OkHttpClient httpClient;
 
-    private final ContextUtils contextUtils;
-
-    private Gson gson = new GsonBuilder()
-            .setDateFormat("yyyy-MM-dd HH:mm:ss")
-            .create();
-
-    private Retrofit.Builder builder =
-            new Retrofit.Builder()
-                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                    .addConverterFactory(GSONConverter.create(gson));
+    private final Retrofit.Builder builder;
 
     // ===========================================================
     // Constructors
     // ===========================================================
 
     @Inject
-    ApiConnection(
+    ApiHttpsConnection(
             Context context,
-            ContextUtils utils
-    ) {
-        this.context = new WeakReference<>(context);
-        this.contextUtils = utils;
+            ContextUtils contextUtils) {
+        super(context, contextUtils);
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+        builder = new Retrofit.Builder()
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addConverterFactory(GSONConverter.create(gson));
     }
 
     // ===========================================================
@@ -85,8 +71,9 @@ public class ApiConnection {
     // Methods for/from SuperClass/Interfaces
     // ===========================================================
 
+    @Override
     public <S> S createService(String baseUrl, Class<S> serviceCls) {
-        checkHttpClient();
+        buildSSlClient();
         Retrofit retrofit = builder.baseUrl(baseUrl).client(httpClient).build();
         return retrofit.create(serviceCls);
     }
@@ -94,16 +81,6 @@ public class ApiConnection {
     // ===========================================================
     // Methods
     // ===========================================================
-
-    private void checkHttpClient() {
-        if (httpClient != null)
-            return;
-        httpClient = new OkHttpClient.Builder()
-                .retryOnConnectionFailure(true)
-                .connectTimeout(2, TimeUnit.MINUTES)
-                .addInterceptor(new LoggingInterceptor())
-                .build();
-    }
 
     /**
      * 关于Https的SSl证书认证的问题，这里暂且找不到好办法替代
@@ -150,6 +127,16 @@ public class ApiConnection {
         }
     }
 
+    private void checkHttpClient() {
+        if (httpClient != null)
+            return;
+        httpClient = new OkHttpClient.Builder()
+                .retryOnConnectionFailure(true)
+                .connectTimeout(2, TimeUnit.MINUTES)
+                .addInterceptor(new LoggingInterceptor())
+                .build();
+    }
+
     // ===========================================================
     // Inner and Anonymous Classes
     // ===========================================================
@@ -162,26 +149,16 @@ public class ApiConnection {
         public Response intercept(Chain chain) throws IOException {
             long t1 = System.nanoTime();
             Request.Builder ongoing = chain.request().newBuilder();
-            try {
-                PackageInfo packageInfo = context.get().getPackageManager().getPackageInfo(context.get().getPackageName(), 0);
-                String versionName = packageInfo.versionName;
-                int apiVersion = packageInfo.versionCode;
-                ongoing.addHeader("appVersion", versionName);
-                ongoing.addHeader("apiVersion", "" + apiVersion);
-            } catch (PackageManager.NameNotFoundException ignored) {
+            Pair<String, Integer> versionInfo = getContextUtils().getVersionInfo();
+            if (versionInfo != null) {
+                ongoing.addHeader("appVersion", versionInfo.first);
+                ongoing.addHeader("apiVersion", "" + versionInfo.second);
             }
-            try {
-                ApplicationInfo ai = context.get().getPackageManager()
-                        .getApplicationInfo(context.get().getPackageName(),
-                                PackageManager.GET_META_DATA);
-                Bundle bundle = ai.metaData;
-                String myApiKey = bundle.getString("CHANNEL_ID");
-                if (!StringUtils.isEmpty(myApiKey))
-                    ongoing.addHeader("channelId", myApiKey);
-            } catch (PackageManager.NameNotFoundException ignored) {
-            }
+            String myApiKey = getContextUtils().getAppChannelID();
+            if (!StringUtils.isEmpty(myApiKey))
+                ongoing.addHeader("channelId", myApiKey);
             ongoing.addHeader("deviceType", "Android");
-            String deviceId = contextUtils.getDeviceId();
+            String deviceId = getContextUtils().getDeviceId();
             if (!StringUtils.isEmpty(deviceId))
                 ongoing.addHeader("deviceId", deviceId);
             Request request = ongoing.build();

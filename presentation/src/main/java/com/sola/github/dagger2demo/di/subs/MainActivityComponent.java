@@ -1,11 +1,10 @@
 package com.sola.github.dagger2demo.di.subs;
 
-import android.util.Log;
-
 import com.sola.github.dagger2demo.di.base.ActivityComponent;
 import com.sola.github.dagger2demo.di.base.SubComponentBuilder;
 import com.sola.github.dagger2demo.di.scope.ActivityScope;
 import com.sola.github.dagger2demo.ui.MainActivity;
+import com.sola.github.tools.utils.LogUtils;
 
 import dagger.Module;
 import dagger.Subcomponent;
@@ -39,7 +38,7 @@ public interface MainActivityComponent extends ActivityComponent<MainActivity> {
     class MainActivityModule {
 
         public MainActivityModule() {
-            Log.d(TAG, "MainActivityModule() called");
+            LogUtils.i(TAG, "MainActivityModule() called");
         }
     }
 

@@ -7,6 +7,7 @@ ext {
     minSdkVersion = 14
     targetSdkVersion = 23
     compileSdkVersion = 25
+//    compileSdkVersion = 'Google Inc.:Google APIs:24'
 
     //libraries 惯用库包
     daggerVersion = '2.8'

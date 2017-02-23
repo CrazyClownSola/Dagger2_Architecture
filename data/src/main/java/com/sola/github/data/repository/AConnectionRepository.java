@@ -4,6 +4,7 @@ import android.accounts.NetworkErrorException;
 
 import com.google.gson.Gson;
 import com.sola.github.data.entity.BaseResultEntity;
+import com.sola.github.data.net.AApiConnection;
 import com.sola.github.data.net.ApiConnection;
 import com.sola.github.tools.utils.LogUtils;
 
@@ -25,7 +26,7 @@ abstract class AConnectionRepository {
     // Fields
     // ===========================================================
 
-    final ApiConnection apiConnection;
+    final AApiConnection apiConnection;
 
     private final Gson mGson;
 
@@ -33,7 +34,7 @@ abstract class AConnectionRepository {
     // Constructors
     // ===========================================================
 
-    AConnectionRepository(ApiConnection apiConnection) {
+    AConnectionRepository(AApiConnection apiConnection) {
         this.apiConnection = apiConnection;
         this.mGson = new Gson();
     }

@@ -16,10 +16,12 @@ import com.sola.github.dagger2demo.di.base.HasSubComponentBuilders;
 import com.sola.github.dagger2demo.enums.ESubType;
 import com.sola.github.dagger2demo.navigator.BundleFactory;
 import com.sola.github.dagger2demo.navigator.Navigator;
+import com.sola.github.dagger2demo.ui.cj_demo.CJMainActivity;
 import com.sola.github.dagger2demo.ui.params.BaseViewDTO;
 import com.sola.github.dagger2demo.ui.presenter.MainPresenter;
 import com.sola.github.dagger2demo.utils.DensityUtil;
 import com.sola.github.dagger2demo.utils.LinearDecoration;
+import com.sola.github.dagger2demo.utils.ToastUtils;
 import com.sola.github.domain.params.params.bbs.BBSDataDTO;
 import com.sola.github.tools.adapter.RecyclerBaseAdapter;
 
@@ -47,6 +49,9 @@ public class MainActivity extends RxBaseActivity {
 
     @Inject
     Navigator navigator; // 这里只是单纯的调用
+
+    @Inject
+    ToastUtils toastUtils;
 
     @Inject
     BundleFactory bundleFactory;
@@ -94,6 +99,7 @@ public class MainActivity extends RxBaseActivity {
     protected void doAfterView() {
         initComponent();
         initListener();
+        toastUtils.makeToast(this, "我在测试", Toast.LENGTH_SHORT);
         id_recycler_view.setLayoutManager(new LinearLayoutManager(getContext()));
         id_recycler_view.setItemAnimator(new DefaultItemAnimator());
         id_recycler_view.addItemDecoration(new LinearDecoration(
@@ -125,7 +131,11 @@ public class MainActivity extends RxBaseActivity {
 
     @OnClick(R.id.id_btn_fab)
     public void onClick() {
-        requestData();
+//        requestData();
+        navigator.switchActivity(
+                this,
+                CJMainActivity.class,
+                bundleFactory.build());
     }
 
     private void requestData() {

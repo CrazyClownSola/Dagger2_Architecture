@@ -1,17 +1,19 @@
-package com.sola.github.dagger2demo.ui.params;
+package com.sola.github.dagger2demo.presenter;
 
-import android.content.Context;
-import android.support.annotation.StringRes;
-
+import com.sola.github.dagger2demo.ui.params.UserInfoViewDTO;
+import com.sola.github.domain.cases.AUserCenterCase;
+import com.sola.github.domain.exception.ErrorDTO;
 import com.sola.github.tools.delegate.IRecyclerViewDelegate;
-import com.sola.github.tools.utils.TypeBuilder;
+
+import javax.inject.Inject;
+
+import rx.functions.Action1;
 
 /**
  * Created by zhangluji
- * 2016/12/20.
+ * 2017/2/22.
  */
-@SuppressWarnings("unused")
-public abstract class BaseViewDTO<T> implements IRecyclerViewDelegate {
+public class CJPresenter {
     // ===========================================================
     // Constants
     // ===========================================================
@@ -20,43 +22,37 @@ public abstract class BaseViewDTO<T> implements IRecyclerViewDelegate {
     // Fields
     // ===========================================================
 
-    protected T data;
+    private final AUserCenterCase userCenterCase;
 
     // ===========================================================
     // Constructors
     // ===========================================================
 
-    BaseViewDTO(T data) {
-        this.data = data;
+    @Inject
+    CJPresenter(
+            AUserCenterCase userCenterCase) {
+        this.userCenterCase = userCenterCase;
     }
 
     // ===========================================================
     // Getter & Setter
     // ===========================================================
 
-    public T getData() {
-        return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
-    }
-
     // ===========================================================
     // Methods for/from SuperClass/Interfaces
     // ===========================================================
-
-    @Override
-    public int getViewType(int position) {
-        return TypeBuilder.getInstance().generateId();
-    }
 
     // ===========================================================
     // Methods
     // ===========================================================
 
-    String getResourceStr(Context context, @StringRes int resId, Object... param) {
-        return context.getString(resId, param);
+    public void requestUserInfo(
+            String userId,
+            Action1<IRecyclerViewDelegate> onNext,
+            Action1<ErrorDTO> onError) {
+        userCenterCase.requestUserInfo(userId,
+                userInfoDTO -> onNext.call(new UserInfoViewDTO(userInfoDTO)),
+                onError);
     }
 
     // ===========================================================

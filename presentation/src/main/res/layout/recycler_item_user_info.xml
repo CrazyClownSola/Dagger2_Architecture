@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:padding="15dp">
+
+    <TextView
+        android:id="@+id/id_text_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="陈大按"
+        />
+
+    <TextView
+        android:id="@+id/id_text_user_age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="100岁"
+        />
+
+    <TextView
+        android:id="@+id/id_text_user_do_something"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="在楼道按人"
+        />
+
+</LinearLayout>

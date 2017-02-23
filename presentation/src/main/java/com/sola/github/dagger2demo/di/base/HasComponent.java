@@ -1,30 +1,22 @@
 package com.sola.github.dagger2demo.di.base;
 
 /**
- * Created by slove
- * 2016/12/14.
- * <p>
- * 判断当前模块是否含有子组建的接口
+ * 当有实例需要用到上层组件中的成员的时候
+ *
+ * author: Sola
+ * 2015/11/3
  */
-public interface HasSubComponentBuilders {
+public interface HasComponent<C> {
     // ===========================================================
     // Constants
     // ===========================================================
 
     // ===========================================================
-    // Methods for/from SuperClass/Interfaces
+    // Fields
     // ===========================================================
-
-    /**
-     * @param type  不同类型的模块组
-     * @param index 序列值，暂且没啥用
-     * @return 返回对应的子模块组
-     */
-    SubComponentBuilder getSubComponentBuild(int type, int index);
-
 
     // ===========================================================
     // Methods
     // ===========================================================
-
+    C getComponent();
 }

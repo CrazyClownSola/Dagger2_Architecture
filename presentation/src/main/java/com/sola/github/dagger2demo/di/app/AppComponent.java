@@ -2,6 +2,8 @@ package com.sola.github.dagger2demo.di.app;
 
 import com.sola.github.dagger2demo.MainApplication;
 import com.sola.github.dagger2demo.di.base.SubComponentBindingModule;
+import com.sola.github.dagger2demo.navigator.BundleFactory;
+import com.sola.github.dagger2demo.navigator.Navigator;
 
 import javax.inject.Singleton;
 
@@ -33,6 +35,13 @@ public interface AppComponent {
 
     void inject(MainApplication application);
 
-//    Navigator provideNavigator();
+
+    /****
+     * 注意，下面的接口是提供给需要调用这个组件当中实例，但是并不想注入该组件中的类进行调用
+     ****/
+
+    Navigator provideNavigator();
+
+    BundleFactory provideBundleFactory();
 
 }

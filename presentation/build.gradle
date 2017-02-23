@@ -119,41 +119,31 @@ def releaseTime() {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':domain')
     compile project(':data')
     compile project(':tools')
-
     // 新的test机制，有待研究
     testCompile 'junit:junit:4.12'
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-
     def dependencies = rootProject.ext.appDependencies
-
     compile dependencies.auto_value
     apt dependencies.auto_value
-
-    compile dependencies.javax_annotation
-//
+    compile dependencies.javax_annotation    //
     compile dependencies.butter_knife
     apt dependencies.butter_knife_compiler
-
     apt dependencies.daggerCompiler
     compile dependencies.dagger
-
     compile dependencies.picasso
-
     // rxJava 库包
     compile dependencies.rxJava
     //    compile dependencies.rxjava_async
     compile dependencies.rxAndroid
-
     compile dependencies.recyclerView
     compile dependencies.appcompat
     compile dependencies.cardview
     compile dependencies.design
     compile dependencies.palette
-
 }

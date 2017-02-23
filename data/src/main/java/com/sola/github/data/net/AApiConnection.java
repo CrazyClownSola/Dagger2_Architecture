@@ -1,17 +1,18 @@
-package com.sola.github.dagger2demo.ui.params;
+package com.sola.github.data.net;
 
 import android.content.Context;
-import android.support.annotation.StringRes;
 
-import com.sola.github.tools.delegate.IRecyclerViewDelegate;
-import com.sola.github.tools.utils.TypeBuilder;
+import com.sola.github.data.utils.ContextUtils;
+
+import java.lang.ref.WeakReference;
+
+import javax.inject.Inject;
 
 /**
  * Created by zhangluji
- * 2016/12/20.
+ * 2017/2/22.
  */
-@SuppressWarnings("unused")
-public abstract class BaseViewDTO<T> implements IRecyclerViewDelegate {
+public abstract class AApiConnection {
     // ===========================================================
     // Constants
     // ===========================================================
@@ -20,44 +21,40 @@ public abstract class BaseViewDTO<T> implements IRecyclerViewDelegate {
     // Fields
     // ===========================================================
 
-    protected T data;
+    private final WeakReference<Context> context;
+
+    private final ContextUtils contextUtils;
 
     // ===========================================================
     // Constructors
     // ===========================================================
 
-    BaseViewDTO(T data) {
-        this.data = data;
+    AApiConnection(Context context, ContextUtils contextUtils) {
+        this.context = new WeakReference<>(context);
+        this.contextUtils = contextUtils;
     }
 
     // ===========================================================
     // Getter & Setter
     // ===========================================================
 
-    public T getData() {
-        return data;
+    public Context getContext() {
+        return context.get();
     }
 
-    public void setData(T data) {
-        this.data = data;
+    ContextUtils getContextUtils() {
+        return contextUtils;
     }
 
     // ===========================================================
     // Methods for/from SuperClass/Interfaces
     // ===========================================================
 
-    @Override
-    public int getViewType(int position) {
-        return TypeBuilder.getInstance().generateId();
-    }
-
     // ===========================================================
     // Methods
     // ===========================================================
 
-    String getResourceStr(Context context, @StringRes int resId, Object... param) {
-        return context.getString(resId, param);
-    }
+    public abstract <S> S createService(String baseUrl, Class<S> serviceCls);
 
     // ===========================================================
     // Inner and Anonymous Classes

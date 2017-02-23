@@ -2,6 +2,7 @@ package com.sola.github.dagger2demo.navigator;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import java.io.Serializable;
 
@@ -19,6 +20,8 @@ public class BundleFactory {
     // Constants
     // ===========================================================
 
+    private final static String TAG = "Sola/BundleFactory";
+
     // ===========================================================
     // Fields
     // ===========================================================
@@ -32,6 +35,7 @@ public class BundleFactory {
     @Inject
     BundleFactory() {
         this.mBundle = new Bundle();
+        Log.d(TAG, "BundleFactory() called");
     }
 
     // ===========================================================
