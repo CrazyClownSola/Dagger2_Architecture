@@ -542,8 +542,138 @@ public interface HasSubComponentBuilders {
 > 就如前面框架所介绍的，界面层级的代码全都在presenter当中，其中包括各种Activity和Fragment代码
 > 同时界面也是所有数据请求的入口处，沿着这个思路，我们看代码如下
 
+CJMainActivity.java
 ```
+
+public class CJMainActivity extends ACJBaseActivity {
+    
+    ...
+    ...
+    
+    
+    @Override
+    protected void doAfterView() {
+        ....
+        getPresenter().requestUserInfo("",
+                iRecyclerViewDelegate -> adapter.addItem(iRecyclerViewDelegate),
+                errorDTO -> getToastUtils().makeToast(this, "测试数据", Toast.LENGTH_SHORT));
+    }
+    
+    /** 其中getPresenter方法是根据获取父类当中持有的Presenter对象 **/
+    
+    @Inject
+    CJPresenter presenter;
+    
+    public CJPresenter getPresenter() {
+        return presenter;
+    }
+
+    ...
+    ...
+    
+}
+
 ```
+
+CJPresenter.java
+```
+
+public class CJPresenter{
+    
+    private final AUserCenterCase userCenterCase;
+
+    @Inject
+    CJPresenter(
+            AUserCenterCase userCenterCase) {
+            // 隐式注入，获取对应的UC的业务Case实例，通过前面对于Dagger2的介绍，这里对应的实现实例是UserCenterCaseImpl.class
+        this.userCenterCase = userCenterCase;
+    }
+    
+    public void requestUserInfo(
+            String userId,
+            Action1<IRecyclerViewDelegate> onNext,
+            Action1<ErrorDTO> onError) {
+        userCenterCase.requestUserInfo(userId,
+                userInfoDTO -> onNext.call(new UserInfoViewDTO(userInfoDTO)), // 这里后续View相关的部分会解释出这里ViewDTO的意义
+                onError);
+    }
+    
+}
+
+```
+
+具体的实例绑定请参照如下代码
+
+[CompoundJumpActivityComponent.java](/di/subs/UserCenterCaseImpl.java)
+
+```
+@CJScope
+@Subcomponent(
+        modules = CompoundJumpActivityComponent.CompoundJumpModule.class
+)
+public interface CompoundJumpActivityComponent {
+
+    String TAG = "Sola/CJComponent";
+
+    @Subcomponent.Builder
+    interface Builder extends SubComponentBuilder<CompoundJumpModule, CompoundJumpActivityComponent> {
+
+    }
+
+    @Module
+    class CompoundJumpModule {
+
+        public CompoundJumpModule() {
+            LogUtils.i(TAG, "CompoundJumpModule() called");
+        }
+
+        @Provides
+        //@Singleton // 这个标注其实是一个非常值得深思的一个点，这代表实例的生命周期跟随那一部分
+        // 这里到底是跟随整个Component还是跟随组件中的一个Activity，这就是一个问题所在
+        @CJScope
+            // 有待测试
+        AUserCenterCase provideUserCenterCase(UserCenterCaseImpl impl) {
+            return impl; // 实例绑定关键代码
+        }
+
+    }
+  
+    ......
+}
+
+```
+
+然后目光转回实现
+
+[UserCenterCaseImpl.java](/domain/src/main/java/com/sola/github/domain/cases/impl/UserCenterCaseImpl.java)
+
+```
+
+public class UserCenterCaseImpl extends AUserCenterCase {
+
+    private final UserCenterRepository userCenterRepository;
+
+    @Inject
+    UserCenterCaseImpl(
+            NetExecutorThread threadExecutor,
+            UIExecutorThread postExecutionThread,
+            ErrorDelegate errorPresenter,
+            UserCenterRepository userCenterRepository) {
+        super(threadExecutor, postExecutionThread, errorPresenter);
+        this.userCenterRepository = userCenterRepository;
+    }
+
+    @Override
+    public void requestUserInfo(String userId, Action1<UserInfoDTO> onNext, Action1<ErrorDTO> onError) {
+        execute(
+            userCenterRepository.requestUserInfo(userId), // 这行代码是关键，参考前面获取到
+            onNext, // 成功回调
+            getErrorAction(onError)); // 失败回调处理
+    }
+}
+
+```
+
 
 - 数据(网络、数据库、缓存) 
 > 数据的获取方式，粗略的概括一下就三种方式，网络请求、数据库、缓存，在这里我首先介绍一种Net获取数据的方式
