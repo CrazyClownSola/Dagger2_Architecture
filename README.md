@@ -26,8 +26,7 @@
         - 图形转换操作，如变换大小，旋转等，提供了接口来让用户可以自定义转换操作；
         - 加载载网络或本地资源；
         Cache的算法采用的是Lrucacha，主要是get和set方法，存储的结构采用了LinkedHashMap，这种map内部实现了lru算法（Least Recently Used 近期最少使用算法）。
-
-    嘛... 谁用谁知道
+	嘛... 谁用谁知道
 
 - Net网络请求相关
     - [retrofit2.0](https://github.com/square/retrofit) 网络请求相关的库包，个人觉得这是个处理网络请求最好的第三方库，同时也是个延展性非常好的框架，本身框架自带对于[OkHttp](https://github.com/square/okhttp)、[RxJava](https://github.com/ReactiveX/RxJava)等的支持，联合起来使用效果更佳
@@ -39,12 +38,12 @@
         下面有两个lambda相关的：
         - [gradle-retrolambda](https://github.com/evant/gradle-retrolambda) 这个是用于Gradle编译的项目，可以做到在Android中编写Java8代码
         - [retrolambda](https://github.com/orfjackal/retrolambda) 这个是通用的，可以让没有装Java8环境的机器编写Java8代码
-    Ps：可能你会疑问为什么没有DB相关的，嘛……项目当中不让用和DB相关的第三方，所以这里我也就不坑大家了，自己找找吧，网上还是有很多的比方说orlimte
+   
+Ps：可能你会疑问为什么没有DB相关的，嘛……项目当中不让用和DB相关的第三方，所以这里我也就不坑大家了，自己找找吧，网上还是有很多的比方说orlimte
 
 - 一些辅助工具
     - [gson](https://github.com/google/gson) 别告诉我你没见过这个……
     - [auto](https://github.com/google/auto) 这个是google提供的一个工具库包里面有个Auto_Value的东西可以帮助你去实例化自定义的Annotation，这个在Dagger2当中会用到。
-
 
 ## Gradle环境编译方式
 > 工欲善其事必先利其器，话是这么说，[gradle](https://docs.gradle.org/current/release-notes)官方文档全英文的，看起来是挺头疼的
@@ -149,7 +148,6 @@ def releaseTime() {
 按照上面配置完成之后，可以在`AndroidStudio`的`BuildVariants`工具栏中找到你所配置的不同`buildType`，然后在你打包之前切换成对应的`buildType`即可
 
 <strong>后记：</strong>其实不要把gradle想的太可怕，gradle本身也是支持java代码的，所以你大可以利用java的思路去编写，不懂的地方请狗哥或者stackoverflow一下，总有一款适合您
-
 
 
 ## 代码结构简介
