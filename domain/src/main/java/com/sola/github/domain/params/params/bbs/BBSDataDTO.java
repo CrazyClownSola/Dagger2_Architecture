@@ -3,7 +3,7 @@ package com.sola.github.domain.params.params.bbs;
 import java.io.Serializable;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2016/12/19.
  */
 @SuppressWarnings("unused")

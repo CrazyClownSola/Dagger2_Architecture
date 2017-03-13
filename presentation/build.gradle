@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
-apply plugin: 'net.ltgt.apt'
 apply plugin: 'android-apt'
 
 android {
@@ -114,7 +113,7 @@ android {
 
 }
 
-def releaseTime() {
+static def releaseTime() {
     return new Date().format("yyyyMMdd_HHmmss")
 }
 

@@ -5,7 +5,6 @@ import android.accounts.NetworkErrorException;
 import com.google.gson.Gson;
 import com.sola.github.data.entity.BaseResultEntity;
 import com.sola.github.data.net.AApiConnection;
-import com.sola.github.data.net.ApiConnection;
 import com.sola.github.tools.utils.LogUtils;
 
 import java.util.Map;
@@ -13,7 +12,7 @@ import java.util.Map;
 import rx.Observable;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2016/12/19.
  */
 @SuppressWarnings("unused")

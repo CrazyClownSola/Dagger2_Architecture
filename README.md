@@ -542,7 +542,9 @@ public interface HasSubComponentBuilders {
 > 就如前面框架所介绍的，界面层级的代码全都在presenter当中，其中包括各种Activity和Fragment代码
 > 同时界面也是所有数据请求的入口处，沿着这个思路，我们看代码如下
 
-CJMainActivity.java
+
+[CJMainActivity.java](/presentation/src/main/java/com/sola/github/dagger2demo/ui/cj_demo/CJMainActivity.java)
+
 ```
 
 public class CJMainActivity extends ACJBaseActivity {
@@ -575,7 +577,8 @@ public class CJMainActivity extends ACJBaseActivity {
 
 ```
 
-CJPresenter.java
+[CJPresenter.java](/presentation/src/main/java/com/sola/github/dagger2demo/presenter/CJPresenter.java)
+
 ```
 
 public class CJPresenter{
@@ -604,7 +607,7 @@ public class CJPresenter{
 
 具体的实例绑定请参照如下代码
 
-[CompoundJumpActivityComponent.java](/di/subs/UserCenterCaseImpl.java)
+[CompoundJumpActivityComponent.java](/presentation/src/main/java/com/sola/github/dagger2demo/di/subs/CompoundJumpActivityComponent.java)
 
 ```
 @CJScope
@@ -658,7 +661,9 @@ public class UserCenterCaseImpl extends AUserCenterCase {
             NetExecutorThread threadExecutor,
             UIExecutorThread postExecutionThread,
             ErrorDelegate errorPresenter,
-            UserCenterRepository userCenterRepository) {
+            UserCenterRepository userCenterRepository 
+            // 这里参考前面获取AUserCenterCase实例的方式，这里对应所绑定的实例是`UserCenterDataRepository.java`
+            ) {
         super(threadExecutor, postExecutionThread, errorPresenter);
         this.userCenterRepository = userCenterRepository;
     }
@@ -666,13 +671,45 @@ public class UserCenterCaseImpl extends AUserCenterCase {
     @Override
     public void requestUserInfo(String userId, Action1<UserInfoDTO> onNext, Action1<ErrorDTO> onError) {
         execute(
-            userCenterRepository.requestUserInfo(userId), // 这行代码是关键，参考前面获取到
+            userCenterRepository.requestUserInfo(userId), // 这行代码是关键
             onNext, // 成功回调
             getErrorAction(onError)); // 失败回调处理
     }
 }
 
 ```
+
+[AppModule.java](/presentation/src/main/java/com/sola/github/dagger2demo/di/app/AppModule.java)
+
+```
+
+@Module
+public class AppModule {
+
+    ...
+    ...
+    
+    @Provides
+    @Singleton
+    UserCenterRepository provideUserCenterRepository(
+            UserCenterDataRepository repository) { 
+            // 这里可以切换实例的绑定可以在一个适当的时间将demo实例废弃
+        return repository;
+    }
+    
+    ...
+    ...
+    
+}
+
+```
+
+PS：可能有人会奇怪为什么这两个实例绑定的地方不一样，原因在于两者的生命周期依附对象不同，这段话要理解需要自己去琢磨，算是Dagger2精髓的一个地方。
+
+
+
+
+
 
 
 - 数据(网络、数据库、缓存) 
@@ -751,7 +788,8 @@ public ListAdapter1 extends  RecyclerView.Adapter<RecyclerView.ViewHolder>{
 利用这个接口去通配界面代码的数据结构
 
 核心代码如下
-RecyclerBaseAdapter
+
+[RecyclerBaseAdapter.java](/tools/src/main/java/com/sola/github/tools/adapter/RecyclerBaseAdapter.java)
 
 ```
 
@@ -844,7 +882,8 @@ public class RecyclerBaseAdapter<Param extends IRecyclerViewDelegate>
 
 具体的界面实现类
 
-BBSDataViewDTO.java
+[BBSDataViewDTO.java](/presentation/src/main/java/com/sola/github/dagger2demo/ui/params/BBSDataViewDTO.java)
+
 ```
 
 // 数据和界面的绑定是由继承这个抽象类的实例去实现的
@@ -911,7 +950,9 @@ public class BBSDataViewDTO extends BaseViewDTO<BBSDataDTO> implements IRecycler
 ```
 
 调用的地方
-MainActivity
+
+[MainActivity.java](/presentation/src/main/java/com/sola/github/dagger2demo/ui/MainActivity.java)
+
 ```
 
 public class MainActivity extends RxBaseActivity {
@@ -955,7 +996,8 @@ public class MainActivity extends RxBaseActivity {
 
 ```
 
-MainPresenter.java
+[MainPresenter.java](/presentation/src/main/java/com/sola/github/dagger2demo/ui/presenter/MainPresenter.java)
+
 ```
 
 @ActivityScope

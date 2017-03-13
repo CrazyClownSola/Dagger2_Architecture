@@ -15,7 +15,7 @@ import com.sola.github.tools.utils.StringUtils;
 import com.squareup.picasso.Picasso;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2016/12/21.
  * 帖子的View结构，和帖子数据结构进行绑定
  */

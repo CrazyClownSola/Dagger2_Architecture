@@ -9,7 +9,7 @@ import com.sola.github.domain.params.params.uc.UserInfoDTO;
 import rx.functions.Action1;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2017/2/20.
  */
 public abstract class AUserCenterCase extends ComplexConnectionCase {

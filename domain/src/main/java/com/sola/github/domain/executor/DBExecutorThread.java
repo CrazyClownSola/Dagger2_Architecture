@@ -5,10 +5,11 @@ import java.util.concurrent.Executor;
 import rx.Scheduler;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2017/2/20.
  * 数据库线程队列
  */
+@SuppressWarnings("unused")
 public interface DBExecutorThread extends Executor {
     // ===========================================================
     // Constants

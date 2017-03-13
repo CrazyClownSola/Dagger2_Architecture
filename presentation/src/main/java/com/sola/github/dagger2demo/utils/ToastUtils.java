@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2017/2/23.
  * 考量到会用到这个所以独立出来写
  * 后续记得补充一些控制toast 显示的方法

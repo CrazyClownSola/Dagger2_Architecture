@@ -14,7 +14,7 @@ import retrofit2.Converter;
 import retrofit2.Retrofit;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2016/12/20.
  */
 public class GSONConverter extends Converter.Factory {

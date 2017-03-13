@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2016/12/20.
  */
 public interface IRecyclerViewDelegate {

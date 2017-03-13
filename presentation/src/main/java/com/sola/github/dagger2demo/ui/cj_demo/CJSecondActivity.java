@@ -7,7 +7,7 @@ import android.support.annotation.Nullable;
 import com.sola.github.dagger2demo.R;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2017/2/23.
  */
 public class CJSecondActivity extends ACJBaseActivity {

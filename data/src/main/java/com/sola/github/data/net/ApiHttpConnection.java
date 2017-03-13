@@ -24,7 +24,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2017/2/23.
  * 这里分开写，是用于测试{@link javax.inject.Qualifier},并且考虑如果项目中遇到多种请求方式的需求的时候
  */

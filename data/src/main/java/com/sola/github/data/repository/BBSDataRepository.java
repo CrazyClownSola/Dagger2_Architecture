@@ -22,7 +22,7 @@ import javax.inject.Inject;
 import rx.Observable;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2016/12/19.
  */
 public class BBSDataRepository extends AConnectionRepository implements BBSRepository {

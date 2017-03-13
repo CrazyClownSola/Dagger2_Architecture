@@ -11,7 +11,7 @@ import retrofit2.http.POST;
 import rx.Observable;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2016/12/19.
  */
 public interface BBSService {

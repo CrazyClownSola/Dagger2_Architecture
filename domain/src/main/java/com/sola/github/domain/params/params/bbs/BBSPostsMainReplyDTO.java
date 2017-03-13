@@ -3,7 +3,7 @@ package com.sola.github.domain.params.params.bbs;
 import java.util.List;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2016/12/21.
  * 帖子中，单个回复的主体，当中包含一些子回复
  */

@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2016/12/23.
  */
 @Singleton

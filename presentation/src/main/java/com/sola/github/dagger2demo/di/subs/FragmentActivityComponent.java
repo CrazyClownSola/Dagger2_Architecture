@@ -1,7 +1,7 @@
 package com.sola.github.dagger2demo.di.subs;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2017/2/17.
  * todo 带有Fragment的子组件
  */

@@ -3,14 +3,10 @@ package com.sola.github.data.entity.net;
 import com.google.gson.annotations.SerializedName;
 import com.sola.github.tools.utils.StringUtils;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2016/12/21.
  */
 @SuppressWarnings("unused")

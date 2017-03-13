@@ -16,7 +16,7 @@ import com.sola.github.tools.adapter.RecyclerBaseAdapter;
 import butterknife.BindView;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2016/12/23.
  */
 @SuppressWarnings("unused")

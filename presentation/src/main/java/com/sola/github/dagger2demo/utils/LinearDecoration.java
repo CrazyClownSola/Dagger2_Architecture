@@ -11,15 +11,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2016/12/22.
  */
+@SuppressWarnings("unused")
 public class LinearDecoration extends RecyclerView.ItemDecoration {
     // ===========================================================
     // Constants
     // ===========================================================
 
-    public static final int HORIZONTAL_LIST = LinearLayoutManager.HORIZONTAL;
+    private static final int HORIZONTAL_LIST = LinearLayoutManager.HORIZONTAL;
 
     public static final int VERTICAL_LIST = LinearLayoutManager.VERTICAL;
 
@@ -49,7 +50,7 @@ public class LinearDecoration extends RecyclerView.ItemDecoration {
         this(context, orientation, -1);
     }
 
-    public LinearDecoration(Context context, int orientation, int diverRes) {
+    private LinearDecoration(Context context, int orientation, int diverRes) {
         if (diverRes == -1) {
             TypedArray typedArray = null;
             try {

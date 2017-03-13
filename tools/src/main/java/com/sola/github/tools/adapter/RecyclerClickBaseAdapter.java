@@ -8,9 +8,10 @@ import com.sola.github.tools.delegate.IRecyclerViewClickDelegate;
 import java.util.Collection;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2016/12/20.
  */
+@SuppressWarnings("unused")
 public class RecyclerClickBaseAdapter<Param extends IRecyclerViewClickDelegate>
         extends RecyclerBaseAdapter<Param> {
 

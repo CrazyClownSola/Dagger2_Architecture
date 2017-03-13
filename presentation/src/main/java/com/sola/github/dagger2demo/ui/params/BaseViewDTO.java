@@ -7,7 +7,7 @@ import com.sola.github.tools.delegate.IRecyclerViewDelegate;
 import com.sola.github.tools.utils.TypeBuilder;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2016/12/20.
  */
 @SuppressWarnings("unused")

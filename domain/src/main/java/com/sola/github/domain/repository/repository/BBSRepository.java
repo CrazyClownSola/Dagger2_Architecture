@@ -8,7 +8,7 @@ import java.util.Collection;
 import rx.Observable;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2016/12/19.
  */
 public interface BBSRepository {

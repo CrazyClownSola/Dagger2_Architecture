@@ -14,7 +14,7 @@ import java.lang.ref.WeakReference;
 import javax.inject.Inject;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2016/12/19.
  */
 public class ContextUtils {

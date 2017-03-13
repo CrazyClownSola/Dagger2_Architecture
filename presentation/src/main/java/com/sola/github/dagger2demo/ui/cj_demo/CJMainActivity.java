@@ -14,7 +14,7 @@ import com.sola.github.tools.delegate.IRecyclerViewDelegate;
 import butterknife.BindView;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2017/2/22.
  * 用于测试CompoundJump 跳转的
  */

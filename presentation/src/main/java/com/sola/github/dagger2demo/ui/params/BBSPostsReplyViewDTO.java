@@ -17,7 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2016/12/20.
  * 帖子的回复数据结构
  */

@@ -5,7 +5,7 @@ import com.sola.github.domain.params.params.uc.UserInfoDTO;
 import rx.Observable;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2017/2/20.
  */
 public interface UserCenterRepository {

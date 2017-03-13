@@ -15,7 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2016/12/20.
  * 这种是不包括Headers和Footers的一种Adapter实现
  */

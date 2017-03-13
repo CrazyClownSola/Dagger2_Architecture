@@ -1,7 +1,7 @@
 package com.sola.github.data.entity.net;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2016/12/21.
  */
 @SuppressWarnings("unused")

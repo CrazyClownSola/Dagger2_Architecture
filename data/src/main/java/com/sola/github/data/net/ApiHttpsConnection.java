@@ -30,7 +30,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2017/2/23.
  */
 @SuppressWarnings("unused")

@@ -3,7 +3,7 @@ package com.sola.github.tools.delegate;
 import android.view.View;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2016/12/20.
  */
 public interface IRecyclerViewClickDelegate extends IRecyclerViewDelegate {

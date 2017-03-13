@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import com.sola.github.tools.utils.StringUtils;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2016/12/19.
  */
 @SuppressWarnings("unused")
@@ -32,7 +32,7 @@ public class BaseResultEntity {
     // ===========================================================
 
     public boolean isSuccess() {
-        return !StringUtils.isEmpty(code) && code.equalsIgnoreCase("1000");
+        return !StringUtils.isEmpty(code) && code.equalsIgnoreCase("200");
     }
 
     public String getMessage() {

@@ -15,7 +15,7 @@ import com.sola.github.dagger2demo.ui.cj_demo.CJMainActivity;
 import butterknife.OnClick;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2017/2/23.
  */
 public class EmptyActivity extends RxBaseActivity {

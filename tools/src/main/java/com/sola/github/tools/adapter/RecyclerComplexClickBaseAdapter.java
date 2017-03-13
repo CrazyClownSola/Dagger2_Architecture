@@ -1,16 +1,14 @@
 package com.sola.github.tools.adapter;
 
 import android.content.Context;
-import android.graphics.PointF;
 import android.support.v7.widget.RecyclerView;
 
 import com.sola.github.tools.delegate.IRecyclerViewClickDelegate;
-import com.sola.github.tools.delegate.IRecyclerViewDelegate;
 
 import java.util.Collection;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2016/12/20.
  */
 public class RecyclerComplexClickBaseAdapter<

@@ -3,7 +3,7 @@ package com.sola.github.tools.utils;
 import java.util.Random;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2016/12/21.
  */
 @SuppressWarnings("unused")

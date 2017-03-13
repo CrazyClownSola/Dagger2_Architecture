@@ -11,7 +11,7 @@ import com.sola.github.dagger2demo.R;
 import com.sola.github.domain.params.params.uc.UserInfoDTO;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2017/2/22.
  */
 public class UserInfoViewDTO extends BaseViewDTO<UserInfoDTO> {

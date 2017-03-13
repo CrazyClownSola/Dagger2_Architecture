@@ -3,7 +3,7 @@ package com.sola.github.data.entity.net;
 import java.util.List;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2016/12/19.
  */
 @SuppressWarnings("unused")

@@ -1,17 +1,17 @@
-package com.sola.github.tools.adapter;
+package com.sola.github.dagger2demo.ui.fb_demo;
 
-import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 
-import com.sola.github.tools.delegate.IRecyclerViewClickDelegate;
-
-import java.util.Collection;
+import com.sola.github.dagger2demo.R;
+import com.sola.github.dagger2demo.ui.RxBaseActivity;
 
 /**
- * Created by zhangluji
- * 2016/12/20.
+ * Created by Sola
+ * 2017/2/28.
  */
-public class RecyclerDefaultAdapter<Param extends IRecyclerViewClickDelegate>
-        extends RecyclerComplexClickBaseAdapter<Param, Param, Param> {
+public class FragmentOneActivity extends RxBaseActivity {
 
     // ===========================================================
     // Constants
@@ -25,10 +25,6 @@ public class RecyclerDefaultAdapter<Param extends IRecyclerViewClickDelegate>
     // Constructors
     // ===========================================================
 
-    public RecyclerDefaultAdapter(Context mContext, Collection<Param> list) {
-        super(mContext, list);
-    }
-
     // ===========================================================
     // Getter & Setter
     // ===========================================================
@@ -36,6 +32,22 @@ public class RecyclerDefaultAdapter<Param extends IRecyclerViewClickDelegate>
     // ===========================================================
     // Methods for/from SuperClass/Interfaces
     // ===========================================================
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_fragment_one);
+    }
+
+    @Override
+    protected void doAfterView() {
+
+    }
+
+    @Override
+    protected void initExtras(Intent intent) {
+
+    }
 
     // ===========================================================
     // Methods

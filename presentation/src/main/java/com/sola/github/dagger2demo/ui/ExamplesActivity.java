@@ -3,7 +3,7 @@ package com.sola.github.dagger2demo.ui;
 import android.content.Intent;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2017/2/17.
  *
  * 用于测试实例的Activity

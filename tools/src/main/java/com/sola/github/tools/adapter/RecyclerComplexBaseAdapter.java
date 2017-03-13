@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2016/12/20.
  * RecyclerView在实现的时候是不涉及到Header和Footer的，有很多时候我们需要使用到这两个东西
  * 这里就提供一种做法

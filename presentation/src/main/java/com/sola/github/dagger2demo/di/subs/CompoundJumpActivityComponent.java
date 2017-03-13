@@ -12,7 +12,7 @@ import dagger.Provides;
 import dagger.Subcomponent;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2017/2/17.
  * todo 复合向跳转的组件，主要测试方向，对应一个需求点，需要跳转多个Activity的组件化，特点这些Activity 公用同一个Case逻辑系列
  */

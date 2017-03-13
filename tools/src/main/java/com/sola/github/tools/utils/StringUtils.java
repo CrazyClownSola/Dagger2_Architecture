@@ -7,7 +7,7 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2016/12/19.
  */
 public class StringUtils {

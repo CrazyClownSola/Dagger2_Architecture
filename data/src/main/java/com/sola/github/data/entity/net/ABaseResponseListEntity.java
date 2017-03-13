@@ -5,9 +5,10 @@ import com.sola.github.data.entity.BaseResultEntity;
 import java.util.List;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2016/12/19.
  */
+@SuppressWarnings("unused")
 public class ABaseResponseListEntity<T> extends BaseResultEntity {
     // ===========================================================
     // Constants

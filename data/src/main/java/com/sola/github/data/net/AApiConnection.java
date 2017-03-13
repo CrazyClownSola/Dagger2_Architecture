@@ -6,10 +6,8 @@ import com.sola.github.data.utils.ContextUtils;
 
 import java.lang.ref.WeakReference;
 
-import javax.inject.Inject;
-
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2017/2/22.
  */
 public abstract class AApiConnection {

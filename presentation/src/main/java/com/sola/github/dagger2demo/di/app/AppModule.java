@@ -10,7 +10,7 @@ import com.sola.github.data.net.AApiConnection;
 import com.sola.github.data.net.ApiHttpConnection;
 import com.sola.github.data.net.ApiHttpsConnection;
 import com.sola.github.data.repository.BBSDataRepository;
-import com.sola.github.data.repository.demo.UserCenterDataDemoRepository;
+import com.sola.github.data.repository.UserCenterDataRepository;
 import com.sola.github.data.scope.HttpRestAdapter;
 import com.sola.github.data.scope.HttpsRestAdapter;
 import com.sola.github.domain.exception.ErrorDelegate;
@@ -121,9 +121,16 @@ public class AppModule {
         return repository;
     }
 
+//    @Provides
+//    @Singleton
+//    UserCenterRepository provideUserCenterRepository(UserCenterDataDemoRepository repository) {
+//        return repository;
+//    }
+
     @Provides
     @Singleton
-    UserCenterRepository provideUserCenterRepository(UserCenterDataDemoRepository repository) {
+    UserCenterRepository provideUserCenterRepository(
+            UserCenterDataRepository repository) { // 这里可以切换实例的绑定可以在一个适当的时间将demo实例废弃
         return repository;
     }
 

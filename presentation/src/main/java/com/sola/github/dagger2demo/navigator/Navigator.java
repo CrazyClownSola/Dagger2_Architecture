@@ -17,7 +17,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 /**
- * Created by zhangluji
+ * Created by Sola
  * 2016/12/23.
  *
  * @Singleton 这个标注的作用是，这个类在对应的Component当中是以单例的方式存在
