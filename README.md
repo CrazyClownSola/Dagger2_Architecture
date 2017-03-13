@@ -535,6 +535,20 @@ public interface HasSubComponentBuilders {
     }
 
     ```
+### UI - Data (Net or DB or Cache) 界面-数据(网络、数据库、缓存) 
+> 介绍过`Dagger2`基本用法之后，大致可以开始编写代码部分了，App界面呈现不外乎两个基本概念，界面-数据(网络、数据库、缓存) 
+> 这里就大致介绍下，这一系列的部分在框架中是如何实现的
+- 界面
+> 就如前面框架所介绍的，界面层级的代码全都在presenter当中，其中包括各种Activity和Fragment代码
+> 同时界面也是所有数据请求的入口处，沿着这个思路，我们看代码如下
+
+```
+```
+
+- 数据(网络、数据库、缓存) 
+> 数据的获取方式，粗略的概括一下就三种方式，网络请求、数据库、缓存，在这里我首先介绍一种Net获取数据的方式
+> Net 网络通讯，在这里我利用`Retrofit2.0`和`RxJava`的配合帮助我去完成Api服务的请求
+
 
 
 ## View相关
@@ -821,14 +835,16 @@ public class MainPresenter implements IPresenter {
 
     @Inject
     MainPresenter(ABBSCase abbsCase) {
-        this.abbsCase = abbsCase;
+    	// 通过隐式注入的方式，将实例传输到这里，并且供内部调用
+        this.abbsCase = abbsCase;
     }
 
     public void requestMainListData(
             int pageCount, int pageSize,
             Action1<Collection<BaseViewDTO<BBSDataDTO>>> onNext,
             Action1<ErrorDTO> onError) {
-        abbsCase.searchBBSList(
+	    // 
+        abbsCase.searchBBSList(
                 pageCount, pageSize,
                 bbsDataDTOs -> onNext.call(transform(bbsDataDTOs)),
                 onError);
