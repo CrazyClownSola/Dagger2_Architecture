@@ -597,6 +597,7 @@ public class CJPresenter{
             Action1<IRecyclerViewDelegate> onNext,
             Action1<ErrorDTO> onError) {
         userCenterCase.requestUserInfo(userId,
+                // 参数二是对回调回来的接口数据做处理，转换成对应界面所需求的数据结构
                 userInfoDTO -> onNext.call(new UserInfoViewDTO(userInfoDTO)), // 这里后续View相关的部分会解释出这里ViewDTO的意义
                 onError);
     }
@@ -672,7 +673,7 @@ public class UserCenterCaseImpl extends AUserCenterCase {
     public void requestUserInfo(String userId, Action1<UserInfoDTO> onNext, Action1<ErrorDTO> onError) {
         execute(
             userCenterRepository.requestUserInfo(userId), // 这行代码是关键
-            onNext, // 成功回调
+            onNext, // 成功回调，数据的响应全都是通过回调的形式返回给界面层
             getErrorAction(onError)); // 失败回调处理
     }
 }
@@ -707,15 +708,116 @@ public class AppModule {
 PS：可能有人会奇怪为什么这两个实例绑定的地方不一样，原因在于两者的生命周期依附对象不同，这段话要理解需要自己去琢磨，算是Dagger2精髓的一个地方。
 
 
+最后实现点如下
 
+[UserCenterDataRepository.java](/data/src/main/java/com/sola/github/data/repository/UserCenterDataRepository.java)
 
+```
 
+public class UserCenterDataRepository
+ extends AConnectionRepository implements UserCenterRepository {
+ 
+    @Inject
+    UserCenterDataRepository(
+            @HttpsRestAdapter AApiConnection apiConnection // 注意这里是https请求
+            ) {
+        super(apiConnection);
+    }
+    
+    @Override
+    public Observable<UserInfoDTO> requestUserInfo(String userId) {
+        // 网络请求
+        return apiConnection.createService(
+                FireBaseAuthService.BASE_URL, FireBaseAuthService.class) // 网络请求
+                .requestDaggerUserInfo("user_dagger.json")// 请求对应接口
+                .flatMap(this::defaultErrorMapper)// 处理回调，通配处理，这步可以不要
+                .flatMap(fireBaseUserInfoEntity -> 
+                        Observable.just(transform(fireBaseUserInfoEntity))); 
+                        // 处理回调数据，进行数据转换，如果觉得这步多余可以直接用DTO，个人建议利用Entity转换成DTO的形式
+    }
+    
+     private UserInfoDTO transform(FireBaseUserInfoEntity entity) {
+        return ....;
+     }
+ 
+}
 
+```
 
 - 数据(网络、数据库、缓存) 
 > 数据的获取方式，粗略的概括一下就三种方式，网络请求、数据库、缓存，在这里我首先介绍一种Net获取数据的方式
 > Net 网络通讯，在这里我利用`Retrofit2.0`和`RxJava`的配合帮助我去完成Api服务的请求
 
+
+<strong>网络请求</strong>
+        
+请求工具类，提供请求方法入口
+[ApiHttpsConnection.java](/data/src/main/java/com/sola/github/data/net/ApiHttpsConnection.java)
+
+```
+
+public class ApiHttpsConnection extends AApiConnection {
+    
+    private OkHttpClient httpClient;
+    
+    private final Retrofit.Builder builder;
+
+    @Inject
+    ApiHttpsConnection(
+            Context context,
+            ContextUtils contextUtils) {
+        super(context, contextUtils);
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+        builder = new Retrofit.Builder()
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create()) // 配置请求返回参数为RxJava的形式
+                .addConverterFactory(GSONConverter.create(gson)); // 将Reponse和Request请求的内容进行Gson转换
+    }
+    
+    @Override
+    public <S> S createService(String baseUrl, Class<S> serviceCls) {
+        buildSSlClient(); // 处理Https协议，这部分代码我还有待完善，这部分代码可以以自身经验为主
+        Retrofit retrofit = builder.baseUrl(baseUrl).client(httpClient).build();  // Retrofit 初始化
+        return retrofit.create(serviceCls);// Retrofit 启动接口请求代码块
+    }
+    
+    private void checkHttpClient() {
+        if (httpClient != null)
+            return;
+        // 配置Http请求的Client
+        httpClient = new OkHttpClient.Builder()
+                .retryOnConnectionFailure(true)
+                .connectTimeout(2, TimeUnit.MINUTES)
+                .addInterceptor(new LoggingInterceptor()) // 添加日志
+                .build();
+    }
+    
+    ...
+    ...
+    
+}
+
+```
+
+对应服务接口实现
+[FireBaseAuthService.java](/data/src/main/java/com/sola/github/data/net/FireBaseAuthService.java)
+
+```
+
+public interface FireBaseAuthService {
+    // 这里用了Google提供的Firebase的Api去做数据请求
+    // Firebase这东西是个神器，方便快捷，构建速度快，虽然国内要用的话……比较尴尬
+    String BASE_URL = "https://solatest-d36e7.firebaseio.com/";
+
+    @GET("/users/{userId}") // 定义接口请求方式，和路径
+    Observable<FireBaseUserInfoEntity> requestDaggerUserInfo(@Path("userId") String userId); // 注意这个方法的返回直接是Observable，这是由于在ApiConnection当中添加了RxJavaCallAdapterFactory了缘故
+
+}
+
+```
+
+
+<strong>数据库</strong>
+这部分代码我还没写
 
 
 ## View相关
