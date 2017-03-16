@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 
 //调整编译环境需要用到的工具
-apply plugin: 'com.neenbedankt.android-apt'
+//apply plugin: 'com.neenbedankt.android-apt'
 // java8 lambda的表达式
 apply plugin: 'me.tatarka.retrolambda'
 

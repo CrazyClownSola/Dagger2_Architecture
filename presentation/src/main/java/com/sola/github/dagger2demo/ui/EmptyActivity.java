@@ -10,7 +10,6 @@ import com.sola.github.dagger2demo.di.app.AppComponent;
 import com.sola.github.dagger2demo.di.base.HasComponent;
 import com.sola.github.dagger2demo.navigator.BundleFactory;
 import com.sola.github.dagger2demo.navigator.Navigator;
-import com.sola.github.dagger2demo.ui.binding.BindingMainActivity;
 import com.sola.github.dagger2demo.ui.cj_demo.CJMainActivity;
 
 import butterknife.OnClick;
@@ -104,7 +103,6 @@ public class EmptyActivity extends RxBaseActivity {
                 break;
 
             case R.id.id_btn_binding:
-                getNavigator().switchActivity(this, BindingMainActivity.class);
                 break;
         }
     }
