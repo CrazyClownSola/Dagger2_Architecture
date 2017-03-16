@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 //apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
+//apply plugin: 'com.android.databinding'
 
 android {
 
@@ -129,15 +130,18 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
+
     def dependencies = rootProject.ext.appDependencies
     compile dependencies.auto_value
-//    apt dependencies.auto_value
+    annotationProcessor dependencies.auto_value
+
     compile dependencies.javax_annotation    //
     compile dependencies.butter_knife
-    provided dependencies.butter_knife_compiler
+    annotationProcessor dependencies.butter_knife_compiler
 
+    annotationProcessor dependencies.daggerCompiler
     compile dependencies.dagger
-    provided dependencies.daggerCompiler
 
     compile dependencies.picasso
     // rxJava 库包
