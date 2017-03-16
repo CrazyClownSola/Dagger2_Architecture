@@ -8,6 +8,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.Toast;
 
 import com.sola.github.dagger2demo.R;
@@ -97,6 +98,9 @@ public class MainActivity extends RxBaseActivity {
 
     @Override
     protected void doAfterView() {
+        id_recycler_view = (RecyclerView) findViewById(R.id.id_recycler_view);
+        id_app_bar_layout = (AppBarLayout) findViewById(R.id.id_app_bar_layout);
+        findViewById(R.id.id_btn_fab).setOnClickListener(this::onClick);
         initComponent();
         initListener();
         toastUtils.makeToast(this, "我在测试", Toast.LENGTH_SHORT);
@@ -130,7 +134,7 @@ public class MainActivity extends RxBaseActivity {
     // ===========================================================
 
     @OnClick(R.id.id_btn_fab)
-    public void onClick() {
+    public void onClick(View v) {
 //        requestData();
         navigator.switchActivity(
                 this,

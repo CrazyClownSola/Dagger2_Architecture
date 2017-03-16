@@ -28,9 +28,6 @@ public class EmptyActivity extends RxBaseActivity {
     // Fields
     // ===========================================================
 
-//    @Inject
-//    Navigator navigator;
-
     // ===========================================================
     // Constructors
     // ===========================================================
@@ -61,7 +58,10 @@ public class EmptyActivity extends RxBaseActivity {
 
     @Override
     protected void doAfterView() {
-
+        findViewById(R.id.id_btn_cj_main).setOnClickListener(this::btnClick);
+        findViewById(R.id.id_btn_main).setOnClickListener(this::btnClick);
+        findViewById(R.id.id_btn_test).setOnClickListener(this::btnClick);
+        findViewById(R.id.id_btn_binding).setOnClickListener(this::btnClick);
     }
 
     @Override

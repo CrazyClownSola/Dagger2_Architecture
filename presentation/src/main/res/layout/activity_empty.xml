@@ -1,43 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <include layout="@layout/layout_default_header_tool_bar"/>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="15dp"
-        >
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/id_btn_cj_main"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CJ_Main"/>
+        <include layout="@layout/layout_default_header_tool_bar"/>
 
-        <Button
-            android:id="@+id/id_btn_main"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Main"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="15dp"
+            >
 
-        <Button
-            android:id="@+id/id_btn_test"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Test"/>
+            <Button
+                android:id="@+id/id_btn_cj_main"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CJ_Main"/>
 
-        <Button
-            android:id="@+id/id_btn_binding"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Binding"/>
+            <Button
+                android:id="@+id/id_btn_main"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Main"/>
+
+            <Button
+                android:id="@+id/id_btn_test"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Test"/>
+
+            <Button
+                android:id="@+id/id_btn_binding"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Binding"/>
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</layout>
