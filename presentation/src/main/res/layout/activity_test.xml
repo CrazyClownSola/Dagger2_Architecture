@@ -1,20 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/id_text_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
+    <data>
+        <import type="com.sola.github.dagger2demo.databinding.LayoutDefaultHeaderToolBarBinding"/>
+        <variable
+            name="title"
+            type="String"/>
 
-    <TextView
-        android:id="@+id/id_text_second"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
+        <variable
+            name="title_second"
+            type="String"/>
+    </data>
 
-</LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/id_text_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{title}"
+
+            />
+
+        <TextView
+            android:id="@+id/id_text_second"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{title_second}"
+            />
+
+    </LinearLayout>
+</layout>

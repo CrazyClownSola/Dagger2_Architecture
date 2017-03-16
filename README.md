@@ -16,7 +16,9 @@
 
 - UI相关
     - [butterknife](https://github.com/JakeWharton/butterknife) 以前项目用的是[AndroidAnnotations](http://androidannotations.org/), 用久了发现`AndroidAnnotations`覆盖面太过于广泛，基本是属于一个库能涉及到整个Android_App的构建,这就导致在整个项目配合其他库包一起附合使用的时候，AA的价值就会被缩小
-        所以后期我决定不再依赖AA,而是选择更纯粹的用于UI界面注入的butterknife,优点就是更针对性，更轻量化。
+        所以后期我决定不再依赖AA,而是选择更纯粹的用于UI界面注入的butterknife，直到后来我发现了DataBinding。
+    - [DataBinding](https://developer.android.com/topic/libraries/data-binding/index.html#studio_support) 技术的更新真是……赶不上啊，这东西的出现让我在UI界面编写的选择上完全抛弃任何第三方了，DataBinding的实现方式和以前WPF的Databinding很像，可以在xml里面写界面逻辑代码，很有意思。
+        只是用这个的时候注意，这个回合apt-plugin冲突在编译的时候，暂且并没有找到很好的解决办法（保留apt的前提下），代码中是将第三方对于apt的修改调整成provided
     - SupportV7 相关, recyclerView;appcompat;cardView;design;palette等，这部分的依赖主要是帮助项目去实现基于[Material Design](https://developer.android.google.cn/design/index.html)风格的设计代码
         `Material Design`这东西，单独拉出来说 一两天都讲不完，所以这个就请自行去研究吧，反正，很炫酷，我很喜欢
     - [picasso](https://github.com/square/picasso) `square`公司是个很靠谱的公司，提供了很多很实用的第三方库，当中很出名的就是`picasso`了，`picasso`图片处理库，优势在于使用简单，内部实现讲究几个基本原则：

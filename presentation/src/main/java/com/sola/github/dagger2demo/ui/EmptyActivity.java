@@ -10,6 +10,7 @@ import com.sola.github.dagger2demo.di.app.AppComponent;
 import com.sola.github.dagger2demo.di.base.HasComponent;
 import com.sola.github.dagger2demo.navigator.BundleFactory;
 import com.sola.github.dagger2demo.navigator.Navigator;
+import com.sola.github.dagger2demo.ui.binding.BindingMainActivity;
 import com.sola.github.dagger2demo.ui.cj_demo.CJMainActivity;
 
 import butterknife.OnClick;
@@ -76,7 +77,8 @@ public class EmptyActivity extends RxBaseActivity {
     @OnClick({
             R.id.id_btn_cj_main,
             R.id.id_btn_main,
-            R.id.id_btn_test
+            R.id.id_btn_test,
+            R.id.id_btn_binding
     })
     public void btnClick(View view) {
         switch (view.getId()) {
@@ -99,6 +101,10 @@ public class EmptyActivity extends RxBaseActivity {
                 );
                 break;
             case R.id.id_btn_test:
+                break;
+
+            case R.id.id_btn_binding:
+                getNavigator().switchActivity(this, BindingMainActivity.class);
                 break;
         }
     }

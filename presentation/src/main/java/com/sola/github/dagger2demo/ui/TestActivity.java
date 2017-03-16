@@ -36,11 +36,11 @@ public class TestActivity extends RxBaseActivity {
     @Inject
     ActivityUtils utils;
 
-    @BindView(R.id.id_text_title)
-    TextView id_text_title;
-
     @BindView(R.id.id_text_second)
     TextView id_text_second;
+
+    @BindView(R.id.id_text_title)
+    TextView id_text_title;
 
     // ===========================================================
     // Constructors
@@ -57,7 +57,9 @@ public class TestActivity extends RxBaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test);
+//        binding.
+//        binding = DataBindingUtil.setContentView(this, R.layout.activity_test);
+//        setContentView(R.layout.activity_test);
     }
 
     @Override
@@ -73,7 +75,9 @@ public class TestActivity extends RxBaseActivity {
 
             String text = presenter.utilInit();
             id_text_title.setText(text);
+//            binding.setTitle(text);
             text = presenter.subInit();
+//            binding.setTitle_second(text);
             id_text_second.setText(text);
         }
     }

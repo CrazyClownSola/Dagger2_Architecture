@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
+//apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
-apply plugin: 'android-apt'
 
 android {
 
@@ -103,7 +102,10 @@ android {
             }
 
         }
+    }
 
+    dataBinding {
+        enabled = true
     }
 
     compileOptions {
@@ -129,12 +131,14 @@ dependencies {
     })
     def dependencies = rootProject.ext.appDependencies
     compile dependencies.auto_value
-    apt dependencies.auto_value
+//    apt dependencies.auto_value
     compile dependencies.javax_annotation    //
     compile dependencies.butter_knife
-    apt dependencies.butter_knife_compiler
-    apt dependencies.daggerCompiler
+    provided dependencies.butter_knife_compiler
+
     compile dependencies.dagger
+    provided dependencies.daggerCompiler
+
     compile dependencies.picasso
     // rxJava 库包
     compile dependencies.rxJava
@@ -145,4 +149,6 @@ dependencies {
     compile dependencies.cardview
     compile dependencies.design
     compile dependencies.palette
+    compile dependencies.contraint // 约束布局
+
 }

@@ -36,6 +36,10 @@
 
         <activity android:name=".ui.cj_demo.CJSecondActivity"/>
 
+        <activity android:name=".ui.binding.BindingActivity"/>
+
+        <activity android:name=".ui.binding.BindingMainActivity"/>
+
         <meta-data
             android:name="CHANNEL_ID"
             android:value="${CHANNEL_ID}"/>

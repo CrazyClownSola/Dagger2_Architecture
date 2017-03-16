@@ -48,8 +48,9 @@ dependencies {
     })
 
     def dependencies = rootProject.ext.appDependencies
-    apt dependencies.daggerCompiler
     compile dependencies.dagger
+    provided dependencies.daggerCompiler
+
     compile dependencies.androidSupport
     compile dependencies.rxJava
 
