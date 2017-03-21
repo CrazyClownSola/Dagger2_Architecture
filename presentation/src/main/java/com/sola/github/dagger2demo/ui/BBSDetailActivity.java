@@ -13,8 +13,6 @@ import com.sola.github.dagger2demo.utils.LinearDecoration;
 import com.sola.github.domain.params.params.bbs.BBSDataDTO;
 import com.sola.github.tools.adapter.RecyclerBaseAdapter;
 
-import butterknife.BindView;
-
 /**
  * Created by Sola
  * 2016/12/23.
@@ -34,7 +32,6 @@ public class BBSDetailActivity extends RxBaseActivity {
 
     private BBSDataDTO data;
 
-    @BindView(R.id.id_recycler_view)
     RecyclerView id_recycler_view;
 
     RecyclerBaseAdapter<BaseViewDTO> adapter;
@@ -78,6 +75,7 @@ public class BBSDetailActivity extends RxBaseActivity {
     // ===========================================================
 
     private void initRecyclerView() {
+        id_recycler_view = (RecyclerView) findViewById(R.id.id_recycler_view);
         id_recycler_view.setLayoutManager(new LinearLayoutManager(getContext()));
         id_recycler_view.setItemAnimator(new DefaultItemAnimator());
         id_recycler_view.addItemDecoration(

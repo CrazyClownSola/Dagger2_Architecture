@@ -18,14 +18,12 @@ import com.sola.github.dagger2demo.R;
 
 import java.lang.ref.WeakReference;
 
-
 /**
- * Created by slove
- * 2016/12/14.
- * 可能弃用该类，转换成binding的使用方式
+ * Created by Sola
+ * 2017/3/17.
  */
 @SuppressWarnings("unused")
-public abstract class RxBaseActivity extends AppCompatActivity {
+public abstract class RxBindingBaseActivity extends AppCompatActivity {
 
     // ===========================================================
     // Constants
@@ -96,21 +94,18 @@ public abstract class RxBaseActivity extends AppCompatActivity {
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
         super.setContentView(layoutResID);
-//        ButterKnife.bind(this);
         initView();
     }
 
     @Override
     public void setContentView(View view) {
         super.setContentView(view);
-//        ButterKnife.bind(this);
         initView();
     }
 
     @Override
     public void setContentView(View view, ViewGroup.LayoutParams params) {
         super.setContentView(view, params);
-//        ButterKnife.bind(this);
         initView();
     }
 
@@ -135,13 +130,12 @@ public abstract class RxBaseActivity extends AppCompatActivity {
     }
 
     protected void initView() {
+        id_tool_bar = (Toolbar) findViewById(R.id.id_tool_bar);
         if (id_tool_bar != null) {
-            id_tool_bar.setTitle(title);
             setSupportActionBar(id_tool_bar);
             if (getSupportActionBar() != null) // 纯粹是为了去除一个警告
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        doAfterView();
     }
 
     /**
@@ -196,8 +190,5 @@ public abstract class RxBaseActivity extends AppCompatActivity {
     // Inner and Anonymous Classes
     // ===========================================================
 
-    protected abstract void doAfterView();
-
     protected abstract void initExtras(Intent intent);
-
 }

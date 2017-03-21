@@ -12,8 +12,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.sola.github.dagger2demo.R;
-import com.sola.github.dagger2demo.di.subs.MainActivityComponent;
 import com.sola.github.dagger2demo.di.base.HasSubComponentBuilders;
+import com.sola.github.dagger2demo.di.subs.MainActivityComponent;
 import com.sola.github.dagger2demo.enums.ESubType;
 import com.sola.github.dagger2demo.navigator.BundleFactory;
 import com.sola.github.dagger2demo.navigator.Navigator;
@@ -27,9 +27,6 @@ import com.sola.github.domain.params.params.bbs.BBSDataDTO;
 import com.sola.github.tools.adapter.RecyclerBaseAdapter;
 
 import javax.inject.Inject;
-
-import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * Created by slove
@@ -57,10 +54,8 @@ public class MainActivity extends RxBaseActivity {
     @Inject
     BundleFactory bundleFactory;
 
-    @BindView(R.id.id_recycler_view)
     RecyclerView id_recycler_view;
 
-    @BindView(R.id.id_app_bar_layout)
     AppBarLayout id_app_bar_layout;
 
     RecyclerBaseAdapter<BaseViewDTO<BBSDataDTO>> adapter;
@@ -133,7 +128,6 @@ public class MainActivity extends RxBaseActivity {
     // Methods
     // ===========================================================
 
-    @OnClick(R.id.id_btn_fab)
     public void onClick(View v) {
 //        requestData();
         navigator.switchActivity(

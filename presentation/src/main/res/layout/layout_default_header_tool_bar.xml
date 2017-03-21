@@ -1,17 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<android.support.v7.widget.Toolbar
-    android:id="@+id/id_tool_bar"
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="?actionBarSize"
-    android:background="@drawable/color_primary_shape_default_header"
-    android:elevation="2dp"
-    android:gravity="center"
-    app:layout_scrollFlags="scroll|enterAlways"
-    app:title="title"
-    app:titleTextAppearance="@style/HEADER_TOOLBAR_TITLE"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-</android.support.v7.widget.Toolbar>
+    <data>
+
+        <variable
+            name="toolStr"
+            type="String"/>
+    </data>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/id_tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@drawable/color_primary_shape_default_header"
+        android:elevation="2dp"
+        android:gravity="center"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:title="@{toolStr ?? @string/str_default_title_str}"
+        app:titleTextAppearance="@style/HEADER_TOOLBAR_TITLE"
+        >
+
+    </android.support.v7.widget.Toolbar>
+</layout>

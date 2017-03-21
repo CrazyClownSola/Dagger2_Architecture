@@ -1,24 +1,24 @@
 package com.sola.github.dagger2demo.ui;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.sola.github.dagger2demo.R;
+import com.sola.github.dagger2demo.databinding.ActivityEmptyBinding;
 import com.sola.github.dagger2demo.di.app.AppComponent;
 import com.sola.github.dagger2demo.di.base.HasComponent;
 import com.sola.github.dagger2demo.navigator.BundleFactory;
 import com.sola.github.dagger2demo.navigator.Navigator;
 import com.sola.github.dagger2demo.ui.cj_demo.CJMainActivity;
 
-import butterknife.OnClick;
-
 /**
  * Created by Sola
  * 2017/2/23.
  */
-public class EmptyActivity extends RxBaseActivity {
+public class EmptyActivity extends RxBindingBaseActivity {
 
     // ===========================================================
     // Constants
@@ -27,6 +27,8 @@ public class EmptyActivity extends RxBaseActivity {
     // ===========================================================
     // Fields
     // ===========================================================
+
+    ActivityEmptyBinding binding;
 
     // ===========================================================
     // Constructors
@@ -53,32 +55,19 @@ public class EmptyActivity extends RxBaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_empty);
-    }
-
-    @Override
-    protected void doAfterView() {
-        findViewById(R.id.id_btn_cj_main).setOnClickListener(this::btnClick);
-        findViewById(R.id.id_btn_main).setOnClickListener(this::btnClick);
-        findViewById(R.id.id_btn_test).setOnClickListener(this::btnClick);
-        findViewById(R.id.id_btn_binding).setOnClickListener(this::btnClick);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_empty);
+        binding.setListener(this::btnClick);
     }
 
     @Override
     protected void initExtras(Intent intent) {
-
+        binding.setToolTitle(title);
     }
 
     // ===========================================================
     // Methods
     // ===========================================================
 
-    @OnClick({
-            R.id.id_btn_cj_main,
-            R.id.id_btn_main,
-            R.id.id_btn_test,
-            R.id.id_btn_binding
-    })
     public void btnClick(View view) {
         switch (view.getId()) {
             case R.id.id_btn_cj_main:

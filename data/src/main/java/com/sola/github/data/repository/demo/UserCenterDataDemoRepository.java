@@ -12,7 +12,7 @@ import rx.Observable;
  * Created by Sola
  * 2017/2/20.
  */
-class UserCenterDataDemoRepository implements UserCenterRepository {
+public class UserCenterDataDemoRepository implements UserCenterRepository {
 
     // ===========================================================
     // Constants

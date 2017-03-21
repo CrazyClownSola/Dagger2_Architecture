@@ -7,7 +7,7 @@ import com.sola.github.dagger2demo.di.base.HasSubComponentBuilders;
 import com.sola.github.dagger2demo.di.subs.CompoundJumpActivityComponent;
 import com.sola.github.dagger2demo.enums.ESubType;
 import com.sola.github.dagger2demo.presenter.CJPresenter;
-import com.sola.github.dagger2demo.ui.RxBaseActivity;
+import com.sola.github.dagger2demo.ui.RxBindingBaseActivity;
 import com.sola.github.dagger2demo.utils.ToastUtils;
 
 import javax.inject.Inject;
@@ -16,7 +16,7 @@ import javax.inject.Inject;
  * Created by Sola
  * 2017/2/22.
  */
-public abstract class ACJBaseActivity extends RxBaseActivity {
+public abstract class ACJBaseActivity extends RxBindingBaseActivity {
 
     // ===========================================================
     // Constants

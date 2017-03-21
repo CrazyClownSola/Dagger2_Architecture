@@ -1,13 +1,15 @@
 package com.sola.github.dagger2demo.ui.params;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.sola.github.dagger2demo.R;
+import com.sola.github.dagger2demo.databinding.RecyclerItemUserInfoBinding;
 import com.sola.github.domain.params.params.uc.UserInfoDTO;
 
 /**
@@ -19,6 +21,8 @@ public class UserInfoViewDTO extends BaseViewDTO<UserInfoDTO> {
     // ===========================================================
     // Constants
     // ===========================================================
+
+    private final static String TAG = "Sola";
 
     // ===========================================================
     // Fields
@@ -35,7 +39,7 @@ public class UserInfoViewDTO extends BaseViewDTO<UserInfoDTO> {
     // ===========================================================
     // Getter & Setter
     // ===========================================================
-
+//    private RecyclerItemUserInfoBinding binding;
     // ===========================================================
     // Methods for/from SuperClass/Interfaces
     // ===========================================================
@@ -43,16 +47,21 @@ public class UserInfoViewDTO extends BaseViewDTO<UserInfoDTO> {
     @Override
     public RecyclerView.ViewHolder getHolder(Context context, ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.recycler_item_user_info, parent, false));
+//        return new ViewHolder(binding);
     }
 
     @Override
     public void refreshView(Context context, RecyclerView.ViewHolder holder, int position) {
+        Log.d(TAG, "refreshView: position[" + position + "]");
         if (data == null)
             return;
         ViewHolder viewHolder = (ViewHolder) holder;
-        viewHolder.id_text_user_name.setText(data.getName());
-        viewHolder.id_text_user_age.setText(getResourceStr(context, R.string.str_user_info_age, data.getAge()));
-        viewHolder.id_text_user_do_something.setText("do something");
+//        viewHolder.binding.setText(data.getName());
+        viewHolder.binding.setUserInfo(data);
+        // 这段代码很重要，有点强制刷新的意思，如果这段代码不加，binding会被推出到下一帧，这样会是的界面无限刷新
+        // 建议配置到ViewHolder里面去
+        viewHolder.binding.executePendingBindings();
+
     }
 
     // ===========================================================
@@ -65,15 +74,11 @@ public class UserInfoViewDTO extends BaseViewDTO<UserInfoDTO> {
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView id_text_user_name,
-                id_text_user_age,
-                id_text_user_do_something;
+        RecyclerItemUserInfoBinding binding;
 
         ViewHolder(View itemView) {
             super(itemView);
-            id_text_user_name = (TextView) itemView.findViewById(R.id.id_text_user_name);
-            id_text_user_age = (TextView) itemView.findViewById(R.id.id_text_user_age);
-            id_text_user_do_something = (TextView) itemView.findViewById(R.id.id_text_user_do_something);
+            this.binding = DataBindingUtil.bind(itemView);
         }
     }
 

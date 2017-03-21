@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.sola.github.dagger2demo.R;
@@ -13,8 +14,6 @@ import com.sola.github.dagger2demo.di.base.HasComponent;
 import com.sola.github.dagger2demo.navigator.Navigator;
 import com.sola.github.tools.adapter.RecyclerBaseAdapter;
 import com.sola.github.tools.delegate.IRecyclerViewDelegate;
-
-import butterknife.BindView;
 
 /**
  * Created by Sola
@@ -31,7 +30,6 @@ public class CJMainActivity extends ACJBaseActivity {
     // Fields
     // ===========================================================
 
-    @BindView(R.id.id_recycler_view)
     RecyclerView id_recycler_view;
 
     RecyclerBaseAdapter<IRecyclerViewDelegate> adapter;
@@ -57,22 +55,25 @@ public class CJMainActivity extends ACJBaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cj_main);
+        buildBindingView();
     }
 
-    @Override
-    protected void doAfterView() {
+    private void buildBindingView() {
         id_recycler_view = (RecyclerView) findViewById(R.id.id_recycler_view);
         getToastUtils().makeToast(this, "我还在测试", Toast.LENGTH_SHORT);
         if (adapter == null)
             adapter = new RecyclerBaseAdapter<>(getContext(), null);
-//        id_recycler_view = f
         id_recycler_view.setItemAnimator(new DefaultItemAnimator()); // 默认的一些加载动效可能很多人无法接受
         id_recycler_view.setAdapter(adapter);
-        adapter.setListener((v, viewDto) -> getNavigator().switchActivity(
-                this,
-                CJSecondActivity.class));
+        adapter.setListener((v, viewDto) ->
+                getNavigator().switchActivity(
+                        this,
+                        CJSecondActivity.class));
         getPresenter().requestUserInfo("",
-                iRecyclerViewDelegate -> adapter.addItem(iRecyclerViewDelegate),
+                iRecyclerViewDelegate -> {
+                    Log.d("Sola", "buildBindingView: ");
+                    adapter.addItem(iRecyclerViewDelegate);
+                },
                 errorDTO -> getToastUtils().makeToast(this, "测试数据", Toast.LENGTH_SHORT));
     }
 

@@ -39,11 +39,6 @@ public class CJSecondActivity extends ACJBaseActivity {
     }
 
     @Override
-    protected void doAfterView() {
-
-    }
-
-    @Override
     protected void initExtras(Intent intent) {
 
     }

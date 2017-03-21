@@ -5,4 +5,8 @@
 
     <string name="string_html_bbs_data_reply_count">回复数 %1$d</string>
 
+    <string name="string_recycler_item_user_age">%1$d岁</string>
+
+    <string name="string_recycler_item_user_others">%1$s | %2$s</string>
+
 </resources>

@@ -138,8 +138,8 @@ dependencies {
 
     compile dependencies.javax_annotation    //
 
-    compile dependencies.butter_knife
-    annotationProcessor dependencies.butter_knife_compiler
+//    compile dependencies.butter_knife
+//    annotationProcessor dependencies.butter_knife_compiler
 
     annotationProcessor dependencies.daggerCompiler
     compile dependencies.dagger

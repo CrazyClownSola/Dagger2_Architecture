@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.TextView;
 
-import com.sola.github.dagger2demo.R;
 import com.sola.github.dagger2demo.di.base.HasSubComponentBuilders;
 import com.sola.github.dagger2demo.di.subs.TestActivityComponent;
 import com.sola.github.dagger2demo.enums.ESubType;
@@ -14,7 +13,6 @@ import com.sola.github.dagger2demo.utils.ActivityUtils;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
 
 /**
  * Created by slove
@@ -36,10 +34,8 @@ public class TestActivity extends RxBaseActivity {
     @Inject
     ActivityUtils utils;
 
-    @BindView(R.id.id_text_second)
     TextView id_text_second;
 
-    @BindView(R.id.id_text_title)
     TextView id_text_title;
 
     // ===========================================================

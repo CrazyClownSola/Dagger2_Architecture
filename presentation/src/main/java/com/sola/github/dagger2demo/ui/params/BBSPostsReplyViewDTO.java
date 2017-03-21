@@ -13,9 +13,6 @@ import com.sola.github.domain.params.params.bbs.BBSPostsMainReplyDTO;
 import com.sola.github.tools.delegate.IRecyclerViewClickDelegate;
 import com.sola.github.tools.utils.TypeBuilder;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 /**
  * Created by Sola
  * 2016/12/20.
@@ -99,10 +96,8 @@ class BBSPostsReplyViewDTO extends BaseViewDTO<BBSPostsMainReplyDTO> implements 
 
     class ExpendViewHolder extends ViewHolder {
 
-        @BindView(R.id.id_btn_quick_reply)
         TextView id_btn_quick_reply;
 
-        @BindView(R.id.id_include_reply_items)
         ViewGroup id_include_reply_items;
 
         ExpendViewHolder(View itemView) {
@@ -112,18 +107,14 @@ class BBSPostsReplyViewDTO extends BaseViewDTO<BBSPostsMainReplyDTO> implements 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.id_image_user_photo)
         ImageView id_image_user_photo;
 
-        @BindView(R.id.id_text_bbs_user_name)
         TextView id_text_bbs_user_name;
 
-        @BindView(R.id.id_text_bbs_description)
         TextView id_text_bbs_description;
 
         ViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
         }
     }
 }
