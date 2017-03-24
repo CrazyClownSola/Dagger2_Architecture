@@ -52,7 +52,7 @@ public class UserInfoDTO {
         this.id = id;
     }
 
-    public String getName() {
+    public String getUserName() {
         return name;
     }
 
@@ -92,6 +92,9 @@ public class UserInfoDTO {
         this.mobile = mobile;
     }
 
+    public boolean isAdmin() {
+        return true;
+    }
 
     // ===========================================================
     // Methods for/from SuperClass/Interfaces

@@ -6,13 +6,12 @@ import android.support.annotation.Nullable;
 
 import com.sola.github.dagger2demo.R;
 import com.sola.github.dagger2demo.ui.RxBaseActivity;
-import com.sola.github.dagger2demo.ui.RxBindingBaseActivity;
 
 /**
  * Created by Sola
  * 2017/2/28.
  */
-public class FragmentOneActivity extends RxBindingBaseActivity {
+public class FragmentOneActivity extends RxBaseActivity {
 
     // ===========================================================
     // Constants
@@ -42,6 +41,12 @@ public class FragmentOneActivity extends RxBindingBaseActivity {
 
     @Override
     protected void initExtras(Intent intent) {
+
+    }
+
+
+    @Override
+    protected void doAfterView() {
 
     }
 

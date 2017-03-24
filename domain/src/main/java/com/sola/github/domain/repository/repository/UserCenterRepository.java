@@ -2,6 +2,8 @@ package com.sola.github.domain.repository.repository;
 
 import com.sola.github.domain.params.params.uc.UserInfoDTO;
 
+import java.util.Collection;
+
 import rx.Observable;
 
 /**
@@ -23,4 +25,5 @@ public interface UserCenterRepository {
 
     Observable<UserInfoDTO> requestUserInfo(String userId);
 
+    Observable<Collection<UserInfoDTO>> requestUserList();
 }

@@ -2,6 +2,8 @@ package com.sola.github.dagger2demo.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v4.app.Fragment;
@@ -37,11 +39,11 @@ public abstract class RxBindingBaseActivity extends AppCompatActivity {
     // Fields
     // ===========================================================
 
-    Toolbar id_tool_bar;
+    protected Toolbar id_tool_bar;
 
-    int menu_id = -1;
+    protected int menu_id = -1;
 
-    String title;
+    protected String title;
 
     protected final WeakReference<Context> mContext = new WeakReference<>(this);
 
@@ -94,19 +96,7 @@ public abstract class RxBindingBaseActivity extends AppCompatActivity {
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
         super.setContentView(layoutResID);
-        initView();
-    }
-
-    @Override
-    public void setContentView(View view) {
-        super.setContentView(view);
-        initView();
-    }
-
-    @Override
-    public void setContentView(View view, ViewGroup.LayoutParams params) {
-        super.setContentView(view, params);
-        initView();
+        initView(layoutResID);
     }
 
     @Override
@@ -129,13 +119,47 @@ public abstract class RxBindingBaseActivity extends AppCompatActivity {
         return mContext.get();
     }
 
-    protected void initView() {
+    protected void initView(@LayoutRes int resId) {
+        injectBinding(resId);
+        injectExtras_();
+        // 暂且没找到很好的替代方法
         id_tool_bar = (Toolbar) findViewById(R.id.id_tool_bar);
         if (id_tool_bar != null) {
             setSupportActionBar(id_tool_bar);
             if (getSupportActionBar() != null) // 纯粹是为了去除一个警告
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         }
+        doAfterView();
+    }
+
+    private void injectExtras_() {
+        Bundle extras_ = getIntent().getExtras();
+        if (extras_ != null) {
+            if (extras_.containsKey(TITLE_EXTRA)) {
+                title = extras_.getString(TITLE_EXTRA);
+            }
+            if (extras_.containsKey(MENU_ID_EXTRA)) {
+                menu_id = extras_.getInt(MENU_ID_EXTRA);
+            }
+        }
+        initExtras(getIntent());
+    }
+
+    protected <T extends ViewDataBinding> T buildBinding(@LayoutRes int resId) {
+//        return DataBindingUtil.inflate(
+//                getLayoutInflater(), resId,
+//                (ViewGroup) getWindow().getDecorView().findViewById(android.R.id.content), true);
+        ViewGroup rootView = (ViewGroup) getWindow().getDecorView().findViewById(android.R.id.content);
+        View view = rootView.getChildAt(0);
+
+//        if (view. == resId) {
+//
+//        }
+        return DataBindingUtil.bind(view);
+    }
+
+    protected void initExtras(Intent intent) {
+        //自定义实现
     }
 
     /**
@@ -186,9 +210,12 @@ public abstract class RxBindingBaseActivity extends AppCompatActivity {
         }
     }
 
+
     // ===========================================================
     // Inner and Anonymous Classes
     // ===========================================================
 
-    protected abstract void initExtras(Intent intent);
+    protected abstract void doAfterView();
+
+    protected abstract void injectBinding(@LayoutRes int resId);
 }

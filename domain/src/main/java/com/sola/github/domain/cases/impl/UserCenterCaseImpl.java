@@ -8,6 +8,8 @@ import com.sola.github.domain.executor.UIExecutorThread;
 import com.sola.github.domain.params.params.uc.UserInfoDTO;
 import com.sola.github.domain.repository.repository.UserCenterRepository;
 
+import java.util.Collection;
+
 import javax.inject.Inject;
 
 import rx.functions.Action1;
@@ -41,7 +43,6 @@ public class UserCenterCaseImpl extends AUserCenterCase {
             UserCenterRepository userCenterRepository) {
         super(threadExecutor, postExecutionThread, errorPresenter);
         this.userCenterRepository = userCenterRepository;
-
     }
 
     // ===========================================================
@@ -55,6 +56,11 @@ public class UserCenterCaseImpl extends AUserCenterCase {
     @Override
     public void requestUserInfo(String userId, Action1<UserInfoDTO> onNext, Action1<ErrorDTO> onError) {
         execute(userCenterRepository.requestUserInfo(userId), onNext, getErrorAction(onError));
+    }
+
+    @Override
+    public void requestUserList(Action1<Collection<UserInfoDTO>> onNext, Action1<ErrorDTO> onError) {
+        execute(userCenterRepository.requestUserList(), onNext, getErrorAction(onError));
     }
 
     // ===========================================================

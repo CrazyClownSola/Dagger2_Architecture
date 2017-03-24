@@ -7,6 +7,8 @@ import com.sola.github.data.scope.HttpsRestAdapter;
 import com.sola.github.domain.params.params.uc.UserInfoDTO;
 import com.sola.github.domain.repository.repository.UserCenterRepository;
 
+import java.util.Collection;
+
 import javax.inject.Inject;
 
 import rx.Observable;
@@ -51,6 +53,11 @@ public class UserCenterDataRepository extends AConnectionRepository implements U
                 .requestDaggerUserInfo("user_dagger.json")
                 .flatMap(this::defaultErrorMapper)
                 .flatMap(fireBaseUserInfoEntity -> Observable.just(transform(fireBaseUserInfoEntity)));
+    }
+
+    @Override
+    public Observable<Collection<UserInfoDTO>> requestUserList() {
+        return null;
     }
 
     // ===========================================================

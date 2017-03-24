@@ -1,6 +1,7 @@
 package com.sola.github.dagger2demo;
 
 import android.app.Application;
+import android.databinding.DataBindingUtil;
 
 import com.sola.github.dagger2demo.di.app.AppComponent;
 import com.sola.github.dagger2demo.di.app.AppModule;
@@ -13,6 +14,7 @@ import com.sola.github.dagger2demo.di.scope.SubMapKeyCreator;
 import com.sola.github.dagger2demo.di.subs.CompoundJumpActivityComponent;
 import com.sola.github.dagger2demo.di.subs.DataBaseComponent;
 import com.sola.github.dagger2demo.di.subs.MainActivityComponent;
+import com.sola.github.dagger2demo.di.view.impl.DaggerDefaultUIComponent;
 import com.sola.github.dagger2demo.enums.ESubType;
 
 import java.util.Map;
@@ -56,6 +58,7 @@ public class MainApplication extends Application implements HasComponent<AppComp
         appComponent = DaggerAppComponent.builder().appModule(
                 new AppModule(this)).build();
         appComponent.inject(this);
+        DataBindingUtil.setDefaultComponent(DaggerDefaultUIComponent.builder().build());
     }
 
     /**
@@ -98,5 +101,4 @@ public class MainApplication extends Application implements HasComponent<AppComp
     // ===========================================================
     // Inner and Anonymous Classes
     // ===========================================================
-
 }

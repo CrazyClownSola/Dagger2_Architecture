@@ -65,7 +65,6 @@ public abstract class ACJBaseActivity extends RxBindingBaseActivity {
         getCJComponent().inject(this);
     }
 
-
     // ===========================================================
     // Methods
     // ===========================================================

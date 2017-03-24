@@ -6,6 +6,8 @@ import com.sola.github.domain.executor.NetExecutorThread;
 import com.sola.github.domain.executor.UIExecutorThread;
 import com.sola.github.domain.params.params.uc.UserInfoDTO;
 
+import java.util.Collection;
+
 import rx.functions.Action1;
 
 /**
@@ -46,6 +48,8 @@ public abstract class AUserCenterCase extends ComplexConnectionCase {
             Action1<UserInfoDTO> onNext,
             Action1<ErrorDTO> onError
     );
+
+    public abstract void requestUserList(Action1<Collection<UserInfoDTO>> onNext, Action1<ErrorDTO> onError);
 
     // ===========================================================
     // Methods

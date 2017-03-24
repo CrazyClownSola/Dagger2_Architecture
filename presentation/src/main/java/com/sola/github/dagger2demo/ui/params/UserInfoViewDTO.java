@@ -1,15 +1,14 @@
 package com.sola.github.dagger2demo.ui.params;
 
 import android.content.Context;
-import android.databinding.DataBindingUtil;
+import android.databinding.OnRebindCallback;
+import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.sola.github.dagger2demo.R;
-import com.sola.github.dagger2demo.databinding.RecyclerItemUserInfoBinding;
 import com.sola.github.domain.params.params.uc.UserInfoDTO;
 
 /**
@@ -39,29 +38,35 @@ public class UserInfoViewDTO extends BaseViewDTO<UserInfoDTO> {
     // ===========================================================
     // Getter & Setter
     // ===========================================================
-//    private RecyclerItemUserInfoBinding binding;
+
     // ===========================================================
     // Methods for/from SuperClass/Interfaces
     // ===========================================================
 
     @Override
     public RecyclerView.ViewHolder getHolder(Context context, ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.recycler_item_user_info, parent, false));
-//        return new ViewHolder(binding);
-    }
+        BaseHolder holder = new BaseHolder(LayoutInflater.from(context).inflate(
+                R.layout.recycler_item_user_info, parent, false));
+        holder.getBinding().addOnRebindCallback(new OnRebindCallback<ViewDataBinding>() {
+            @Override
+            public boolean onPreBind(ViewDataBinding binding) {
+                Log.d(TAG, "onPreBind() called with: binding = [" + binding + "]");
+                return super.onPreBind(binding);
+            }
 
-    @Override
-    public void refreshView(Context context, RecyclerView.ViewHolder holder, int position) {
-        Log.d(TAG, "refreshView: position[" + position + "]");
-        if (data == null)
-            return;
-        ViewHolder viewHolder = (ViewHolder) holder;
-//        viewHolder.binding.setText(data.getName());
-        viewHolder.binding.setUserInfo(data);
-        // 这段代码很重要，有点强制刷新的意思，如果这段代码不加，binding会被推出到下一帧，这样会是的界面无限刷新
-        // 建议配置到ViewHolder里面去
-        viewHolder.binding.executePendingBindings();
+            @Override
+            public void onCanceled(ViewDataBinding binding) {
+                Log.w(TAG, "onCanceled() called with: binding = [" + binding + "]");
+                super.onCanceled(binding);
+            }
 
+            @Override
+            public void onBound(ViewDataBinding binding) {
+                Log.i(TAG, "onBound() called with: binding = [" + binding + "]");
+                super.onBound(binding);
+            }
+        });
+        return holder;
     }
 
     // ===========================================================
@@ -71,15 +76,5 @@ public class UserInfoViewDTO extends BaseViewDTO<UserInfoDTO> {
     // ===========================================================
     // Inner and Anonymous Classes
     // ===========================================================
-
-    class ViewHolder extends RecyclerView.ViewHolder {
-
-        RecyclerItemUserInfoBinding binding;
-
-        ViewHolder(View itemView) {
-            super(itemView);
-            this.binding = DataBindingUtil.bind(itemView);
-        }
-    }
 
 }

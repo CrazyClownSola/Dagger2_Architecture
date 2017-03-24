@@ -1,8 +1,8 @@
 package com.sola.github.dagger2demo.ui;
 
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.view.View;
 
@@ -13,6 +13,7 @@ import com.sola.github.dagger2demo.di.base.HasComponent;
 import com.sola.github.dagger2demo.navigator.BundleFactory;
 import com.sola.github.dagger2demo.navigator.Navigator;
 import com.sola.github.dagger2demo.ui.cj_demo.CJMainActivity;
+import com.sola.github.dagger2demo.ui.cj_demo.CJSecondActivity;
 
 /**
  * Created by Sola
@@ -55,13 +56,28 @@ public class EmptyActivity extends RxBindingBaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_empty);
-        binding.setListener(this::btnClick);
+        setContentView(R.layout.activity_empty);
     }
 
     @Override
     protected void initExtras(Intent intent) {
         binding.setToolTitle(title);
+    }
+
+    @Override
+    protected void doAfterView() {
+
+    }
+
+    @Override
+    protected void injectBinding(@LayoutRes int resId) {
+//        binding = DataBindingUtil.setContentView(this, resId);
+//        ViewGroup viewGroup = (ViewGroup) getWindow().getDecorView().findViewById(android.R.id.content);
+//
+////        View view = getLayoutInflater().inflate(resId, viewGroup, true);
+//        binding = DataBindingUtil.bind(viewGroup.getChildAt(0));
+        binding = buildBinding(resId);
+        binding.setListener(this::btnClick);
     }
 
     // ===========================================================
@@ -89,6 +105,13 @@ public class EmptyActivity extends RxBindingBaseActivity {
                 );
                 break;
             case R.id.id_btn_test:
+                getNavigator().switchActivity(
+                        this,
+                        CJSecondActivity.class,
+                        getBundleFactory()
+                                .putString("title", "Second")
+                                .build()
+                );
                 break;
 
             case R.id.id_btn_binding:
