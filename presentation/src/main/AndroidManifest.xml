@@ -38,6 +38,7 @@
 
         <activity android:name=".ui.binding.BindingActivity"/>
 
+        <activity android:name=".ui.LoaderActivity"/>
 
         <meta-data
             android:name="CHANNEL_ID"

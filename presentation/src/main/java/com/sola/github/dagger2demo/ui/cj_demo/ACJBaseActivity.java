@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import com.sola.github.dagger2demo.di.base.HasSubComponentBuilders;
 import com.sola.github.dagger2demo.di.subs.CompoundJumpActivityComponent;
 import com.sola.github.dagger2demo.enums.ESubType;
+import com.sola.github.dagger2demo.navigator.Navigator;
 import com.sola.github.dagger2demo.presenter.CJPresenter;
 import com.sola.github.dagger2demo.ui.RxBindingBaseActivity;
 import com.sola.github.dagger2demo.utils.ToastUtils;
@@ -28,6 +29,9 @@ public abstract class ACJBaseActivity extends RxBindingBaseActivity {
 
     @Inject
     CJPresenter presenter;
+
+    @Inject
+    Navigator navigator;
 
     @Inject
     ToastUtils toastUtils;
@@ -53,6 +57,10 @@ public abstract class ACJBaseActivity extends RxBindingBaseActivity {
 
     public ToastUtils getToastUtils() {
         return toastUtils;
+    }
+
+    public Navigator getNavigator() {
+        return navigator;
     }
 
     // ===========================================================

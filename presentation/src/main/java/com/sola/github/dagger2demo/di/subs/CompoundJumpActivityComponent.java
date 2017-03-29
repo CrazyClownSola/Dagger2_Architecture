@@ -62,9 +62,12 @@ public interface CompoundJumpActivityComponent {
 
     /**
      * 这里考量了很久，最终决定用这种显式注入的方式进行，通过这种方式将一些通用的实例放在泛类当中
+     * 具体实现参考{@link com.sola.github.dagger2demo.ui.cj_demo.ACJBaseActivity_MembersInjector#injectMembers(ACJBaseActivity)}
+     * 这里的实现其实就是对应的赋值操作，可以注意到这里的inject，在代码层面并不等于实例持有
      *
      * @param activity 这里应该用一个通用的基类Activity
      */
     void inject(ACJBaseActivity activity);
+
 
 }

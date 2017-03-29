@@ -10,9 +10,6 @@ import android.widget.Toast;
 
 import com.sola.github.dagger2demo.R;
 import com.sola.github.dagger2demo.databinding.ActivityCjMainBinding;
-import com.sola.github.dagger2demo.di.app.AppComponent;
-import com.sola.github.dagger2demo.di.base.HasComponent;
-import com.sola.github.dagger2demo.navigator.Navigator;
 import com.sola.github.tools.adapter.RecyclerBaseAdapter;
 import com.sola.github.tools.delegate.IRecyclerViewDelegate;
 
@@ -45,10 +42,10 @@ public class CJMainActivity extends ACJBaseActivity {
     // Getter & Setter
     // ===========================================================
 
-    @SuppressWarnings("unchecked")
-    private Navigator getNavigator() {
-        return ((HasComponent<AppComponent>) getApplication()).getComponent().provideNavigator();
-    }
+//    @SuppressWarnings("unchecked")
+//    private Navigator getNavigator() {
+//        return ((HasComponent<AppComponent>) getApplication()).getComponent().provideNavigator();
+//    }
 
     // ===========================================================
     // Methods for/from SuperClass/Interfaces
