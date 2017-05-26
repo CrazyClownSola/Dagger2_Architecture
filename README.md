@@ -1056,6 +1056,119 @@ public class BBSDataViewDTO extends BaseViewDTO<BBSDataDTO> implements IRecycler
 
 ```
 
+在认知到DataBinding之后，我发现这东西可以有更加恐怖的进化
+具体代码如下
+```
+
+public abstract class BaseViewDTO<T> implements IRecyclerViewDelegate {
+
+    protected T data;
+
+    private final int viewType;
+    
+    public BaseViewDTO(T data) {
+        this.data = data;
+        this.viewType = TypeBuilder.getInstance().generateId();
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
+
+    @Override
+    public int getViewType(int position) {
+        return viewType;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public void refreshView(Context context, RecyclerView.ViewHolder holder, int position) {
+        if (data == null)
+            return;
+        BaseHolder viewHolder = (BaseHolder) holder;
+        viewHolder.setData(data);
+    }
+
+    @Override
+    public void onViewRecycled() {
+
+    }
+
+    @Override
+    public void itemClick(View v, int position) {
+
+    }
+    
+    String getResourceStr(Context context, @StringRes int resId, Object... param) {
+        return context.getString(resId, param);
+    }
+
+    protected class BaseHolder extends RecyclerView.ViewHolder {
+
+        ViewDataBinding binding; // 细心的朋友会发现，这里并没有制定具体是用那一个binding界面，而是转向使用通用类
+
+        public BaseHolder(View itemView) {
+            super(itemView);
+            this.binding = DataBindingUtil.bind(itemView);
+        }
+
+        public BaseHolder(View itemView, DataBindingComponent bindingComponent) {
+            super(itemView);
+	    // 如果需要自定义bindingComponent的情况下，可以参考这种构建方式
+            this.binding = DataBindingUtil.bind(itemView, bindingComponent);
+        }
+
+        public ViewDataBinding getBinding() {
+            return binding;
+        }
+
+        public void setData(Object obj) {
+  	    // 这里需要一个内定控制的事情是，view布局里面用到DataBinding的主体数据一定要命名为data，否则就需要自己去重写Holder
+            binding.setVariable(BR.data, obj);
+            // 这段代码很重要，有点强制刷新的意思，如果这段代码不加，binding会被推出到下一帧，这样会是的界面无限刷新
+            // 建议配置到ViewHolder里面去
+            binding.executePendingBindings();
+        }
+    }
+
+}
+
+```
+
+//调用的地方
+```
+// 在编写好layout的前提下
+public class TestViewDTO extends BaseView<TestData> {
+    
+    public TestViewDTO(TestData data) {
+        super(data);
+    }
+    @Override
+    public RecyclerView.ViewHolder getHolder(Context context, ViewGroup parent, int viewType) {
+        return new BaseHolder(LayoutInflater.from(context).inflate(
+                R.layout.#layout_id, parent, false));
+    }
+}
+
+// 甚至可以这样
+adapter.refreshList(
+	new BaseViewDTO<TestData>(dto) {
+                            @Override
+                            public RecyclerView.ViewHolder getHolder(Context context, ViewGroup parent, int viewType) {
+                                return new BaseHolder(
+                                        LayoutInflater.from(context).inflate(
+                                                R.layout.#layout_id, parent, false)
+                                );
+                            }
+                        }
+);
+
+```
+
 调用的地方
 
 [MainActivity.java](/presentation/src/main/java/com/sola/github/dagger2demo/ui/MainActivity.java)
